@@ -158,10 +158,10 @@ RectTransform:
   m_Father: {fileID: 1841153731}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.71400005, y: 0.6057144}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 221.79, y: 104.149994}
-  m_SizeDelta: {x: -443.58, y: -208.3}
+  m_AnchoredPosition: {x: -0.21002197, y: -1.8500061}
+  m_SizeDelta: {x: 0.42001343, y: 3.699997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &12949917
 MonoBehaviour:
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 15167611}
   - component: {fileID: 15167610}
   m_Layer: 5
-  m_Name: Text
+  m_Name: InputAccXTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 100223659}
   - component: {fileID: 100223658}
   m_Layer: 5
-  m_Name: InputField (2)
+  m_Name: InputField Y
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -394,10 +394,10 @@ RectTransform:
   m_Father: {fileID: 1720877353}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 22.9, y: -25.02501}
-  m_SizeDelta: {x: 41.06, y: 30}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.91700006, y: 0.5}
+  m_AnchoredPosition: {x: 1.9000015, y: -19.02501}
+  m_SizeDelta: {x: -0.9399986, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &100223658
 MonoBehaviour:
@@ -456,18 +456,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 700058901}
-        m_MethodName: ChangeAccY
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.InputField+OnChangeEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
@@ -812,9 +801,9 @@ RectTransform:
   m_Father: {fileID: 12949916}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.98, y: 55.954994}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 89.979996, y: -15.045006}
   m_SizeDelta: {x: 173.75, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &175618577
@@ -843,12 +832,12 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 300
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: ' Current Position: '
 --- !u!222 &175618578
@@ -885,20 +874,20 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244052162}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 726360489}
   - {fileID: 1601314816}
   - {fileID: 1649271233}
-  m_Father: {fileID: 1568500420}
-  m_RootOrder: 4
+  m_Father: {fileID: 1841153731}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 136.03, y: 94.51499}
-  m_SizeDelta: {x: 171.55, y: 30}
+  m_AnchorMin: {x: 0.164, y: 0.92285717}
+  m_AnchorMax: {x: 0.43600002, y: 0.9942857}
+  m_AnchoredPosition: {x: -0.26593018, y: -0.5050049}
+  m_SizeDelta: {x: 2.550003, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &244052164
 MonoBehaviour:
@@ -1085,7 +1074,7 @@ GameObject:
   - component: {fileID: 349773507}
   - component: {fileID: 349773506}
   m_Layer: 5
-  m_Name: Text
+  m_Name: InputAngAccText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1178,20 +1167,20 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360997943}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 57247387}
   - {fileID: 1795206017}
   - {fileID: 1849514788}
-  m_Father: {fileID: 1568500420}
-  m_RootOrder: 5
+  m_Father: {fileID: 1841153731}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 307.58, y: 94.51499}
-  m_SizeDelta: {x: 171.55, y: 30}
+  m_AnchorMin: {x: 0.44239232, y: 0.91714287}
+  m_AnchorMax: {x: 0.70921546, y: 1}
+  m_AnchoredPosition: {x: -0.21591187, y: -0.5050049}
+  m_SizeDelta: {x: 5.550003, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &360997945
 MonoBehaviour:
@@ -1334,10 +1323,10 @@ RectTransform:
   m_Father: {fileID: 1568500420}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.8999939, y: 94.875}
-  m_SizeDelta: {x: 100.5, y: 24.95}
+  m_AnchorMin: {x: 0, y: 0.87913126}
+  m_AnchorMax: {x: 0.97015166, y: 0.984}
+  m_AnchoredPosition: {x: 0.6000061, y: 0.375}
+  m_SizeDelta: {x: 3.5, y: 1.949997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &367005099
 MonoBehaviour:
@@ -1367,7 +1356,7 @@ MonoBehaviour:
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 4
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -1450,10 +1439,10 @@ RectTransform:
   m_Father: {fileID: 1568500420}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -65.47499}
-  m_SizeDelta: {x: 100.5, y: 24.95}
+  m_AnchorMin: {x: 0, y: 0.14830326}
+  m_AnchorMax: {x: 0.97015166, y: 0.25326234}
+  m_AnchoredPosition: {x: 1.5, y: 0.025009155}
+  m_SizeDelta: {x: 3.5, y: 1.9500008}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &523418890
 MonoBehaviour:
@@ -1483,7 +1472,7 @@ MonoBehaviour:
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 4
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -1565,9 +1554,9 @@ RectTransform:
   m_Father: {fileID: 12949916}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.98, y: 11.699997}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 89.979996, y: -59.300003}
   m_SizeDelta: {x: 173.75, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &555605457
@@ -1596,12 +1585,12 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 300
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: ' Current Position: '
 --- !u!222 &555605458
@@ -1744,6 +1733,12 @@ MonoBehaviour:
   currentRotText: {fileID: 1210522392}
   currentRotVelText: {fileID: 757583743}
   currentRotAccText: {fileID: 733231854}
+  inputVelXText: {fileID: 1211994062}
+  inputVelYText: {fileID: 769817964}
+  inputAccXText: {fileID: 15167610}
+  inputAccYText: {fileID: 2095573808}
+  inputAngVelText: {fileID: 1988765325}
+  inputAngAccText: {fileID: 349773506}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2025,9 +2020,9 @@ RectTransform:
   m_Father: {fileID: 12949916}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.98, y: -56.800003}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 89.979996, y: -127.8}
   m_SizeDelta: {x: 173.75, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &733231854
@@ -2056,12 +2051,12 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 300
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: ' Current Position: '
 --- !u!222 &733231855
@@ -2179,9 +2174,9 @@ RectTransform:
   m_Father: {fileID: 12949916}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.98, y: -32.555}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 89.979996, y: -103.555}
   m_SizeDelta: {x: 173.75, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &757583743
@@ -2210,12 +2205,12 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 300
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: ' Current Position: '
 --- !u!222 &757583744
@@ -2239,7 +2234,7 @@ GameObject:
   - component: {fileID: 767582295}
   - component: {fileID: 767582294}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: InputField X
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2261,10 +2256,10 @@ RectTransform:
   m_Father: {fileID: 367005098}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.113000005, y: 0}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -21.7, y: -28.3}
-  m_SizeDelta: {x: 41.06, y: 30}
+  m_AnchoredPosition: {x: -2.199997, y: -22.3}
+  m_SizeDelta: {x: 2.0600014, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &767582294
 MonoBehaviour:
@@ -2394,7 +2389,7 @@ GameObject:
   - component: {fileID: 769817965}
   - component: {fileID: 769817964}
   m_Layer: 5
-  m_Name: Text
+  m_Name: InputVelYText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2474,7 +2469,7 @@ GameObject:
   - component: {fileID: 772548144}
   - component: {fileID: 772548143}
   m_Layer: 5
-  m_Name: InputField (1)
+  m_Name: InputField Y
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2496,10 +2491,10 @@ RectTransform:
   m_Father: {fileID: 367005098}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 23.7, y: -28.3}
-  m_SizeDelta: {x: 41.06, y: 30}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.92700005, y: 0.5}
+  m_AnchoredPosition: {x: 2.2000008, y: -22.3}
+  m_SizeDelta: {x: -1.9399986, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &772548143
 MonoBehaviour:
@@ -2652,10 +2647,10 @@ RectTransform:
   m_Father: {fileID: 523418889}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.1, y: -24.9}
-  m_SizeDelta: {x: 89.78, y: 30}
+  m_AnchorMin: {x: 0.081, y: 0}
+  m_AnchorMax: {x: 0.96000004, y: 0.5}
+  m_AnchoredPosition: {x: -0.9000015, y: -18.900002}
+  m_SizeDelta: {x: 1.7799988, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &840456326
 MonoBehaviour:
@@ -2709,34 +2704,12 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 700058901}
-        m_MethodName: ChangeAngAcc
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.InputField+SubmitEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 700058901}
-        m_MethodName: ChangeAngAcc
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.InputField+OnChangeEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
@@ -3142,7 +3115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: {x: 0, y: 0}
-  velocity: {x: 1, y: 0}
+  velocity: {x: 0, y: 0}
   acceleration: {x: 0, y: 0}
   rotation: 0
   angularVelocity: 0
@@ -3505,9 +3478,9 @@ RectTransform:
   m_Father: {fileID: 12949916}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.98, y: -11.3}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 89.979996, y: -82.3}
   m_SizeDelta: {x: 173.75, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1210522392
@@ -3536,12 +3509,12 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 300
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: ' Current Position: '
 --- !u!222 &1210522393
@@ -3564,7 +3537,7 @@ GameObject:
   - component: {fileID: 1211994063}
   - component: {fileID: 1211994062}
   m_Layer: 5
-  m_Name: Text
+  m_Name: InputVelXText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3822,15 +3795,13 @@ RectTransform:
   - {fileID: 1720877353}
   - {fileID: 1597172556}
   - {fileID: 523418889}
-  - {fileID: 244052163}
-  - {fileID: 360997944}
   m_Father: {fileID: 1841153731}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -260.79996, y: 65.48}
-  m_SizeDelta: {x: -521.5, y: -130.97}
+  m_AnchorMin: {x: 0, y: 0.37428573}
+  m_AnchorMax: {x: 0.164, y: 1}
+  m_AnchoredPosition: {x: -0.79992676, y: -0.019989014}
+  m_SizeDelta: {x: -1.5, y: 0.02999878}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1568500421
 MonoBehaviour:
@@ -3903,10 +3874,10 @@ RectTransform:
   m_Father: {fileID: 1568500420}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.9, y: -11.8}
-  m_SizeDelta: {x: 100.5, y: 24.95}
+  m_AnchorMin: {x: 0, y: 0.38573763}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -0.8999939, y: 0.69999695}
+  m_SizeDelta: {x: 0.5, y: -0.049999237}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1597172557
 MonoBehaviour:
@@ -3936,7 +3907,7 @@ MonoBehaviour:
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 4
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -4167,9 +4138,9 @@ RectTransform:
   m_Father: {fileID: 12949916}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.98, y: 34.899998}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 89.979996, y: -36.100002}
   m_SizeDelta: {x: 173.75, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1656288414
@@ -4198,12 +4169,12 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 300
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: ' Current Position: '
 --- !u!222 &1656288415
@@ -4227,7 +4198,7 @@ GameObject:
   - component: {fileID: 1665630408}
   - component: {fileID: 1665630407}
   m_Layer: 5
-  m_Name: InputField (3)
+  m_Name: InputField X
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4249,10 +4220,10 @@ RectTransform:
   m_Father: {fileID: 1720877353}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.07300001, y: 0}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22.500015, y: -25.024994}
-  m_SizeDelta: {x: 41.06, y: 30}
+  m_AnchoredPosition: {x: -1.0000153, y: -19.024994}
+  m_SizeDelta: {x: -1.9399986, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1665630407
 MonoBehaviour:
@@ -4311,18 +4282,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 700058901}
-        m_MethodName: ChangeAccX
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.InputField+OnChangeEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
@@ -4404,10 +4364,10 @@ RectTransform:
   m_Father: {fileID: 1568500420}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.8999939, y: 40.699997}
-  m_SizeDelta: {x: 100.5, y: 24.95}
+  m_AnchorMin: {x: 0, y: 0.628}
+  m_AnchorMax: {x: 1, y: 0.74200004}
+  m_AnchoredPosition: {x: -0.8999939, y: 0.19999695}
+  m_SizeDelta: {x: 0.5, y: -0.049999237}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1720877354
 MonoBehaviour:
@@ -4437,7 +4397,7 @@ MonoBehaviour:
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 4
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -4640,10 +4600,10 @@ RectTransform:
   m_Father: {fileID: 1597172556}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.1999974, y: -24.899994}
-  m_SizeDelta: {x: 89.78, y: 30}
+  m_AnchorMin: {x: 0.083000004, y: 0}
+  m_AnchorMax: {x: 0.95600003, y: 0.5}
+  m_AnchoredPosition: {x: -0.80000305, y: -18.899994}
+  m_SizeDelta: {x: 1.7799988, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1766463803
 MonoBehaviour:
@@ -4702,18 +4662,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 700058901}
-        m_MethodName: ChangeAngVel
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.InputField+OnChangeEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
@@ -4884,7 +4833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -4928,6 +4877,8 @@ RectTransform:
   m_Children:
   - {fileID: 1568500420}
   - {fileID: 12949916}
+  - {fileID: 244052163}
+  - {fileID: 360997944}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5431,7 +5382,7 @@ GameObject:
   - component: {fileID: 1988765326}
   - component: {fileID: 1988765325}
   m_Layer: 5
-  m_Name: Text
+  m_Name: InputAngVelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5600,7 +5551,7 @@ GameObject:
   - component: {fileID: 2095573809}
   - component: {fileID: 2095573808}
   m_Layer: 5
-  m_Name: Text
+  m_Name: InputAccYText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

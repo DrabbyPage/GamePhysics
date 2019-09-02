@@ -82,8 +82,8 @@ public class Particle2D : MonoBehaviour
 
         //Step 4
         //test
-        acceleration.x = -Mathf.Sin(Time.fixedTime);
-        angularAcceleration = 10;//-Mathf.Sin(Time.fixedTime);
+        //acceleration.x = -Mathf.Sin(Time.fixedTime);
+        //angularAcceleration = 10;//-Mathf.Sin(Time.fixedTime);
     }
 
     public void SetVelocityX(float newVel)

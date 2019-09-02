@@ -17,10 +17,21 @@ public class UIManagerScript : MonoBehaviour
 
     #endregion
 
+    #region InputPanelStuff
+
+    public Text inputVelXText, inputVelYText, inputAccXText, inputAccYText, inputAngVelText, inputAngAccText;
+
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
         cube = GameObject.Find("Cube");
+    }
+
+    void Update()
+    {
+        UpdateInputField();
     }
 
     // Update is called once per frame
@@ -38,6 +49,27 @@ public class UIManagerScript : MonoBehaviour
         currentRotText.text = "Current Rot: " + (cube.GetComponent<Particle2D>().rotation).ToString("0.00");
         currentRotVelText.text = "Current RotVel: " + (cube.GetComponent<Particle2D>().angularVelocity).ToString("0.00");
         currentRotAccText.text = "Current RotAcc: " + (cube.GetComponent<Particle2D>().angularAcceleration).ToString("0.00");
+    }
+
+    void UpdateInputField()
+    {
+        if (inputVelXText.text != "")
+            ChangeVelX(float.Parse(inputVelXText.text));
+
+        if (inputVelYText.text != "")
+            ChangeVelY(float.Parse(inputVelYText.text));
+
+        if (inputAccXText.text != "")
+            ChangeAccX(float.Parse(inputAccXText.text));
+
+        if (inputAccYText.text != "")
+            ChangeAccY(float.Parse(inputAccYText.text));
+
+        if (inputAngVelText.text != "")
+            ChangeAngVel(float.Parse(inputAngVelText.text));
+
+        if (inputAngAccText.text != "")
+            ChangeAngAcc(float.Parse(inputAngAccText.text));
     }
 
     #region Wrapper functions
