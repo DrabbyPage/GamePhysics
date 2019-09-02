@@ -8,6 +8,10 @@ public class Particle2D : MonoBehaviour
     public Vector2 position, velocity, acceleration;
     public float rotation, angularVelocity, angularAcceleration;
 
+    bool particleKinPos, particleKinRot;
+
+    GameObject UIMan;
+
     //Step 2
     void UpdatePositionEulerExplicit(float dt)
     {
@@ -42,16 +46,36 @@ public class Particle2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        UIMan = GameObject.Find("UI Manager");
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        particleKinPos = UIMan.GetComponent<UIManagerScript>().kinPos;
+        particleKinRot = UIMan.GetComponent<UIManagerScript>().kinRot;
+
         //step 3
         //integrate
-        UpdatePositionKinematic(Time.fixedDeltaTime);
-        UpdateRotationKinematic(Time.fixedDeltaTime);
+        if (particleKinPos)
+        {
+            UpdatePositionKinematic(Time.fixedDeltaTime);
+        }
+        else
+        {
+            UpdatePositionEulerExplicit(Time.fixedDeltaTime);
+        }
+
+        if(particleKinRot)
+        {
+            UpdateRotationKinematic(Time.fixedDeltaTime);
+        }
+        else
+        {
+            UpdateRotationEulerExplicit(Time.fixedDeltaTime);
+        }
+
         //apply to transform
         transform.position = position;
         transform.eulerAngles = new Vector3(rotation, rotation, rotation);
@@ -60,5 +84,35 @@ public class Particle2D : MonoBehaviour
         //test
         acceleration.x = -Mathf.Sin(Time.fixedTime);
         angularAcceleration = 10;//-Mathf.Sin(Time.fixedTime);
+    }
+
+    public void SetVelocityX(float newVel)
+    {
+        velocity.x = newVel;
+    }
+
+    public void SetVelocityY(float newVel)
+    {
+        velocity.y = newVel;
+    }
+
+    public void SetAccelerationX(float newAcc)
+    {
+        acceleration.x = newAcc;
+    }
+
+    public void SetAccelerationY(float newAcc)
+    {
+        acceleration.y = newAcc;
+    }
+
+    public void SetAngularVelocity(float newVel)
+    {
+        angularVelocity = newVel;
+    }
+
+    public void SetAngularAcceleration(float newAcc)
+    {
+        angularAcceleration = newAcc;
     }
 }
