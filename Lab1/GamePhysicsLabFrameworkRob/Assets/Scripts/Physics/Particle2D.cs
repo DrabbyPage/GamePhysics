@@ -78,14 +78,15 @@ public class Particle2D : MonoBehaviour
 
         //apply to transform
         transform.position = position;
-        transform.eulerAngles = new Vector3(rotation, rotation, rotation);
+        transform.eulerAngles = new Vector3(0, 0, rotation);
 
         //Step 4
         //test
-        //acceleration.x = -Mathf.Sin(Time.fixedTime);
-        //angularAcceleration = 10;//-Mathf.Sin(Time.fixedTime);
+        acceleration.x = -Mathf.Sin(Time.fixedTime);
+        angularAcceleration = -Mathf.Sin(Time.fixedTime);
     }
 
+    #region manipulators
     public void SetVelocityX(float newVel)
     {
         velocity.x = newVel;
@@ -115,4 +116,16 @@ public class Particle2D : MonoBehaviour
     {
         angularAcceleration = newAcc;
     }
+
+    public void ResetObj()
+    {
+        transform.position = new Vector3(0, 0, 0);
+        position = new Vector2(0,0);
+        rotation = 0;
+        velocity = new Vector2(0, 0);
+        acceleration = new Vector2(0, 0);
+        angularVelocity = 0;
+        angularAcceleration = 0;
+    }
+    #endregion
 }

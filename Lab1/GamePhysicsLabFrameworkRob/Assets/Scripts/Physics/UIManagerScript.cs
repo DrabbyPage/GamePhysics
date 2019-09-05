@@ -9,7 +9,7 @@ public class UIManagerScript : MonoBehaviour
 
     public float inputVelX, inputVelY, inputAccX, inputAccY, inputAngVel, inputAngAcc;
 
-    GameObject cube;
+    public GameObject cube;
 
     #region InfoPanelStuff
 
@@ -56,13 +56,9 @@ public class UIManagerScript : MonoBehaviour
     {
         if (inputVelXText.text != "")
             ChangeVelX(float.Parse(inputVelXText.text));
-        else
-            ChangeVelX(0);
 
         if (inputVelYText.text != "")
             ChangeVelY(float.Parse(inputVelYText.text));
-        else
-            ChangeVelY(0);
 
         if (inputAccXText.text != "")
             ChangeAccX(float.Parse(inputAccXText.text));
@@ -76,8 +72,6 @@ public class UIManagerScript : MonoBehaviour
 
         if (inputAngVelText.text != "")
             ChangeAngVel(float.Parse(inputAngVelText.text));
-        else
-            ChangeAngVel(0);
 
         if (inputAngAccText.text != "")
             ChangeAngAcc(float.Parse(inputAngAccText.text));
@@ -137,4 +131,9 @@ public class UIManagerScript : MonoBehaviour
 
     #endregion
 
+
+    public void ResetObjPos()
+    {
+        cube.GetComponent<Particle2D>().ResetObj();
+    }
 }
