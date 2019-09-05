@@ -46,7 +46,8 @@ public class UIManagerScript : MonoBehaviour
         currentVelText.text = "Current Vel: (" + (cube.GetComponent<Particle2D>().velocity.x).ToString("0.00") + ", "+ (cube.GetComponent<Particle2D>().velocity.y).ToString("0.00") + ")";
         currentAccText.text = "Current Acc: (" + (cube.GetComponent<Particle2D>().acceleration.x).ToString("0.00") + ", "+ (cube.GetComponent<Particle2D>().acceleration.y).ToString("0.00") + ")";
 
-        currentRotText.text = "Current Rot: " + (cube.GetComponent<Particle2D>().rotation).ToString("0.00");
+        currentRotText.text = "Current Rot: " + (Mathf.Repeat(cube.GetComponent<Particle2D>().rotation, 360)).ToString("0.00");
+        //currentRotText.text = "Current Rot: " + (cube.GetComponent<Particle2D>().rotation.ToString("0.00"));
         currentRotVelText.text = "Current RotVel: " + (cube.GetComponent<Particle2D>().angularVelocity).ToString("0.00");
         currentRotAccText.text = "Current RotAcc: " + (cube.GetComponent<Particle2D>().angularAcceleration).ToString("0.00");
     }
