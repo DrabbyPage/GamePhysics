@@ -4,15 +4,47 @@ using UnityEngine;
 
 public class Particle2D : MonoBehaviour
 {
-    //Step 1
+    // Lab 1 Step 1
     public Vector2 position, velocity, acceleration;
     public float rotation, angularVelocity, angularAcceleration;
 
     bool particleKinPos, particleKinRot;
 
+    // lab2 step 1
+    public float startingMass;
+    float mass, massInv;
+
     GameObject UIMan;
 
-    //Step 2
+    public void SetMass(float newMass)
+    {
+        //mass = newMass > 0.0f ? newMass: 0.0f;
+        mass = Mathf.Max(0.0f, newMass);
+        massInv = mass > 0 ? 1.0f / mass : 0.0f;
+    }
+
+    public float GetMass()
+    {
+        return mass;
+    }
+
+    // lab 2 setp 2
+    Vector2 force;
+    public void AddForce(Vector2 newForce)
+    {
+        // D'Alembert
+        force += newForce;
+    }
+
+    void UpdateAcceleration()
+    {
+        // Newton 2
+        acceleration = massInv * force;
+
+        force.Set(0.0f, 0.0f);
+    }
+
+    // Lab 1 Step 2
     void UpdatePositionEulerExplicit(float dt)
     {
         //x(t+dt) = x(t) + v(t)dt
@@ -47,44 +79,53 @@ public class Particle2D : MonoBehaviour
     void Start()
     {
         UIMan = GameObject.Find("UI Manager");
-
+        SetMass(startingMass);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        particleKinPos = UIMan.GetComponent<UIManagerScript>().kinPos;
-        particleKinRot = UIMan.GetComponent<UIManagerScript>().kinRot;
+        //particleKinPos = UIMan.GetComponent<UIManagerScript>().kinPos;
+        //particleKinRot = UIMan.GetComponent<UIManagerScript>().kinRot;
 
-        //step 3
+        // lab 1 step 3
         //integrate
-        if (particleKinPos)
+       // if (particleKinPos)
         {
             UpdatePositionKinematic(Time.fixedDeltaTime);
         }
-        else
+       // else
         {
-            UpdatePositionEulerExplicit(Time.fixedDeltaTime);
+            //UpdatePositionEulerExplicit(Time.fixedDeltaTime);
         }
 
-        if(particleKinRot)
+        //if(particleKinRot)
         {
             UpdateRotationKinematic(Time.fixedDeltaTime);
         }
-        else
+        //else
         {
-            UpdateRotationEulerExplicit(Time.fixedDeltaTime);
+            //UpdateRotationEulerExplicit(Time.fixedDeltaTime);
         }
+
+        UpdateAcceleration();
 
         //apply to transform
         transform.position = position;
         transform.eulerAngles = new Vector3(0, 0, rotation);
 
-        //Step 4
+        // lab 1 Step 4
         //test
-        acceleration.x = -Mathf.Sin(Time.fixedTime);
-        angularAcceleration = -Mathf.Sin(Time.fixedTime);
+        //acceleration.x = -Mathf.Sin(Time.fixedTime);
+        //angularAcceleration = -Mathf.Sin(Time.fixedTime);
+
+        // Lab 2 Step 3
+        //f_gravity = f = mg = ma
+        //Vector2 f_gravity = mass * new Vector2(0.0f, -9.8f);
+        //AddForce(f_gravity);
+        AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
     }
+    
 
     #region manipulators
     public void SetVelocityX(float newVel)
