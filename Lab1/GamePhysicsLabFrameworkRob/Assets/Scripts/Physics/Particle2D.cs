@@ -85,28 +85,28 @@ public class Particle2D : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        particleKinPos = UIMan.GetComponent<UIManagerScript>().kinPos;
-        particleKinRot = UIMan.GetComponent<UIManagerScript>().kinRot;
+        // particleKinPos = UIMan.GetComponent<UIManagerScript>().kinPos;
+        // particleKinRot = UIMan.GetComponent<UIManagerScript>().kinRot;
 
         // lab 1 step 3
         //integrate
-        if (particleKinPos)
-        {
+        //if (particleKinPos)
+        //{
             UpdatePositionKinematic(Time.fixedDeltaTime);
-        }
-        else
-        {
-            UpdatePositionEulerExplicit(Time.fixedDeltaTime);
-        }
+        // }
+        // else
+        // {
+        //     UpdatePositionEulerExplicit(Time.fixedDeltaTime);
+        // }
 
-        if(particleKinRot)
-        {
+        // if(particleKinRot)
+        // {
             UpdateRotationKinematic(Time.fixedDeltaTime);
-        }
-        else
-        {
-            UpdateRotationEulerExplicit(Time.fixedDeltaTime);
-        }
+        // }
+        // else
+        // {
+        //     UpdateRotationEulerExplicit(Time.fixedDeltaTime);
+        // }
 
         UpdateAcceleration();
 
@@ -121,9 +121,12 @@ public class Particle2D : MonoBehaviour
 
         // Lab 2 Step 3
         //f_gravity = f = mg = ma
-        //Vector2 f_gravity = mass * new Vector2(0.0f, -9.8f);
+        Vector2 f_gravity = mass * new Vector2(0.0f, -9.8f);
         //AddForce(f_gravity);
-        AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
+
+        //AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
+        AddForce(ForceGenerator.GenerateForce_Normal(f_gravity, new Vector2(0, 1) ) );
+
     }
     
 
