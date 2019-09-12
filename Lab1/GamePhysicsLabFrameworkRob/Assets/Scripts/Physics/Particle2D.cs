@@ -85,27 +85,27 @@ public class Particle2D : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //particleKinPos = UIMan.GetComponent<UIManagerScript>().kinPos;
-        //particleKinRot = UIMan.GetComponent<UIManagerScript>().kinRot;
+        particleKinPos = UIMan.GetComponent<UIManagerScript>().kinPos;
+        particleKinRot = UIMan.GetComponent<UIManagerScript>().kinRot;
 
         // lab 1 step 3
         //integrate
-       // if (particleKinPos)
+        if (particleKinPos)
         {
             UpdatePositionKinematic(Time.fixedDeltaTime);
         }
-       // else
+        else
         {
-            //UpdatePositionEulerExplicit(Time.fixedDeltaTime);
+            UpdatePositionEulerExplicit(Time.fixedDeltaTime);
         }
 
-        //if(particleKinRot)
+        if(particleKinRot)
         {
             UpdateRotationKinematic(Time.fixedDeltaTime);
         }
-        //else
+        else
         {
-            //UpdateRotationEulerExplicit(Time.fixedDeltaTime);
+            UpdateRotationEulerExplicit(Time.fixedDeltaTime);
         }
 
         UpdateAcceleration();
