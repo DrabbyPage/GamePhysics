@@ -127,6 +127,8 @@ public class Particle2D : MonoBehaviour
         //AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
         AddForce(ForceGenerator.GenerateForce_Normal(f_gravity, new Vector2(0, 1) ) );
 
+
+        // hard code all scenarios for the forces
     }
     
 
