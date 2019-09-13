@@ -96,6 +96,8 @@ public class Particle2D : MonoBehaviour
     {
         UIMan = GameObject.Find("UI Manager");
         SetMass(startingMass);
+
+        position = transform.position;
     }
 
     // Update is called once per frame
@@ -146,16 +148,16 @@ public class Particle2D : MonoBehaviour
         //f_gravity = f = mg = ma
         Vector2 f_gravity = mass * new Vector2(0.0f, -9.8f);
 
-        Vector2 f_normal = ForceGenerator.GenerateForce_Normal(f_gravity, surfaceNormal_unit);
+        Vector2 f_normal = ForceGenerator.GenerateForce_Normal(f_gravity, transform.up);
 
-        // AddForce(f_gravity);
+        // AddForce(f_gravity); // works
         // AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
-        // AddForce(ForceGenerator.GenerateForce_Normal(f_gravity, new Vector2(0, 1)));
-        // AddForce(ForceGenerator.GenerateForce_Sliding(f_gravity, f_normal));          
-        // AddForce(ForceGenerator.GenerateForce_Friction_Static(f_normal, frictionOpposingForce, frictionCoeff_static));   
-        // AddForce(ForceGenerator.GenerateForce_Friction_Kinetic(f_normal, velocity, frictionCoeff_kinetic));  
-        // AddForce(ForceGenerator.GenerateForce_Drag(velocity, fluidVelocity, fluidDensity, objArea_CrossSection, objDragCoeff));     
-        //AddForce(ForceGenerator.GenerateForce_Spring(position, anchorPos, springRestingLength, springStiffnesCoeff));
+        // AddForce(ForceGenerator.GenerateForce_Normal(f_gravity, surfaceNormal_unit)); // works? more testing (surface normal is -2, 1)
+        // AddForce(ForceGenerator.GenerateForce_Sliding(f_gravity, f_normal));  (surface normal is -2,1)        
+        // AddForce(ForceGenerator.GenerateForce_Friction_Static(f_normal, frictionOpposingForce, frictionCoeff_static)); // works (surface normal is 1,1) FOF = (-3,0) FCS = 0.9
+        // AddForce(ForceGenerator.GenerateForce_Friction_Kinetic(f_normal, velocity, frictionCoeff_kinetic));  // works surface = (1,1) initVel = 15 FCK = 0.3
+        // AddForce(ForceGenerator.GenerateForce_Drag(velocity, fluidVelocity, fluidDensity, objArea_CrossSection, objDragCoeff));  // not sure if this works ask dan... IV = 1, FV = 1, FD = 1, OACS = 1.5, ODC=1.05 
+        AddForce(ForceGenerator.GenerateForce_Spring(position, anchorPos, springRestingLength, springStiffnesCoeff)); // pos = 0,100 , AP = 0,0 , SRL = 0.1, SSC = 3 , fricCoKin = 0.15 (turn on gravity and kin fric
 
     }
 

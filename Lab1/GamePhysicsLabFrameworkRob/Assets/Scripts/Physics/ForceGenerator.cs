@@ -14,15 +14,10 @@ public class ForceGenerator
     public static Vector2 GenerateForce_Normal(Vector2 f_gravity, Vector2 surfaceNormal_unit)
     {
         //f_normal = proj(f_gravity, surfaceNormalUnit)
-        Vector3 fakeGrav = new Vector3(f_gravity.x, f_gravity.y, 0);
-        Vector3 fakeSurfaceNorm = new Vector3(surfaceNormal_unit.x, surfaceNormal_unit.y, 0);
-        Vector3 fakeNorm = Vector3.Project(fakeGrav, fakeSurfaceNorm);
+        Vector2 f_normal; // = Vector3.Project(f_gravity, surfaceNormal_unit);
 
-        Vector2 f_normal;
-
-        f_normal = new Vector2(fakeNorm.x, fakeNorm.y);
-        
-
+        f_normal = f_gravity.magnitude * surfaceNormal_unit;
+       
         return f_normal;
     }
 
@@ -53,7 +48,7 @@ public class ForceGenerator
     public static Vector2 GenerateForce_Friction_Kinetic(Vector2 f_normal, Vector2 particleVelocity, float frictionCoefficient_kinetic)
     {
         // f_friction_k = -coeff*|f_normal| * unit(vel)
-        Vector2 f_friction_k = new Vector2(0, 0);
+        Vector2 f_friction_k;
 
         f_friction_k = -frictionCoefficient_kinetic * f_normal.magnitude * particleVelocity;
 
@@ -65,7 +60,7 @@ public class ForceGenerator
         // f_drag = (p * u^2 * area * coeff)/2
         Vector2 f_drag = new Vector2(0, 0);
 
-        f_drag = objectDragCoefficient * (fluidDensity * particleVelocity * particleVelocity * 0.5f) * objectArea_crossSection;
+        f_drag = objectDragCoefficient * (fluidDensity * (particleVelocity-fluidVelocity) * (particleVelocity-fluidVelocity) * 0.5f) * objectArea_crossSection;
 
         return f_drag;
     }
