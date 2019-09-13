@@ -124,13 +124,17 @@ public class Particle2D : MonoBehaviour
         Vector2 f_gravity = mass * new Vector2(0.0f, -9.8f);
         //AddForce(f_gravity);
 
-        //AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
-        AddForce(ForceGenerator.GenerateForce_Normal(f_gravity, new Vector2(0, 1) ) );
-
+        // AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
+        // AddForce(ForceGenerator.GenerateForce_Normal(f_gravity, new Vector2(0, 1) ) );
+        // AddForce(ForceGenerator.GenerateForce_Sliding());           // (Vector2 f_gravity, Vector2 f_normal)
+        // AddForce(ForceGenerator.GenerateForce_Friction_Static());   // Vector2 GenerateForce_Friction_Static(Vector2 f_normal, Vector2 f_opposing, float frictionCoefficient_static)
+        // AddForce(ForceGenerator.GenerateForce_Friction_Kinetic());  // Vector2 GenerateForce_Friction_Kinetic(Vector2 f_normal, Vector2 particleVelocity, float frictionCoefficient_kinetic)
+        // AddForce(ForceGenerator.GenerateForce_Drag());              // Vector2 GenerateForce_Drag(Vector2 particleVelocity, Vector2 fluidVelocity, float fluidDensity, float objectArea_crossSection, float objectDragCoefficient)
+        // AddForce(ForceGenerator.GenerateForce_Spring());            // Vector2 GenerateForce_Spring(Vector2 particlePosition, Vector2 anchorPosition, float springrestingLength, float springStiffnessCoefficent)
 
         // hard code all scenarios for the forces
     }
-    
+
 
     #region manipulators
     public void SetVelocityX(float newVel)
