@@ -122,20 +122,36 @@ public class Particle2D : MonoBehaviour
         // Lab 2 Step 3
         //f_gravity = f = mg = ma
         Vector2 f_gravity = mass * new Vector2(0.0f, -9.8f);
-        //AddForce(f_gravity);
 
+        Vector2 surfaceNormal_unit = new Vector2(0, 1);
+        Vector2 f_normal = ForceGenerator.GenerateForce_Normal(f_gravity, surfaceNormal_unit);
+
+
+        Vector2 frictionOpposingForce = new Vector2(0, 0);
+        float frictionCoeff_static = 0.5f;
+
+        float frictionCoeff_kinetic = 0.5f;
+
+        Vector2 fluidVelocity = new Vector2(0, 0);
+        float fluidDensity = 1.0f; // for water it's 1.0 (this changes based on the temperature)
+        float objArea_CrossSection = 3.0f;
+        float objDragCoeff = 0.5f;
+
+        Vector2 anchorPos = new Vector2(0,0);
+        float springRestingLength = 2.0f;
+        float springStiffnesCoeff = 5.0f;
+
+        // AddForce(f_gravity);
         // AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
-        // AddForce(ForceGenerator.GenerateForce_Normal(f_gravity, new Vector2(0, 1) ) );
-        // AddForce(ForceGenerator.GenerateForce_Sliding());           // (Vector2 f_gravity, Vector2 f_normal)
-        // AddForce(ForceGenerator.GenerateForce_Friction_Static());   // (Vector2 f_normal, Vector2 f_opposing, float frictionCoefficient_static)
-        // AddForce(ForceGenerator.GenerateForce_Friction_Kinetic());  // (Vector2 f_normal, Vector2 particleVelocity, float frictionCoefficient_kinetic)
-        // AddForce(ForceGenerator.GenerateForce_Drag());              // (Vector2 particleVelocity, Vector2 fluidVelocity, float fluidDensity, float objectArea_crossSection, float objectDragCoefficient)
-        // AddForce(ForceGenerator.GenerateForce_Spring());            // (Vector2 particlePosition, Vector2 anchorPosition, float springrestingLength, float springStiffnessCoefficent)
+        // AddForce(ForceGenerator.GenerateForce_Normal(f_gravity, new Vector2(0, 1)));
+        // AddForce(ForceGenerator.GenerateForce_Sliding(f_gravity, f_normal));          
+        // AddForce(ForceGenerator.GenerateForce_Friction_Static(f_normal, frictionOpposingForce, frictionCoeff_static));   
+        // AddForce(ForceGenerator.GenerateForce_Friction_Kinetic(f_normal, velocity, frictionCoeff_kinetic));  
+        // AddForce(ForceGenerator.GenerateForce_Drag(velocity, fluidVelocity, fluidDensity, objArea_CrossSection, objDragCoeff));     
+        //AddForce(ForceGenerator.GenerateForce_Spring(position, anchorPos, springRestingLength, springStiffnesCoeff));
 
         // hard code all scenarios for the forces
 
-        // constructor script on game object
-        // 
     }
 
 
