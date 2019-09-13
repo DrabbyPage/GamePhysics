@@ -16,6 +16,22 @@ public class Particle2D : MonoBehaviour
 
     GameObject UIMan;
 
+    public Vector2 surfaceNormal_unit = new Vector2(0, 1);
+
+    public Vector2 frictionOpposingForce = new Vector2(0, 0);
+    public float frictionCoeff_static = 0.5f;
+
+    public float frictionCoeff_kinetic = 0.5f;
+
+    public Vector2 fluidVelocity = new Vector2(0, 0);
+    public float fluidDensity = 1.0f; // for water it's 1.0 (this changes based on the temperature)
+    public float objArea_CrossSection = 3.0f;
+    public float objDragCoeff = 0.5f;
+    
+    public Vector2 anchorPos = new Vector2(0, 0);
+    public float springRestingLength = 2.0f;
+    public float springStiffnesCoeff = 5.0f;
+
     public void SetMass(float newMass)
     {
         //mass = newMass > 0.0f ? newMass: 0.0f;
@@ -130,23 +146,7 @@ public class Particle2D : MonoBehaviour
         //f_gravity = f = mg = ma
         Vector2 f_gravity = mass * new Vector2(0.0f, -9.8f);
 
-        Vector2 surfaceNormal_unit = new Vector2(0, 1);
         Vector2 f_normal = ForceGenerator.GenerateForce_Normal(f_gravity, surfaceNormal_unit);
-
-
-        Vector2 frictionOpposingForce = new Vector2(0, 0);
-        float frictionCoeff_static = 0.5f;
-
-        float frictionCoeff_kinetic = 0.5f;
-
-        Vector2 fluidVelocity = new Vector2(0, 0);
-        float fluidDensity = 1.0f; // for water it's 1.0 (this changes based on the temperature)
-        float objArea_CrossSection = 3.0f;
-        float objDragCoeff = 0.5f;
-
-        Vector2 anchorPos = new Vector2(0, 0);
-        float springRestingLength = 2.0f;
-        float springStiffnesCoeff = 5.0f;
 
         // AddForce(f_gravity);
         // AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
