@@ -118,7 +118,14 @@ public class Particle2D : MonoBehaviour
         //test
         //acceleration.x = -Mathf.Sin(Time.fixedTime);
         //angularAcceleration = -Mathf.Sin(Time.fixedTime);
+        
+        // hard code all scenarios for the forces
+        UpdateForce();
 
+    }
+
+    void UpdateForce()
+    {
         // Lab 2 Step 3
         //f_gravity = f = mg = ma
         Vector2 f_gravity = mass * new Vector2(0.0f, -9.8f);
@@ -137,7 +144,7 @@ public class Particle2D : MonoBehaviour
         float objArea_CrossSection = 3.0f;
         float objDragCoeff = 0.5f;
 
-        Vector2 anchorPos = new Vector2(0,0);
+        Vector2 anchorPos = new Vector2(0, 0);
         float springRestingLength = 2.0f;
         float springStiffnesCoeff = 5.0f;
 
@@ -149,8 +156,6 @@ public class Particle2D : MonoBehaviour
         // AddForce(ForceGenerator.GenerateForce_Friction_Kinetic(f_normal, velocity, frictionCoeff_kinetic));  
         // AddForce(ForceGenerator.GenerateForce_Drag(velocity, fluidVelocity, fluidDensity, objArea_CrossSection, objDragCoeff));     
         //AddForce(ForceGenerator.GenerateForce_Spring(position, anchorPos, springRestingLength, springStiffnesCoeff));
-
-        // hard code all scenarios for the forces
 
     }
 
