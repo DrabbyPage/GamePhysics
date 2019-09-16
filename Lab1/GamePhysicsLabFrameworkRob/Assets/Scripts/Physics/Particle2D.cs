@@ -32,6 +32,20 @@ public class Particle2D : MonoBehaviour
     public float springRestingLength = 2.0f;
     public float springStiffnesCoeff = 5.0f;
 
+    // lab 3 Step 1  (Torque)
+    float momentOfInertia;
+    int objType;
+
+    public float diskRadius;
+    public float ringOuterRadius;
+    public float ringInnerRadius;
+    public float rectHeight;
+    public float rectWidth;
+    public float rodLength;
+
+    // Lab 3 step 2
+    public float torque;
+
     public void SetMass(float newMass)
     {
         //mass = newMass > 0.0f ? newMass: 0.0f;
@@ -140,6 +154,11 @@ public class Particle2D : MonoBehaviour
         // hard code all scenarios for the forces
         UpdateForce();
 
+        UpdateInertia();
+
+        UpdateAngAcc();
+
+        ApplyTorque(position, force);
     }
 
     void UpdateForce()
@@ -157,10 +176,71 @@ public class Particle2D : MonoBehaviour
         // AddForce(ForceGenerator.GenerateForce_Friction_Static(f_normal, frictionOpposingForce, frictionCoeff_static)); // works (surface normal is 1,1) FOF = (-3,0) FCS = 0.9
         // AddForce(ForceGenerator.GenerateForce_Friction_Kinetic(f_normal, velocity, frictionCoeff_kinetic));  // works surface = (1,1) initVel = 15 FCK = 0.3
         // AddForce(ForceGenerator.GenerateForce_Drag(velocity, fluidVelocity, fluidDensity, objArea_CrossSection, objDragCoeff));  // not sure if this works ask dan... IV = 1, FV = 1, FD = 1, OACS = 1.5, ODC=1.05 
-        AddForce(ForceGenerator.GenerateForce_Spring(position, anchorPos, springRestingLength, springStiffnesCoeff)); // pos = 0,100 , AP = 0,0 , SRL = 0.1, SSC = 3 , fricCoKin = 0.15 (turn on gravity and kin fric
+        // AddForce(ForceGenerator.GenerateForce_Spring(position, anchorPos, springRestingLength, springStiffnesCoeff)); // pos = 0,100 , AP = 0,0 , SRL = 0.1, SSC = 3 , fricCoKin = 0.15 (turn on gravity and kin fric
 
     }
 
+    void UpdateInertia()
+    {
+        switch(objType)
+        {
+            case 0: // disk
+                momentOfInertia = DiskInertia(diskRadius);
+                break;
+            case 1: // ring
+                momentOfInertia = RingInertia(ringOuterRadius, ringInnerRadius);
+                break;
+            case 2: // rect
+                momentOfInertia = RectangleInertia(rectHeight, rectWidth);
+                break;
+            case 3: // rod
+                momentOfInertia = RodInertia(rodLength);
+                break;
+        }
+    }
+
+    void UpdateAngAcc()
+    {
+        angularAcceleration = torque / momentOfInertia;
+        torque = 0;
+    }
+
+    void ApplyTorque(Vector2 objPos, Vector2 newForce)
+    {
+        torque += (objPos.x * newForce.y - objPos.y * newForce.x);
+    }
+
+    #region Inertia Functions
+
+    float DiskInertia(float diskRadius)
+    {
+        float inertia = 0f;
+        inertia = 0.5f * mass * diskRadius * diskRadius;
+        return inertia;
+    }
+
+    float RingInertia(float ringOuterRadius, float ringInnerRadius)
+    {
+        float inertia = 0f;
+        inertia = 0.5f * mass * (ringOuterRadius * ringOuterRadius + ringInnerRadius * ringInnerRadius);
+        return inertia;
+    }
+
+    float RectangleInertia(float rectHeight, float rectWidth)
+    {
+        float inertia = 0f;
+        inertia = (1f / 12f) * mass * (rectHeight * rectHeight + rectWidth * rectWidth);
+        return inertia;
+    }
+
+    float RodInertia(float rodLength)
+    {
+        float inertia = 0f;
+        inertia = (1f / 12f) * mass * rodLength * rodLength; 
+        return inertia;
+    }
+
+    #endregion
 
     #region manipulators
     public void SetVelocityX(float newVel)
