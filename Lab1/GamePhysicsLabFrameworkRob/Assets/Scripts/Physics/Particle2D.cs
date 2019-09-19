@@ -27,7 +27,7 @@ public class Particle2D : MonoBehaviour
     public float fluidDensity = 1.0f; // for water it's 1.0 (this changes based on the temperature)
     public float objArea_CrossSection = 3.0f;
     public float objDragCoeff = 0.5f;
-    
+
     public Vector2 anchorPos = new Vector2(0, 0);
     public float springRestingLength = 2.0f;
     public float springStiffnesCoeff = 5.0f;
@@ -174,7 +174,7 @@ public class Particle2D : MonoBehaviour
 
         if(generateSliding)
         AddForce(ForceGenerator.GenerateForce_Sliding(f_gravity, f_normal));  // (surface normal is 0,1)
-        
+
         if(generateStaticsFriction)
         AddForce(ForceGenerator.GenerateForce_Friction_Static(f_normal, frictionOpposingForce, frictionCoeff_static)); // works (surface normal is 1,1) FOF = (-3,0) FCS = 0.9
 
@@ -182,7 +182,7 @@ public class Particle2D : MonoBehaviour
         AddForce(ForceGenerator.GenerateForce_Friction_Kinetic(f_normal, velocity, frictionCoeff_kinetic));  // works surface = (1,1) initVel = 15 FCK = 0.3
 
         if(generateDrag)
-        AddForce(ForceGenerator.GenerateForce_Drag(velocity, fluidVelocity, fluidDensity, objArea_CrossSection, objDragCoeff));  // not sure if this works ask dan... IV = 1, FV = 1, FD = 1, OACS = 1.5, ODC=1.05 
+        AddForce(ForceGenerator.GenerateForce_Drag(velocity, fluidVelocity, fluidDensity, objArea_CrossSection, objDragCoeff));  // not sure if this works ask dan... IV = 1, FV = 1, FD = 1, OACS = 1.5, ODC=1.05
 
         if (generateSpring && position.magnitude != 0)
         AddForce(ForceGenerator.GenerateForce_Spring(position, anchorPos, springRestingLength, springStiffnesCoeff)); // pos = 0,100 , AP = 0,0 , SRL = 0.1, SSC = 3 , fricCoKin = 0.15 (turn on gravity and kin fric
