@@ -14,9 +14,7 @@ public class ForceGenerator
     public static Vector2 GenerateForce_Normal(Vector2 f_gravity, Vector2 surfaceNormal_unit)
     {
         //f_normal = proj(f_gravity, surfaceNormalUnit)
-        Vector2 f_normal; // = Vector3.Project(f_gravity, surfaceNormal_unit);
-
-        f_normal = f_gravity.magnitude * surfaceNormal_unit;
+        Vector2 f_normal = Vector3.Project(-f_gravity, surfaceNormal_unit);
        
         return f_normal;
     }
@@ -33,9 +31,13 @@ public class ForceGenerator
         // f_friction_s = -f_opposing if less than max, else -coeff*f_normal (max amount is coeff*|f_normal|)
         Vector2 f_friction_s = new Vector2(0, 0);
 
-        if (f_opposing.magnitude < frictionCoefficient_static * f_normal.magnitude)
+        float max = frictionCoefficient_static * f_normal.magnitude;
+
+        float opposing = f_opposing.magnitude;
+
+        if (f_opposing.magnitude < max)
         {
-            f_friction_s = -f_opposing;
+            f_friction_s = -f_opposing * max;
         }
         else
         {
@@ -50,7 +52,7 @@ public class ForceGenerator
         // f_friction_k = -coeff*|f_normal| * unit(vel)
         Vector2 f_friction_k;
 
-        f_friction_k = -frictionCoefficient_kinetic * f_normal.magnitude * particleVelocity;
+        f_friction_k = -frictionCoefficient_kinetic * f_normal.magnitude * particleVelocity.normalized;
 
         return f_friction_k;
     }
@@ -60,7 +62,10 @@ public class ForceGenerator
         // f_drag = (p * u^2 * area * coeff)/2
         Vector2 f_drag = new Vector2(0, 0);
 
-        f_drag = objectDragCoefficient * (fluidDensity * (particleVelocity-fluidVelocity) * (particleVelocity-fluidVelocity) * 0.5f) * objectArea_crossSection;
+        Vector2 velDiff = particleVelocity - fluidVelocity;
+        float velDiffMag = velDiff.magnitude;
+
+        f_drag = objectDragCoefficient * (fluidDensity * (velDiff) * (velDiffMag) * 0.5f) * objectArea_crossSection;
 
         return f_drag;
     }

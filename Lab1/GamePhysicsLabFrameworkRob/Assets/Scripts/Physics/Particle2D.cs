@@ -59,6 +59,7 @@ public class Particle2D : MonoBehaviour
 
     // Lab 3 step 2
     public float torque;
+    public Vector2 angForce;
 
     public void SetMass(float newMass)
     {
@@ -161,8 +162,8 @@ public class Particle2D : MonoBehaviour
 
         //apply to transform
         transform.position = position;
-        Debug.Log(rotation);
-        //transform.eulerAngles = new Vector3(0, 0, rotation);
+        // Debug.Log(rotation);
+        transform.eulerAngles = new Vector3(0, 0, rotation);
 
         // lab 1 Step 4
         //test
@@ -176,7 +177,7 @@ public class Particle2D : MonoBehaviour
 
         UpdateAngAcc();
 
-        ApplyTorque(position, force);
+        ApplyTorque(position, angForce);
     }
 
     void UpdateForce()
@@ -232,12 +233,14 @@ public class Particle2D : MonoBehaviour
 
     void UpdateAngAcc()
     {
+        Debug.Log(momentOfInertia);
         angularAcceleration = torque / momentOfInertia;
         torque = 0;
     }
 
     void ApplyTorque(Vector2 objPos, Vector2 newForce)
     {
+        Debug.Log(newForce);
         torque += (objPos.x * newForce.y - objPos.y * newForce.x);
     }
 
