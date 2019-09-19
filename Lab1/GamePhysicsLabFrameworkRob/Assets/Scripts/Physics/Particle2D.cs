@@ -32,6 +32,21 @@ public class Particle2D : MonoBehaviour
     public float springRestingLength = 2.0f;
     public float springStiffnesCoeff = 5.0f;
 
+    [SerializeField]
+    public bool generateGravity = false;
+    [SerializeField]
+    public bool generateNormal = false;
+    [SerializeField]
+    public bool generateSliding = false;
+    [SerializeField]
+    public bool generateStaticsFriction = false;
+    [SerializeField]
+    public bool generateKineticFriction = false;
+    [SerializeField]
+    public bool generateDrag = false;
+    [SerializeField]
+    public bool generateSpring = false;
+
     public void SetMass(float newMass)
     {
         //mass = newMass > 0.0f ? newMass: 0.0f;
@@ -126,6 +141,9 @@ public class Particle2D : MonoBehaviour
         //     UpdateRotationEulerExplicit(Time.fixedDeltaTime);
         // }
 
+        // hard code all scenarios for the forces
+        UpdateForce();
+
         UpdateAcceleration();
 
         //apply to transform
@@ -136,9 +154,6 @@ public class Particle2D : MonoBehaviour
         //test
         //acceleration.x = -Mathf.Sin(Time.fixedTime);
         //angularAcceleration = -Mathf.Sin(Time.fixedTime);
-        
-        // hard code all scenarios for the forces
-        UpdateForce();
 
     }
 
@@ -151,12 +166,25 @@ public class Particle2D : MonoBehaviour
         Vector2 f_normal = ForceGenerator.GenerateForce_Normal(f_gravity, transform.up);
 
         // AddForce(f_gravity); // works
-        // AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
-        // AddForce(ForceGenerator.GenerateForce_Normal(f_gravity, surfaceNormal_unit)); // works? more testing (surface normal is -2, 1)
-        // AddForce(ForceGenerator.GenerateForce_Sliding(f_gravity, f_normal));  (surface normal is -2,1)        
-        // AddForce(ForceGenerator.GenerateForce_Friction_Static(f_normal, frictionOpposingForce, frictionCoeff_static)); // works (surface normal is 1,1) FOF = (-3,0) FCS = 0.9
-        // AddForce(ForceGenerator.GenerateForce_Friction_Kinetic(f_normal, velocity, frictionCoeff_kinetic));  // works surface = (1,1) initVel = 15 FCK = 0.3
-        // AddForce(ForceGenerator.GenerateForce_Drag(velocity, fluidVelocity, fluidDensity, objArea_CrossSection, objDragCoeff));  // not sure if this works ask dan... IV = 1, FV = 1, FD = 1, OACS = 1.5, ODC=1.05 
+        if(generateGravity)
+        AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
+
+        if(generateNormal)
+        AddForce(ForceGenerator.GenerateForce_Normal(f_gravity, surfaceNormal_unit)); // works? more testing (surface normal is 0, 1)
+
+        if(generateSliding)
+        AddForce(ForceGenerator.GenerateForce_Sliding(f_gravity, f_normal));  // (surface normal is 0,1)
+        
+        if(generateStaticsFriction)
+        AddForce(ForceGenerator.GenerateForce_Friction_Static(f_normal, frictionOpposingForce, frictionCoeff_static)); // works (surface normal is 1,1) FOF = (-3,0) FCS = 0.9
+
+        if(generateKineticFriction)
+        AddForce(ForceGenerator.GenerateForce_Friction_Kinetic(f_normal, velocity, frictionCoeff_kinetic));  // works surface = (1,1) initVel = 15 FCK = 0.3
+
+        if(generateDrag)
+        AddForce(ForceGenerator.GenerateForce_Drag(velocity, fluidVelocity, fluidDensity, objArea_CrossSection, objDragCoeff));  // not sure if this works ask dan... IV = 1, FV = 1, FD = 1, OACS = 1.5, ODC=1.05 
+
+        if (generateSpring && position.magnitude != 0)
         AddForce(ForceGenerator.GenerateForce_Spring(position, anchorPos, springRestingLength, springStiffnesCoeff)); // pos = 0,100 , AP = 0,0 , SRL = 0.1, SSC = 3 , fricCoKin = 0.15 (turn on gravity and kin fric
 
     }
