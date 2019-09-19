@@ -47,6 +47,19 @@ public class Particle2D : MonoBehaviour
     [SerializeField]
     public bool generateSpring = false;
 
+    public float momentOfInertia;
+    public int objType;
+
+    public float diskRadius;
+    public float ringOuterRadius;
+    public float ringInnerRadius;
+    public float rectHeight;
+    public float rectWidth;
+    public float rodLength;
+
+    // Lab 3 step 2
+    public float torque;
+
     public void SetMass(float newMass)
     {
         //mass = newMass > 0.0f ? newMass: 0.0f;
@@ -148,13 +161,22 @@ public class Particle2D : MonoBehaviour
 
         //apply to transform
         transform.position = position;
-        transform.eulerAngles = new Vector3(0, 0, rotation);
+        Debug.Log(rotation);
+        //transform.eulerAngles = new Vector3(0, 0, rotation);
 
         // lab 1 Step 4
         //test
         //acceleration.x = -Mathf.Sin(Time.fixedTime);
         //angularAcceleration = -Mathf.Sin(Time.fixedTime);
+        // hard code all scenarios for the forces
 
+        UpdateForce();
+
+        UpdateInertia();
+
+        UpdateAngAcc();
+
+        ApplyTorque(position, force);
     }
 
     void UpdateForce()
@@ -189,6 +211,67 @@ public class Particle2D : MonoBehaviour
 
     }
 
+    void UpdateInertia()
+    {
+        switch (objType)
+        {
+            case 0: // disk
+                momentOfInertia = DiskInertia(diskRadius);
+                break;
+            case 1: // ring
+                momentOfInertia = RingInertia(ringOuterRadius, ringInnerRadius);
+                break;
+            case 2: // rect
+                momentOfInertia = RectangleInertia(rectHeight, rectWidth);
+                break;
+            case 3: // rod
+                momentOfInertia = RodInertia(rodLength);
+                break;
+        }
+    }
+
+    void UpdateAngAcc()
+    {
+        angularAcceleration = torque / momentOfInertia;
+        torque = 0;
+    }
+
+    void ApplyTorque(Vector2 objPos, Vector2 newForce)
+    {
+        torque += (objPos.x * newForce.y - objPos.y * newForce.x);
+    }
+
+    #region Inertia Functions
+
+    float DiskInertia(float diskRadius)
+    {
+        float inertia = 0f;
+        inertia = 0.5f * mass * diskRadius * diskRadius;
+        return inertia;
+    }
+
+    float RingInertia(float ringOuterRadius, float ringInnerRadius)
+    {
+        float inertia = 0f;
+        inertia = 0.5f * mass * (ringOuterRadius * ringOuterRadius + ringInnerRadius * ringInnerRadius);
+        return inertia;
+    }
+
+    float RectangleInertia(float rectHeight, float rectWidth)
+    {
+        float inertia = 0f;
+        inertia = (1f / 12f) * mass * (rectHeight * rectHeight + rectWidth * rectWidth);
+        return inertia;
+    }
+
+    float RodInertia(float rodLength)
+    {
+        float inertia = 0f;
+        inertia = (1f / 12f) * mass * rodLength * rodLength;
+        return inertia;
+    }
+
+    #endregion
 
     #region manipulators
     public void SetVelocityX(float newVel)
