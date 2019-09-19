@@ -37,11 +37,11 @@ public class ForceGenerator
 
         if (f_opposing.magnitude < max)
         {
-            f_friction_s = -f_opposing * max;
+            f_friction_s = -f_opposing;
         }
         else
         {
-            f_friction_s = -frictionCoefficient_static * f_normal;
+            f_friction_s = -f_opposing * max;
         }
 
         return f_friction_s;
