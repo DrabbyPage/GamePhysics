@@ -47,6 +47,8 @@ public class Particle2D : MonoBehaviour
     [SerializeField]
     public bool generateSpring = false;
 
+    public Vector2 basicForce;
+
     public float momentOfInertia;
     public int objType;
 
@@ -156,6 +158,8 @@ public class Particle2D : MonoBehaviour
         // }
 
         // hard code all scenarios for the forces
+        UpdateInput();
+
         UpdateForce();
 
         UpdateAcceleration();
@@ -210,6 +214,28 @@ public class Particle2D : MonoBehaviour
         if (generateSpring && position.magnitude != 0)
         AddForce(ForceGenerator.GenerateForce_Spring(position, anchorPos, springRestingLength, springStiffnesCoeff)); // pos = 0,100 , AP = 0,0 , SRL = 0.1, SSC = 3 , fricCoKin = 0.15 (turn on gravity and kin fric
 
+        AddForce(basicForce);
+    }
+
+    void UpdateInput()
+    {
+        if (gameObject.tag == "Moveable")
+        {
+            if (Input.GetKey("left"))
+            {
+                angForce += new Vector2(-2, -2);
+                basicForce += new Vector2(-1, 0);
+            }
+            else if (Input.GetKey("right"))
+            {
+                angForce += new Vector2(2, 2);
+                basicForce += new Vector2(1, 0);
+            }
+            else
+            {
+                basicForce = new Vector2(0, 0);
+            }
+        }
     }
 
     void UpdateInertia()
