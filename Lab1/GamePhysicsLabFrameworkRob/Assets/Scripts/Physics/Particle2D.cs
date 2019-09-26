@@ -50,6 +50,7 @@ public class Particle2D : MonoBehaviour
     public Vector2 basicForce;
 
     public float momentOfInertia;
+    public float invInertia;
     public int objType;
 
     public float diskRadius;
@@ -61,6 +62,7 @@ public class Particle2D : MonoBehaviour
 
     // Lab 3 step 2
     public float torque;
+    public Vector2 pointOfAppliedForce;
     public Vector2 angForce;
 
     public void SetMass(float newMass)
@@ -129,6 +131,9 @@ public class Particle2D : MonoBehaviour
         SetMass(startingMass);
 
         position = transform.position;
+
+        UpdateInertia();
+
     }
 
     // Update is called once per frame
@@ -177,11 +182,9 @@ public class Particle2D : MonoBehaviour
 
         UpdateForce();
 
-        UpdateInertia();
-
         UpdateAngAcc();
 
-        ApplyTorque(position, angForce);
+        ApplyTorque(pointOfAppliedForce, angForce);
     }
 
     void UpdateForce()
@@ -255,19 +258,24 @@ public class Particle2D : MonoBehaviour
                 momentOfInertia = RodInertia(rodLength);
                 break;
         }
+
+        invInertia = 1 / momentOfInertia;
     }
 
     void UpdateAngAcc()
     {
         Debug.Log(momentOfInertia);
-        angularAcceleration = torque / momentOfInertia;
+        angularAcceleration = torque * invInertia;
         torque = 0;
     }
 
-    void ApplyTorque(Vector2 objPos, Vector2 newForce)
+    void ApplyTorque(Vector2 forcePos, Vector2 newForce)
     {
         Debug.Log(newForce);
-        torque += (objPos.x * newForce.y - objPos.y * newForce.x);
+
+        Vector2 momentArm = forcePos - position;
+
+        torque += (momentArm.x * newForce.y - momentArm.y * newForce.x);
     }
 
     #region Inertia Functions
