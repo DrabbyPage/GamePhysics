@@ -8,11 +8,12 @@ public class CircleCollisionHull2D : CollisionHull2D
 
     [Range(0.0f, 100.0f)]
     public float radius;
+    public Vector2 thisCenter;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        thisCenter = new Vector2(transform.position.x, transform.position.y);
     }
 
     // Update is called once per frame
@@ -25,14 +26,33 @@ public class CircleCollisionHull2D : CollisionHull2D
 
     public override bool TestCollisionVSCircle(CircleCollisionHull2D other)
     {
+        //ROB
         // Passes if distance between centers <= sum of radii
         // optimized collision passes if (distance between centers) squared <= (sum of radii) squared
         // 1. Get the two centers
+        Vector2 otherCenter = other.thisCenter;
+
         // 2. difference between centers
+        Vector2 distanceVec = otherCenter - thisCenter;
+
+        //float distance = (otherCenter.x - thisCenter.x) * (otherCenter.x - thisCenter.x) 
+        //               + (otherCenter.y - thisCenter.y) * (otherCenter.y - thisCenter.y);
+        //distance *= distance;
+
         // 3. distance squared = dot(diff, diff)
+        float distance = Vector2.Dot(distanceVec, distanceVec);
+
         // 4. Sum of radii
+        float totalRadii = radius + other.radius;
+
         // 5. square sum
+        totalRadii *= totalRadii;
+
         // 6. Do the test: distSqr <= sumSqr
+        if (distance <= totalRadii)
+        {
+            return true;
+        }
 
         return false;
     }
@@ -45,8 +65,7 @@ public class CircleCollisionHull2D : CollisionHull2D
         // Check if closest point is within box bounds
         // pass if closest point vs. circle passes
 
-
-        return false;
+        return other.TestCollisionVSCircle(this);
     }
     public override bool TestCollisionVSOBB(ObjectBoundingBoxHull2D other)
     {
