@@ -76,6 +76,6 @@ public class CircleCollisionHull2D : CollisionHull2D
         // Run AABB test
 
 
-        return false;
+        return other.TestCollisionVSCircle(this);
     }
 }
