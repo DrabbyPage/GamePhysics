@@ -184,8 +184,7 @@ public class Particle2D : MonoBehaviour
 
         //apply to transform
         transform.position = position;
-        // Debug.Log(rotation);
-        transform.eulerAngles = new Vector3(0, 0, rotation);
+        // transform.eulerAngles = new Vector3(0, 0, rotation);
 
         // lab 1 Step 4
         //test

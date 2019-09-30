@@ -21,7 +21,7 @@ public class CollisionManager : MonoBehaviour
         for (int i = 0; i < particles.Count; i++)
         {
             currentParticleHull = particles[i].GetComponent<Particle2D>().colHull;
-            for (int j = i++; j < particles.Count; j++)
+            for (int j = i+1; j < particles.Count; j++)
             {
                 otherParticleHull = particles[j].GetComponent<Particle2D>().colHull;
                 
