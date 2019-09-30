@@ -163,9 +163,6 @@ public class ObjectBoundingBoxHull2D : CollisionHull2D
         //The normal, just flip x and z and make one negative (don't need to normalize it)
         Vector2 normal = new Vector2(-dir.y, dir.x);
 
-        //Draw the normal from the center of the rectangle's side
-        Debug.DrawRay(startPos + (dir * 0.5f), normal.normalized * 2f, Color.red);
-
         return normal;
     }
 
