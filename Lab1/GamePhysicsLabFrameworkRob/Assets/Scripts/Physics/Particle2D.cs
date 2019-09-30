@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Particle2D : MonoBehaviour
 {
+    public CollisionHull2D colHull;
+    //public List<Particle2D> otherColParticleList;
+
     // Lab 1 Step 1
     public Vector2 position, velocity, acceleration;
     public float rotation, angularVelocity, angularAcceleration;
@@ -134,6 +137,16 @@ public class Particle2D : MonoBehaviour
 
         UpdateInertia();
 
+        colHull = this.gameObject.GetComponent<CollisionHull2D>();
+
+        // Give this Particle2D's colHull the list of other CollisionHull2D from list of Particles to check for collision
+        //List<CollisionHull2D> otherColList = new List<CollisionHull2D>();
+        //for (int i = 0; i < otherColParticleList.Count; i++)
+        //{
+        //    otherColList.Add(otherColParticleList[i].colHull);
+        //}
+        //
+        //colHull.otherColHullList = otherColList;
     }
 
     // Update is called once per frame
@@ -264,7 +277,7 @@ public class Particle2D : MonoBehaviour
 
     void UpdateAngAcc()
     {
-        Debug.Log(momentOfInertia);
+        //Debug.Log(momentOfInertia);
         angularAcceleration = torque * invInertia;
         torque = 0;
     }
@@ -352,4 +365,5 @@ public class Particle2D : MonoBehaviour
         angularAcceleration = 0;
     }
     #endregion
+
 }

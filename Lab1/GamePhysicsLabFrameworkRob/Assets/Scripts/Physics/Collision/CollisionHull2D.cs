@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class CollisionHull2D : MonoBehaviour
 {
+    //public List<CollisionHull2D> otherColHullList;
 
     public enum HULLTYPE
     {
@@ -11,7 +12,7 @@ public abstract class CollisionHull2D : MonoBehaviour
         hull_aabb,
         hull_obb,
     }
-    private HULLTYPE type { get; }
+    public HULLTYPE type { get; }
 
     protected CollisionHull2D(HULLTYPE type_set)
     {
@@ -24,6 +25,8 @@ public abstract class CollisionHull2D : MonoBehaviour
     void Start()
     {
         particle = GetComponent<Particle2D>();
+
+        
     }
 
     // Update is called once per frame
@@ -34,6 +37,7 @@ public abstract class CollisionHull2D : MonoBehaviour
 
     public static bool TestCollision(CollisionHull2D a, CollisionHull2D b)
     {
+        
         return false;
     }
 
