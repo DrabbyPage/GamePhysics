@@ -24,7 +24,7 @@ public class CircleCollisionHull2D : CollisionHull2D
 
     // FOR SUCCESSFUL COLLISION, CHANGE COLOR
 
-    public override bool TestCollisionVSCircle(CircleCollisionHull2D other)
+    public override bool TestCollisionVSCircle(CircleCollisionHull2D other, ref Collision c)
     {
         //ROB
         // Passes if distance between centers <= sum of radii
@@ -56,7 +56,7 @@ public class CircleCollisionHull2D : CollisionHull2D
 
         return false;
     }
-    public override bool TestCollisionVSAABB(AxisAlignBoundingBoxHull2D other)
+    public override bool TestCollisionVSAABB(AxisAlignBoundingBoxHull2D other, ref Collision c)
     {
         // calculate closest point by clamping circle center on each dimension
         // Find the vector2 distance between box & circle
@@ -65,9 +65,9 @@ public class CircleCollisionHull2D : CollisionHull2D
         // Check if closest point is within box bounds
         // pass if closest point vs. circle passes
 
-        return other.TestCollisionVSCircle(this);
+        return other.TestCollisionVSCircle(this, ref c);
     }
-    public override bool TestCollisionVSOBB(ObjectBoundingBoxHull2D other)
+    public override bool TestCollisionVSOBB(ObjectBoundingBoxHull2D other, ref Collision c)
     {
         // Same as above, but first...
         // transform circle position by multiplying by box world matrix inverse
@@ -76,6 +76,6 @@ public class CircleCollisionHull2D : CollisionHull2D
         // Run AABB test
 
 
-        return other.TestCollisionVSCircle(this);
+        return other.TestCollisionVSCircle(this, ref c);
     }
 }

@@ -45,7 +45,7 @@ public class ObjectBoundingBoxHull2D : CollisionHull2D
 
     // FOR SUCCESSFUL COLLISION, CHANGE COLOR
 
-    public override bool TestCollisionVSCircle(CircleCollisionHull2D other)
+    public override bool TestCollisionVSCircle(CircleCollisionHull2D other, ref Collision c)
     {
         
         // find the min and max components of the obb
@@ -85,15 +85,15 @@ public class ObjectBoundingBoxHull2D : CollisionHull2D
         return isIntersecting;
     }
 
-    public override bool TestCollisionVSAABB(AxisAlignBoundingBoxHull2D other)
+    public override bool TestCollisionVSAABB(AxisAlignBoundingBoxHull2D other, ref Collision c)
     {
         // Same as OBB vs OBB, but only project to ABB up and right normal
         // check the points        
 
-        return other.TestCollisionVSOBB(this);
+        return other.TestCollisionVSOBB(this, ref c);
     }
 
-    public override bool TestCollisionVSOBB(ObjectBoundingBoxHull2D other)
+    public override bool TestCollisionVSOBB(ObjectBoundingBoxHull2D other, ref Collision c)
     {
         // AABB-OBB part 2 twice
         // Call projection function four times, if even one fails, the collision fails

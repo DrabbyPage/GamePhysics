@@ -35,7 +35,7 @@ public class AxisAlignBoundingBoxHull2D : CollisionHull2D
     }
 
     // FOR SUCCESSFUL COLLISION, CHANGE COLOR
-    public override bool TestCollisionVSCircle(CircleCollisionHull2D other)
+    public override bool TestCollisionVSCircle(CircleCollisionHull2D other, ref Collision c)
     {
         // cam did this part
 
@@ -68,7 +68,7 @@ public class AxisAlignBoundingBoxHull2D : CollisionHull2D
 
         return false;
     }
-    public override bool TestCollisionVSAABB(AxisAlignBoundingBoxHull2D other)
+    public override bool TestCollisionVSAABB(AxisAlignBoundingBoxHull2D other, ref Collision c)
     {
         // for each dimension, max extent of A greater than min extent of B
 
@@ -131,7 +131,7 @@ public class AxisAlignBoundingBoxHull2D : CollisionHull2D
         return false;
     }
 
-    public override bool TestCollisionVSOBB(ObjectBoundingBoxHull2D other)
+    public override bool TestCollisionVSOBB(ObjectBoundingBoxHull2D other, ref Collision c)
     {
         // Same as above twive
         // first, test AABB vs max extents of OBB
