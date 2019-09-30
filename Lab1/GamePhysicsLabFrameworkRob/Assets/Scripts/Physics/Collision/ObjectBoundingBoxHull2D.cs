@@ -24,11 +24,16 @@ public class ObjectBoundingBoxHull2D : CollisionHull2D
     // Start is called before the first frame update
     void Start()
     {
+        position = transform.position;
+
         // usually wed have to to (cos (theta), sin (theta)) for right but unity has a transform.right
         rightVector = position + new Vector2(transform.right.x, transform.right.y);
 
         // usually wed have to to (-sin (theta), cos (theta)) for right but unity has a transform.up
         upVector = position + new Vector2(transform.up.x, transform.up.y);
+
+        Debug.Log(rightVector);
+        Debug.Log(upVector);
 
         topLeftAxis = upVector - rightVector;
         topRightAxis = upVector + rightVector;
@@ -57,10 +62,10 @@ public class ObjectBoundingBoxHull2D : CollisionHull2D
 
         // calculate closest point by clamping circle center on each dimension
         // Find the vector2 distance between box & circle
-        Vector2 diff = other.thisCenter - position;
+        Vector2 diff = position - other.thisCenter;
 
         // Normalize that vector
-        diff.Normalize();
+        diff /= Mathf.Abs(diff.magnitude);
 
         // multiply the vector by the radius to get the closest point on the circumference
         diff *= other.radius;

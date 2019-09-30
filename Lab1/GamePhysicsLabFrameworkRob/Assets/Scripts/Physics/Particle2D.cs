@@ -283,7 +283,6 @@ public class Particle2D : MonoBehaviour
 
     void ApplyTorque(Vector2 forcePos, Vector2 newForce)
     {
-        Debug.Log(newForce);
 
         Vector2 momentArm = forcePos - position;
 

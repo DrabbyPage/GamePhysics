@@ -41,13 +41,15 @@ public class AxisAlignBoundingBoxHull2D : CollisionHull2D
 
         // calculate closest point by clamping circle center on each dimension
         // Find the vector2 distance between box & circle
-        Vector2 diff = other.thisCenter - position;
+        Vector2 diff = position - other.thisCenter;
 
         // Normalize that vector
-        diff.Normalize();
+        diff/= Mathf.Abs(diff.magnitude);
 
         // multiply the vector by the radius to get the closest point on the circumference
         diff *= other.radius;
+
+        diff += other.thisCenter;
 
         // find the box's mins and maxes
         float xMin = position.x - width / 2;

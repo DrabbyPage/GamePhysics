@@ -52,6 +52,10 @@ public class CollisionManager : MonoBehaviour
                 {
                     changeObjectColor(currentParticleHull.gameObject, otherParticleHull.gameObject, Color.red);
                 }
+                else
+                {
+                    changeObjectColor(currentParticleHull.gameObject, otherParticleHull.gameObject, Color.green);
+                }
             }
         }        
     }

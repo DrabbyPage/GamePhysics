@@ -19,7 +19,7 @@ public class CircleCollisionHull2D : CollisionHull2D
     // Update is called once per frame
     void Update()
     {
-        
+        thisCenter = new Vector2(transform.position.x, transform.position.y);
     }
 
     // FOR SUCCESSFUL COLLISION, CHANGE COLOR
