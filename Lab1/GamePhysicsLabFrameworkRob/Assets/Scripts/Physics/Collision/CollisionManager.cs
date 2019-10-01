@@ -22,41 +22,49 @@ public class CollisionManager : MonoBehaviour
         // Go through list to compare current particle to every particle after it in the list
         for (int i = 0; i < particles.Count; i++)
         {
-            currentParticleHull = particles[i].GetComponent<Particle2D>().colHull;
-            for (int j = i+1; j < particles.Count; j++)
+            if(particles[i]!= null)
             {
-                otherParticleHull = particles[j].GetComponent<Particle2D>().colHull;
-                
-                // Determine which type the second particle is
-                switch (otherParticleHull.type) 
+                currentParticleHull = particles[i].GetComponent<Particle2D>().colHull;
+                for (int j = i + 1; j < particles.Count; j++)
                 {
-                    // If it's AABB, look for that specific componenet
-                    case CollisionHull2D.HULLTYPE.hull_aabb:
-                        checkCollision = currentParticleHull.TestCollisionVSAABB(particles[j].GetComponent<AxisAlignBoundingBoxHull2D>(), ref particles[j].GetComponent<AxisAlignBoundingBoxHull2D>().c);
-                        Debug.Log("AABB Success");
-                        break;
-                    // If it's circle, look for that specific componenet
-                    case CollisionHull2D.HULLTYPE.hull_circle:
-                        checkCollision = currentParticleHull.TestCollisionVSCircle(particles[j].GetComponent<CircleCollisionHull2D>(), ref particles[j].GetComponent<CircleCollisionHull2D>().c);
-                        Debug.Log("cirlce Success");
-                        break;
-                    // If it's OBB, look for that specific componenet
-                    case CollisionHull2D.HULLTYPE.hull_obb:
-                        checkCollision = currentParticleHull.TestCollisionVSOBB(particles[j].GetComponent<ObjectBoundingBoxHull2D>(), ref particles[j].GetComponent<ObjectBoundingBoxHull2D>().c);
-                        Debug.Log("OBB Success");
-                        break;
-                }
+                    if(particles[j] != null )
+                    {
+                        otherParticleHull = particles[j].GetComponent<Particle2D>().colHull;
 
-                // If the two objects collide, change their color to red
-                if(checkCollision)
-                {
-                    changeObjectColor(currentParticleHull.gameObject, otherParticleHull.gameObject, Color.red);
-                }
-                else
-                {
-                    //changeObjectColor(currentParticleHull.gameObject, otherParticleHull.gameObject, Color.green);
+                        // Determine which type the second particle is
+                        switch (otherParticleHull.type)
+                        {
+                            // If it's AABB, look for that specific componenet
+                            case CollisionHull2D.HULLTYPE.hull_aabb:
+                                checkCollision = currentParticleHull.TestCollisionVSAABB(particles[j].GetComponent<AxisAlignBoundingBoxHull2D>(), ref particles[j].GetComponent<AxisAlignBoundingBoxHull2D>().c);
+                                Debug.Log("AABB Success");
+                                break;
+                            // If it's circle, look for that specific componenet
+                            case CollisionHull2D.HULLTYPE.hull_circle:
+                                checkCollision = currentParticleHull.TestCollisionVSCircle(particles[j].GetComponent<CircleCollisionHull2D>(), ref particles[j].GetComponent<CircleCollisionHull2D>().c);
+                                Debug.Log("cirlce Success");
+                                break;
+                            // If it's OBB, look for that specific componenet
+                            case CollisionHull2D.HULLTYPE.hull_obb:
+                                checkCollision = currentParticleHull.TestCollisionVSOBB(particles[j].GetComponent<ObjectBoundingBoxHull2D>(), ref particles[j].GetComponent<ObjectBoundingBoxHull2D>().c);
+                                Debug.Log("OBB Success");
+                                break;
+                        }
+
+                        // If the two objects collide, change their color to red
+                        if (checkCollision)
+                        {
+                            changeObjectColor(currentParticleHull.gameObject, otherParticleHull.gameObject, Color.red);
+                        }
+                        else
+                        {
+                            //changeObjectColor(currentParticleHull.gameObject, otherParticleHull.gameObject, Color.green);
+                        }
+                    }
+                    
                 }
             }
+            
         }        
     }
 

@@ -10,9 +10,6 @@ public class ObjectBoundingBoxHull2D : CollisionHull2D
 
     Vector2 position;
 
-    Vector2 rightVector;
-    Vector2 upVector;
-
     [SerializeField]
     float height, width;
 
@@ -26,26 +23,21 @@ public class ObjectBoundingBoxHull2D : CollisionHull2D
     {
         position = transform.position;
 
-        // usually wed have to to (cos (theta), sin (theta)) for right but unity has a transform.right
-        rightVector = position + new Vector2(transform.right.x, transform.right.y);
-
-        // usually wed have to to (-sin (theta), cos (theta)) for right but unity has a transform.up
-        upVector = position + new Vector2(transform.up.x, transform.up.y);
-
-        Debug.Log(rightVector);
-        Debug.Log(upVector);
-
-        topLeftAxis = upVector - rightVector;
-        topRightAxis = upVector + rightVector;
-        botLeftAxis = -rightVector - upVector;
-        botRightAxis = rightVector - upVector;
-
+        topLeftAxis = position + (Vector2)(transform.up * (height/2) - transform.right * (width/2));
+        topRightAxis = position + (Vector2)(transform.up * (height / 2) + transform.right * (width / 2));
+        botLeftAxis = position + (Vector2)(-transform.up * (height / 2) - transform.right * (width / 2));
+        botRightAxis = position + (Vector2)(transform.right * (width / 2) - transform.up * (height / 2));
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        position = transform.position;
+
+        topLeftAxis = position + (Vector2)(transform.up * (height / 2) - transform.right * (width / 2));
+        topRightAxis = position + (Vector2)(transform.up * (height / 2) + transform.right * (width / 2));
+        botLeftAxis = position + (Vector2)(-transform.up * (height / 2) - transform.right * (width / 2));
+        botRightAxis = position + (Vector2)(transform.right * (width / 2) - transform.up * (height / 2));
     }
 
     // FOR SUCCESSFUL COLLISION, CHANGE COLOR
@@ -62,13 +54,16 @@ public class ObjectBoundingBoxHull2D : CollisionHull2D
 
         // calculate closest point by clamping circle center on each dimension
         // Find the vector2 distance between box & circle
-        Vector2 diff = position - other.thisCenter;
+        Vector2 diff = (Vector2)transform.position - (Vector2)other.transform.position;
 
         // Normalize that vector
-        diff /= Mathf.Abs(diff.magnitude);
-
         // multiply the vector by the radius to get the closest point on the circumference
-        diff *= other.radius;
+        diff = diff.normalized * other.radius + (Vector2)other.transform.position;
+
+
+        Debug.Log(minX + ", " + maxX);
+        Debug.Log(minY + ", " + maxY);
+        Debug.Log(diff);
 
         // check for the collision
         return IsIntersectingCircle(minX, maxX, minY, maxY, diff.x, diff.y);
@@ -162,6 +157,9 @@ public class ObjectBoundingBoxHull2D : CollisionHull2D
 
         //The normal, just flip x and z and make one negative (don't need to normalize it)
         Vector2 normal = new Vector2(-dir.y, dir.x);
+
+        Debug.DrawRay(startPos + (dir * 0.5f), normal.normalized * 2f, Color.red);
+
 
         return normal;
     }
