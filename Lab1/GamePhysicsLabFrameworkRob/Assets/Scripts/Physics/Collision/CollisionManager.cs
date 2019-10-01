@@ -54,23 +54,33 @@ public class CollisionManager : MonoBehaviour
                         // If the two objects collide, change their color to red
                         if (checkCollision)
                         {
-                            changeObjectColor(currentParticleHull.gameObject, otherParticleHull.gameObject, Color.red);
-                        }
-                        else
-                        {
-                            //changeObjectColor(currentParticleHull.gameObject, otherParticleHull.gameObject, Color.green);
+                            currentParticleHull.colliding = true;
+                            otherParticleHull.colliding = true;
                         }
                     }
                     
                 }
             }
-            
-        }        
+        }
+
+        // Go through the list of particles, if it's currently colliding, change color
+        for (int i = 0; i < particles.Count; i++)
+        {
+            if (particles[i] != null)
+            {
+                currentParticleHull = particles[i].GetComponent<Particle2D>().colHull;
+                if (currentParticleHull.colliding)
+                {
+                    currentParticleHull.gameObject.GetComponent<Renderer>().material.color = Color.red;
+                }
+                else 
+                {
+                    currentParticleHull.gameObject.GetComponent<Renderer>().material.color = Color.green;
+                }
+                // reset colliding check
+                currentParticleHull.colliding = false;
+            }
+        }
     }
 
-    void changeObjectColor(GameObject currentParticle, GameObject otherParticle, Color color)
-    {
-        currentParticle.GetComponent<Renderer>().material.color = color;
-        otherParticle.GetComponent<Renderer>().material.color = color;
-    }
 }
