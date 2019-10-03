@@ -39,36 +39,17 @@ public class AxisAlignBoundingBoxHull2D : CollisionHull2D
     {
         // cam did this part
 
-        // calculate closest point by clamping circle center on each dimension
-        // Find the vector2 distance between box & circle
-        Vector2 diff = position - other.thisCenter;
+        float circleX = other.thisCenter.x;
+        float circleY = other.thisCenter.y;
+        float circleRadius = other.radius;
 
-        // Normalize that vector
-        diff/= Mathf.Abs(diff.magnitude);
+        float rectX = position.x;
+        float rectY = position.y;
 
-        // multiply the vector by the radius to get the closest point on the circumference
-        diff *= other.radius;
+        float DeltaX = circleX - Mathf.Max(rectX, Mathf.Min(circleX, rectX + width * 0.5f));
+        float DeltaY = circleY - Mathf.Max(rectY, Mathf.Min(circleY, rectY + height * 0.5f));
+        return (DeltaX * DeltaX + DeltaY * DeltaY) < (circleRadius * circleRadius);
 
-        diff += other.thisCenter;
-
-        // find the box's mins and maxes
-        float xMin = position.x - width * 0.5f;
-        float xMax = position.x + width * 0.5f;
-
-        float yMin = position.y - height * 0.5f;
-        float yMax = position.y + height * 0.5f;
-
-        // Check if closest point is within box bounds
-        // pass if closest point vs. circle passes
-        if (xMax > diff.x && diff.x > xMin)
-        {
-            if(yMax > diff.y && diff.y > yMin)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
     public override bool TestCollisionVSAABB(AxisAlignBoundingBoxHull2D other, ref Collision c)
     {
