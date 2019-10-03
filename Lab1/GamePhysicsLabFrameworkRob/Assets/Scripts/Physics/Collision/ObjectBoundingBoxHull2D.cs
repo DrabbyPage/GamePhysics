@@ -23,10 +23,10 @@ public class ObjectBoundingBoxHull2D : CollisionHull2D
     {
         position = transform.position;
 
-        topLeftAxis = position + (Vector2)(transform.up * (height/2) - transform.right * (width/2));
-        topRightAxis = position + (Vector2)(transform.up * (height / 2) + transform.right * (width / 2));
-        botLeftAxis = position + (Vector2)(-transform.up * (height / 2) - transform.right * (width / 2));
-        botRightAxis = position + (Vector2)(transform.right * (width / 2) - transform.up * (height / 2));
+        topLeftAxis = position + (Vector2)(transform.up * (height * 0.5f) - transform.right * (width * 0.5f)); ;
+        topRightAxis = position + (Vector2)(transform.up * (height  * 0.5f) + transform.right * (width  * 0.5f));
+        botLeftAxis = position + (Vector2)(-transform.up * (height  * 0.5f) - transform.right * (width  * 0.5f));
+        botRightAxis = position + (Vector2)(transform.right * (width  * 0.5f) - transform.up * (height  * 0.5f));
     }
 
     // Update is called once per frame
@@ -34,10 +34,10 @@ public class ObjectBoundingBoxHull2D : CollisionHull2D
     {
         position = transform.position;
 
-        topLeftAxis = position + (Vector2)(transform.up * (height / 2) - transform.right * (width / 2));
-        topRightAxis = position + (Vector2)(transform.up * (height / 2) + transform.right * (width / 2));
-        botLeftAxis = position + (Vector2)(-transform.up * (height / 2) - transform.right * (width / 2));
-        botRightAxis = position + (Vector2)(transform.right * (width / 2) - transform.up * (height / 2));
+        topLeftAxis = position + (Vector2)(transform.up * (height  * 0.5f) - transform.right * (width  * 0.5f));
+        topRightAxis = position + (Vector2)(transform.up * (height  * 0.5f) + transform.right * (width  * 0.5f));
+        botLeftAxis = position + (Vector2)(-transform.up * (height  * 0.5f) - transform.right * (width  * 0.5f));
+        botRightAxis = position + (Vector2)(transform.right * (width  * 0.5f) - transform.up * (height  * 0.5f));
     }
 
     // FOR SUCCESSFUL COLLISION, CHANGE COLOR

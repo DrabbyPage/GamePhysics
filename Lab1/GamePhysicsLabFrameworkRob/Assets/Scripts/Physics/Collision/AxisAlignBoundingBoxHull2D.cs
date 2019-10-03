@@ -21,10 +21,10 @@ public class AxisAlignBoundingBoxHull2D : CollisionHull2D
     {
         position = transform.position;
 
-        upLeft = new Vector2(position.x - width / 2, position.y + height / 2);
-        upRight = new Vector2(position.x + width / 2, position.y + height / 2);
-        botLeft = new Vector2(position.x - width / 2, position.y - height / 2);
-        botRight = new Vector2(position.x + width / 2, position.y - height / 2);
+        upLeft = new Vector2(position.x - width * 0.5f, position.y + height * 0.5f);
+        upRight = new Vector2(position.x + width * 0.5f, position.y + height * 0.5f);
+        botLeft = new Vector2(position.x - width * 0.5f, position.y - height * 0.5f);
+        botRight = new Vector2(position.x + width * 0.5f, position.y - height * 0.5f);
     }
 
     // Update is called once per frame
@@ -52,11 +52,11 @@ public class AxisAlignBoundingBoxHull2D : CollisionHull2D
         diff += other.thisCenter;
 
         // find the box's mins and maxes
-        float xMin = position.x - width / 2;
-        float xMax = position.x + width / 2;
+        float xMin = position.x - width * 0.5f;
+        float xMax = position.x + width * 0.5f;
 
-        float yMin = position.y - height / 2;
-        float yMax = position.y + height / 2;
+        float yMin = position.y - height * 0.5f;
+        float yMax = position.y + height * 0.5f;
 
         // Check if closest point is within box bounds
         // pass if closest point vs. circle passes
@@ -75,28 +75,28 @@ public class AxisAlignBoundingBoxHull2D : CollisionHull2D
         // for each dimension, max extent of A greater than min extent of B
 
         // position - 1/2(length or width) for min point in x or y
-        float thisXMin = position.x - width / 2;
+        float thisXMin = position.x - width * 0.5f;
 
         // position + 1/2(length or width) for max point in x or y
-        float thisXMax = position.x + width / 2;
+        float thisXMax = position.x + width * 0.5f;
 
         // position - 1/2(length or width) for min point in x or y
-        float thisYMin = position.y - height / 2;
+        float thisYMin = position.y - height * 0.5f;
 
         // position + 1/2(length or width) for max point in x or y
-        float thisYMax = position.y + height / 2;
+        float thisYMax = position.y + height * 0.5f;
 
         // position - 1/2(length or width) for min point in x or y
-        float otherXMin = other.position.x - width / 2;
+        float otherXMin = other.position.x - width * 0.5f;
 
         // position + 1/2(length or width) for max point in x or y
-        float otherXMax = other.position.x + width / 2;
+        float otherXMax = other.position.x + width * 0.5f;
 
         // position - 1/2(length or width) for min point in x or y
-        float otherYMin = other.position.y - height / 2;
+        float otherYMin = other.position.y - height * 0.5f;
 
         // position + 1/2(length or width) for max point in x or y
-        float otherYMax = other.position.y + height / 2;
+        float otherYMax = other.position.y + height * 0.5f;
 
 
         // check which min is greater, greater min becomes the one, other becomes other
