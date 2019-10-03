@@ -11,10 +11,10 @@ public class AxisAlignBoundingBoxHull2D : CollisionHull2D
     [SerializeField]
     public float height, width;
 
-    Vector2 upLeft;
-    Vector2 upRight;
-    Vector2 botLeft;
-    Vector2 botRight;
+    public Vector2 upLeft;
+    public Vector2 upRight;
+    public Vector2 botLeft;
+    public Vector2 botRight;
 
     // Start is called before the first frame update
     void Start()
@@ -123,56 +123,7 @@ public class AxisAlignBoundingBoxHull2D : CollisionHull2D
         // Same as OBB vs OBB, but only project to ABB up and right normal
         // check the points
 
-        bool isIntersecting = false;
 
-        //Find the min/max values for the AABB algorithm
-        float r1_minX = Mathf.Min(other.topLeftAxis.x, Mathf.Min(other.topRightAxis.x, Mathf.Min(other.botLeftAxis.x, other.botRightAxis.x)));
-        float r1_maxX = Mathf.Max(other.topLeftAxis.x, Mathf.Max(other.topRightAxis.x, Mathf.Max(other.botLeftAxis.x, other.botRightAxis.x)));
-
-        float r2_minX = Mathf.Min(upLeft.x, Mathf.Min(upRight.x, Mathf.Min(botLeft.x, botRight.x)));
-        float r2_maxX = Mathf.Max(upLeft.x, Mathf.Max(upRight.x, Mathf.Max(botLeft.x, botRight.x)));
-
-        float r1_minY = Mathf.Min(other.topLeftAxis.y, Mathf.Min(other.topRightAxis.y, Mathf.Min(other.botLeftAxis.y, other.botRightAxis.y)));
-        float r1_maxY = Mathf.Max(other.topLeftAxis.y, Mathf.Max(other.topRightAxis.y, Mathf.Max(other.botLeftAxis.y, other.botRightAxis.y)));
-
-        float r2_minY = Mathf.Min(upLeft.y, Mathf.Min(upRight.y, Mathf.Min(botLeft.y, botRight.y)));
-        float r2_maxY = Mathf.Max(upLeft.y, Mathf.Max(upRight.y, Mathf.Max(botLeft.y, botRight.y)));
-
-        if (IsIntersectingAABB(r1_minX, r1_maxX, r1_minY, r1_maxY, r2_minX, r2_maxX, r2_minY, r2_maxY))
-        {
-            isIntersecting = true;
-        }
-
-        return isIntersecting;
-
-    }
-
-    public static bool IsIntersectingAABB(float r1_minX, float r1_maxX, float r1_minY, float r1_maxY,float r2_minX, float r2_maxX, float r2_minY, float r2_maxY)
-    {
-        //If the min of one box in one dimension is greater than the max of another box then the boxes are not intersecting
-        //They have to intersect in 2 dimensions. We have to test if box 1 is to the left or box 2 and vice versa
-        bool isIntersecting = true;
-
-        //X axis
-        if (r1_minX > r2_maxX)
-        {
-            isIntersecting = false;
-        }
-        else if (r2_minX > r1_maxX)
-        {
-            isIntersecting = false;
-        }
-        // y Axis
-        else if (r1_minY > r2_maxY)
-        {
-            isIntersecting = false;
-        }
-        else if (r2_minY > r1_maxY)
-        {
-            isIntersecting = false;
-        }
-
-
-        return isIntersecting;
+        return other.TestCollisionVSAABB(this, ref c);
     }
 }
