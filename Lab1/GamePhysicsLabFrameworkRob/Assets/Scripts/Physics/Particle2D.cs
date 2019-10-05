@@ -80,6 +80,11 @@ public class Particle2D : MonoBehaviour
         return mass;
     }
 
+    public float GetInvMass()
+    {
+        return massInv;
+    }
+
     // lab 2 setp 2
     Vector2 force;
     public void AddForce(Vector2 newForce)

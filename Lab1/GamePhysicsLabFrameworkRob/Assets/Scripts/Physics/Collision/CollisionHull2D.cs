@@ -17,23 +17,108 @@ public abstract class CollisionHull2D : MonoBehaviour
         public int contactCount = 0;
         public bool status = false;
 
-        // Vc = (Va - Vb) * (Direction vector a - direction vector b)
+        // Vc = -(Va - Vb) * (Direction vector a - direction vector b)
         public Vector2 closingVelocity;
 
+        
         // Velocity after collision = -(restitution * closing velocity)
         // Contact normal = Direction vector a - direction vector b
         // Impulse (g) = m * v
 
+
         // Contact Resolver Algorithm
-        // 1. Apply impmulses on objects to simulate bouncing apart
+        // 1. Apply impulses on objects to simulate bouncing apart
         // 2. Move objects apart (non-interpenetrating) so they aren't embedded in each other
         // 3. Check if the contact is resting rather than colliding
+        public void ContactResolver(Contact con)
+        {
+            Vector2 separatingVelocity = (a.particle.velocity - b.particle.velocity) * con.normal;
+            // particles are moving away from each other or resting
+            if (separatingVelocity.y >= 0 && separatingVelocity.x >= 0)
+            {
+                return;
+            }
+
+            Vector2 newSeparatingVelocity = -separatingVelocity * con.restitutionCoefficient;
+            Vector2 deltaVelocity = newSeparatingVelocity - separatingVelocity;
+
+            float totalInverseMass = a.particle.GetInvMass() + b.particle.GetInvMass();
+
+            if (totalInverseMass <= 0)
+            {
+                return;
+            }
+
+            Vector2 impulse = deltaVelocity / totalInverseMass;
+
+            // Find the amount of impulse per unit of inverse mass.
+            Vector2 impulsePerIMass = con.normal * impulse;
+            // Apply impulses: they are applied in the direction of the contact, 
+            // and are proportional to the inverse mass. 
+            a.particle.SetVelocityX(a.particle.velocity.x + impulsePerIMass.x * a.particle.GetInvMass());
+            a.particle.SetVelocityY(a.particle.velocity.y + impulsePerIMass.y * a.particle.GetInvMass());
+
+             if (b.particle != null)
+               { 
+                // Particle 1 goes in the opposite direction 
+                b.particle.SetVelocityX(b.particle.velocity.x + impulsePerIMass.x * -b.particle.GetInvMass());
+                b.particle.SetVelocityY(b.particle.velocity.y + impulsePerIMass.y * -b.particle.GetInvMass());
+            }
+        }
+
+        public void ResolveAllContacts()
+        {
+            if (contactCount != 0)
+            {
+                for (int i = 0; i < contactCount; i++)
+                {
+                    ContactResolver(contact[i]);
+                }
+            }
+        }
 
         // Resolution order
         // 1. Calculate the separating velocity of each contact, keeping track of the lowest
         // 2. If the lowest separating velocity is greater than or equal to 0, exit algorithm, they are resting
         // 3. Process the contact resolver for the contact with the lowest separating velocity
         // 4. If there are more contacts, return to step 1
+
+        // Separating Velocity = (Va - Vb) * direction of normal
+        public void OrderContacts()
+        {
+            if (contact != null)
+            {
+                Contact tmp;
+                // Sort through contacts and order them from smallest to largest closing velocity
+                for (int i = 0; i < contactCount - 1; i++)
+                {
+                    Vector2 currentSV = (a.particle.velocity - b.particle.velocity) * contact[i].normal;
+                    Vector2 nextSV = (a.particle.velocity - b.particle.velocity) * contact[i + 1].normal;
+                    if (currentSV.magnitude > nextSV.magnitude)
+                    {
+                        tmp = contact[i];
+                        contact[i] = contact[i + 1];
+                        contact[i + 1] = tmp;
+                        i = -1;
+                    }
+                }
+
+                ResolveAllContacts();
+            }
+
+            //Contact lowestSVContact = contact[0];
+            //Vector2 lowestSV = (a.particle.velocity - b.particle.velocity) * lowestSVContact.normal;
+            //for (int i = 1; i < contact.Length; i++)
+            //{
+            //    Vector2 currentSV = (a.particle.velocity - b.particle.velocity) * contact[i].normal;
+            //    if (currentSV.magnitude < lowestSV.magnitude)
+            //    {
+            //        lowestSV = currentSV;
+            //        lowestSVContact = contact[i];
+            //    }
+            //}
+            //ContactResolver(lowestSVContact);
+        }
 
         // POSSIBLE 2ND METHOD
         // 1. Let the start time be the current simulation time, and the end time be the end
