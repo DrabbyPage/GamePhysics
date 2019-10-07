@@ -51,6 +51,24 @@ public class CircleCollisionHull2D : CollisionHull2D
         // 6. Do the test: distSqr <= sumSqr
         if (distance <= totalRadii)
         {
+            c.a = this;
+            c.b = other;
+            c.status = true;
+            if (distance < totalRadii)
+            {
+                // find the point in the center of the overlap between the two circles
+                c.contactCount = 2;
+                float distanceToContactPoint = ((distance * distance - other.radius * other.radius + radius * radius) / (2 * distance));
+                c.contact[0].point.x = distanceToContactPoint;
+                c.contact[0].point.y = Mathf.Sqrt(radius * radius - distanceToContactPoint);
+                //c.contact[0].normal;
+            }
+            else if (distance == totalRadii)
+            {
+                // Only the edges are contacting
+                c.contactCount = 1;
+                c.contact[0].point = thisCenter + distanceVec.normalized * radius;
+            }
             return true;
         }
 
