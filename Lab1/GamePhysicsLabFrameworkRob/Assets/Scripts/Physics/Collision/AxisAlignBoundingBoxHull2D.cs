@@ -25,6 +25,8 @@ public class AxisAlignBoundingBoxHull2D : CollisionHull2D
         upRight = new Vector2(position.x + width * 0.5f, position.y + height * 0.5f);
         botLeft = new Vector2(position.x - width * 0.5f, position.y - height * 0.5f);
         botRight = new Vector2(position.x + width * 0.5f, position.y - height * 0.5f);
+        c = new Collision();
+        particle = GetComponent<Particle2D>();
     }
 
     // Update is called once per frame

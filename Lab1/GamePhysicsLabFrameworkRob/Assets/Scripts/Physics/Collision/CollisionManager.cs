@@ -25,28 +25,28 @@ public class CollisionManager : MonoBehaviour
             if(particles[i]!= null)
             {
                 currentParticleHull = particles[i].GetComponent<Particle2D>().colHull;
-                for (int j = i + 1; j < particles.Count; j++)
+                for (int j = 0; j < particles.Count; j++)
                 {
-                    if(particles[j] != null )
+                    if(particles[j] != null && particles[j] != particles[i])
                     {
                         otherParticleHull = particles[j].GetComponent<Particle2D>().colHull;
-
                         // Determine which type the second particle is
                         switch (otherParticleHull.type)
                         {
                             // If it's AABB, look for that specific componenet
                             case CollisionHull2D.HULLTYPE.hull_aabb:
-                                checkCollision = currentParticleHull.TestCollisionVSAABB(particles[j].GetComponent<AxisAlignBoundingBoxHull2D>(), ref particles[j].GetComponent<AxisAlignBoundingBoxHull2D>().c);
+                                checkCollision = currentParticleHull.TestCollisionVSAABB(particles[j].GetComponent<AxisAlignBoundingBoxHull2D>(), ref particles[i].GetComponent<AxisAlignBoundingBoxHull2D>().c);
                                 Debug.Log("AABB Success");
                                 break;
                             // If it's circle, look for that specific componenet
                             case CollisionHull2D.HULLTYPE.hull_circle:
-                                checkCollision = currentParticleHull.TestCollisionVSCircle(particles[j].GetComponent<CircleCollisionHull2D>(), ref particles[j].GetComponent<CircleCollisionHull2D>().c);
+                                
+                                checkCollision = currentParticleHull.TestCollisionVSCircle(particles[j].GetComponent<CircleCollisionHull2D>(), ref particles[i].GetComponent<CircleCollisionHull2D>().c);
                                 Debug.Log("cirlce Success");
                                 break;
                             // If it's OBB, look for that specific componenet
                             case CollisionHull2D.HULLTYPE.hull_obb:
-                                checkCollision = currentParticleHull.TestCollisionVSOBB(particles[j].GetComponent<ObjectBoundingBoxHull2D>(), ref particles[j].GetComponent<ObjectBoundingBoxHull2D>().c);
+                                checkCollision = currentParticleHull.TestCollisionVSOBB(particles[j].GetComponent<ObjectBoundingBoxHull2D>(), ref particles[i].GetComponent<ObjectBoundingBoxHull2D>().c);
                                 Debug.Log("OBB Success");
                                 break;
                         }
@@ -72,6 +72,8 @@ public class CollisionManager : MonoBehaviour
                 if (currentParticleHull.colliding)
                 {
                     currentParticleHull.gameObject.GetComponent<Renderer>().material.color = Color.red;
+                    currentParticleHull.c.OrderContacts();
+                    currentParticleHull.c.ResolveAllContacts();
                 }
                 else 
                 {

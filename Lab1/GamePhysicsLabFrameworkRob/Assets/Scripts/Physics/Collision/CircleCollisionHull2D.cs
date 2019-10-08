@@ -14,6 +14,8 @@ public class CircleCollisionHull2D : CollisionHull2D
     void Start()
     {
         thisCenter = new Vector2(transform.position.x, transform.position.y);
+        c = new Collision();
+        particle = GetComponent<Particle2D>();
     }
 
     // Update is called once per frame
@@ -54,20 +56,20 @@ public class CircleCollisionHull2D : CollisionHull2D
             c.a = this;
             c.b = other;
             c.status = true;
-            if (distance < totalRadii)
+            
+            if (distance <= totalRadii)
             {
+                float theta = Mathf.Atan2(distanceVec.y, distanceVec.x);
                 // find the point in the center of the overlap between the two circles
-                c.contactCount = 2;
-                float distanceToContactPoint = ((distance * distance - other.radius * other.radius + radius * radius) / (2 * distance));
-                c.contact[0].point.x = distanceToContactPoint;
-                c.contact[0].point.y = Mathf.Sqrt(radius * radius - distanceToContactPoint);
-                //c.contact[0].normal;
-            }
-            else if (distance == totalRadii)
-            {
-                // Only the edges are contacting
                 c.contactCount = 1;
-                c.contact[0].point = thisCenter + distanceVec.normalized * radius;
+                float distanceToContactPoint = ((distance * distance - other.radius * other.radius + radius * radius) / (2 * distance));
+                c.contact[0].point.x = thisCenter.x + Mathf.Cos(theta) * distanceToContactPoint;
+                // if broken, put in abs inside of sqrt
+                c.contact[0].point.y = thisCenter.y + Mathf.Sin(theta) * distanceToContactPoint;
+                c.contact[0].normal = thisCenter - c.contact[0].point;
+                c.contact[0].normal.Normalize();
+                Debug.DrawLine(thisCenter, thisCenter + c.contact[0].normal);
+                c.contact[0].restitutionCoefficient = restitution;
             }
             return true;
         }

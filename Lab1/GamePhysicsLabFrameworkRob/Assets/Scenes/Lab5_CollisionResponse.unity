@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliding: 0
+  restitution: 0
   radius: 0.5
   thisCenter: {x: 0, y: 0}
 --- !u!114 &570077337
@@ -298,12 +299,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colHull: {fileID: 699126731}
   position: {x: 0, y: 0}
-  velocity: {x: 0, y: 0}
+  velocity: {x: 0, y: 0.1}
   acceleration: {x: 0, y: 0}
   rotation: 0
   angularVelocity: 0
   angularAcceleration: 0
-  startingMass: 0.1
+  startingMass: 1
   surfaceNormal_unit: {x: 0, y: 1}
   frictionOpposingForce: {x: 0, y: 0}
   frictionCoeff_static: 0.5
@@ -322,7 +323,7 @@ MonoBehaviour:
   generateKineticFriction: 0
   generateDrag: 0
   generateSpring: 0
-  basicForce: {x: 0.05, y: 0}
+  basicForce: {x: 0, y: 0}
   momentOfInertia: 0
   invInertia: 0
   objType: 0
@@ -389,7 +390,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 570077335}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.34, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -428,6 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliding: 0
+  restitution: 0
   radius: 0.5
   thisCenter: {x: 0, y: 0}
 --- !u!114 &699126732
@@ -444,12 +446,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colHull: {fileID: 699126731}
   position: {x: 0, y: 0}
-  velocity: {x: 0, y: 0}
+  velocity: {x: 0, y: -1}
   acceleration: {x: 0, y: 0}
   rotation: 0
   angularVelocity: 0
   angularAcceleration: 0
-  startingMass: 0.1
+  startingMass: 10
   surfaceNormal_unit: {x: 0, y: 1}
   frictionOpposingForce: {x: 0, y: 0}
   frictionCoeff_static: 0.5
@@ -468,7 +470,7 @@ MonoBehaviour:
   generateKineticFriction: 0
   generateDrag: 0
   generateSpring: 0
-  basicForce: {x: -0.05, y: 0}
+  basicForce: {x: 0, y: 0}
   momentOfInertia: 0
   invInertia: 0
   objType: 0
@@ -535,7 +537,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 699126730}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.943, y: 0, z: 0}
+  m_LocalPosition: {x: -2.34, y: 2.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

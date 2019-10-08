@@ -20,7 +20,11 @@ public abstract class CollisionHull2D : MonoBehaviour
         // Vc = -(Va - Vb) * (Direction vector a - direction vector b)
         public Vector2 closingVelocity;
 
-        
+        public Collision()
+        { 
+            
+        }
+
         // Velocity after collision = -(restitution * closing velocity)
         // Contact normal = Direction vector a - direction vector b
         // Impulse (g) = m * v
@@ -33,6 +37,7 @@ public abstract class CollisionHull2D : MonoBehaviour
         public void ContactResolver(Contact con)
         {
             Vector2 separatingVelocity = (a.particle.velocity - b.particle.velocity) * con.normal;
+            //Debug.Log(separatingVelocity);
             // particles are moving away from each other or resting
             if (separatingVelocity.y >= 0 && separatingVelocity.x >= 0)
             {
@@ -41,8 +46,10 @@ public abstract class CollisionHull2D : MonoBehaviour
 
             Vector2 newSeparatingVelocity = -separatingVelocity * con.restitutionCoefficient;
             Vector2 deltaVelocity = newSeparatingVelocity - separatingVelocity;
-
+            //Debug.Log("Delta Velocity " + deltaVelocity);
+            
             float totalInverseMass = a.particle.GetInvMass() + b.particle.GetInvMass();
+            //Debug.Log("Total Inverse Mass " + totalInverseMass);
 
             if (totalInverseMass <= 0)
             {
@@ -50,19 +57,25 @@ public abstract class CollisionHull2D : MonoBehaviour
             }
 
             Vector2 impulse = deltaVelocity / totalInverseMass;
+            //Debug.Log("Impulse" + impulse);
 
             // Find the amount of impulse per unit of inverse mass.
             Vector2 impulsePerIMass = con.normal * impulse;
+            //Debug.Log("Normal " + con.normal);
             // Apply impulses: they are applied in the direction of the contact, 
             // and are proportional to the inverse mass. 
-            a.particle.SetVelocityX(a.particle.velocity.x + impulsePerIMass.x * a.particle.GetInvMass());
-            a.particle.SetVelocityY(a.particle.velocity.y + impulsePerIMass.y * a.particle.GetInvMass());
+            //Debug.Log(impulse);
+            //Debug.Log("impulse per IMass" + impulsePerIMass);
+            //Debug.Log("New Particle Velocity " + a.particle.velocity.x + impulsePerIMass.x * a.particle.GetInvMass());
+
+            a.particle.SetVelocityX(a.particle.velocity.x * impulsePerIMass.x * a.particle.GetInvMass());
+            a.particle.SetVelocityY(a.particle.velocity.y * impulsePerIMass.y * a.particle.GetInvMass());
 
              if (b.particle != null)
                { 
                 // Particle 1 goes in the opposite direction 
-                b.particle.SetVelocityX(b.particle.velocity.x + impulsePerIMass.x * -b.particle.GetInvMass());
-                b.particle.SetVelocityY(b.particle.velocity.y + impulsePerIMass.y * -b.particle.GetInvMass());
+                b.particle.SetVelocityX(b.particle.velocity.x * impulsePerIMass.x * b.particle.GetInvMass());
+                b.particle.SetVelocityY(b.particle.velocity.y * impulsePerIMass.y * b.particle.GetInvMass());
             }
         }
 
@@ -89,10 +102,16 @@ public abstract class CollisionHull2D : MonoBehaviour
             if (contact != null)
             {
                 Contact tmp;
+                Debug.Log("Contact Count " + contactCount);
                 // Sort through contacts and order them from smallest to largest closing velocity
                 for (int i = 0; i < contactCount - 1; i++)
                 {
+                    //Debug.Log("Contact normal:" + contact[i].normal);
+                    //Debug.Log("Contact point:" + contact[i].point);
+                    //Debug.Log("a velocity: " + a.particle.velocity);
+                    //Debug.Log("b velocity: " + b.particle.velocity);
                     Vector2 currentSV = (a.particle.velocity - b.particle.velocity) * contact[i].normal;
+                    //Debug.Log("CurrentSV" + currentSV);
                     Vector2 nextSV = (a.particle.velocity - b.particle.velocity) * contact[i + 1].normal;
                     if (currentSV.magnitude > nextSV.magnitude)
                     {
@@ -156,12 +175,15 @@ public abstract class CollisionHull2D : MonoBehaviour
     protected Particle2D particle;
     public Collision c;
     public bool colliding = false;
+    [SerializeField]
+    public float restitution = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
         particle = GetComponent<Particle2D>();
-
+        c = new Collision();
+        Debug.Log(c);
         
     }
 

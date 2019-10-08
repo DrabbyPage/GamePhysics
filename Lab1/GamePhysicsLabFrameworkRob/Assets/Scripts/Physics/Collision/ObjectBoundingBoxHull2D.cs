@@ -27,6 +27,8 @@ public class ObjectBoundingBoxHull2D : CollisionHull2D
         topRightAxis = position + (Vector2)(transform.up * (height  * 0.5f) + transform.right * (width  * 0.5f));
         botLeftAxis = position + (Vector2)(-transform.up * (height  * 0.5f) - transform.right * (width  * 0.5f));
         botRightAxis = position + (Vector2)(transform.right * (width  * 0.5f) - transform.up * (height  * 0.5f));
+        c = new Collision();
+        particle = GetComponent<Particle2D>();
     }
 
     // Update is called once per frame
