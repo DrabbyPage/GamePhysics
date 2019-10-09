@@ -67,6 +67,7 @@ public class ForceGenerator
 
         f_drag = objectDragCoefficient * (fluidDensity * (velDiff) * (velDiffMag) * 0.5f) * objectArea_crossSection;
 
+        Debug.Log("Drag Force: " + f_drag);
         return f_drag;
     }
 

@@ -93,10 +93,16 @@ public class Particle2D : MonoBehaviour
         force += newForce;
     }
 
+    public void AddRotationForce(Vector2 newRotForce)
+    {
+        angForce += newRotForce;
+    }
+
     void UpdateAcceleration()
     {
         // Newton 2
         acceleration = massInv * force;
+        //Debug.Log("Force: " + force);
 
         force.Set(0.0f, 0.0f);
     }
@@ -189,7 +195,7 @@ public class Particle2D : MonoBehaviour
 
         //apply to transform
         transform.position = position;
-        // transform.eulerAngles = new Vector3(0, 0, rotation);
+        transform.eulerAngles = new Vector3(0, 0, rotation);
 
         // lab 1 Step 4
         //test
