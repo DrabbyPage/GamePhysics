@@ -1,0 +1,151 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &303705713813911729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 303705713813911740}
+  - component: {fileID: 303705713813911731}
+  - component: {fileID: 303705713813911730}
+  - component: {fileID: 1891428278727978940}
+  m_Layer: 0
+  m_Name: Asteroid
+  m_TagString: Asteroid
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &303705713813911740
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303705713813911729}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.425119, y: 0.27136573, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &303705713813911731
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303705713813911729}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: a6dd2acdda9c12f42819cfe7a2ecb5e7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.2, y: 0.2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &303705713813911730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303705713813911729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a70e213da4fbbc4cab2ded00da66261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliding: 0
+  restitution: 0
+  radius: 0.5
+  thisCenter: {x: 0, y: 0}
+--- !u!114 &1891428278727978940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303705713813911729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c073e8a5951014a8afe7eb041e81d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colHull: {fileID: 303705713813911730}
+  position: {x: 0, y: 0}
+  velocity: {x: 0, y: 0}
+  acceleration: {x: 0, y: 0}
+  rotation: 0
+  angularVelocity: 0
+  angularAcceleration: 0
+  startingMass: 1
+  surfaceNormal_unit: {x: 0, y: 1}
+  frictionOpposingForce: {x: 0, y: 0}
+  frictionCoeff_static: 0.5
+  frictionCoeff_kinetic: 0.5
+  fluidVelocity: {x: 0, y: 0}
+  fluidDensity: 1
+  objArea_CrossSection: 3
+  objDragCoeff: 0.5
+  anchorPos: {x: 0, y: 0}
+  springRestingLength: 2
+  springStiffnesCoeff: 5
+  generateGravity: 0
+  generateNormal: 0
+  generateSliding: 0
+  generateStaticsFriction: 0
+  generateKineticFriction: 0
+  generateDrag: 0
+  generateSpring: 0
+  basicForce: {x: 0, y: 0}
+  momentOfInertia: 0
+  invInertia: 0
+  objType: 0
+  diskRadius: 0.5
+  ringOuterRadius: 0
+  ringInnerRadius: 0
+  rectHeight: 0
+  rectWidth: 0
+  rodLength: 0
+  torque: 0
+  pointOfAppliedForce: {x: 0, y: 0}
+  angForce: {x: 0, y: 0}

@@ -8,6 +8,8 @@ public class SpaceshipManagerScript : MonoBehaviour
     public Vector2 rotationThrusterStrength;
     public Vector2 rotationDrag;
     public Vector2 linearThrusterStrength;
+    public int collisions = 0;
+    public GameObject gameOverText;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,15 @@ public class SpaceshipManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetInput();
+        if (collisions < 3)
+        {
+            GetInput();
+        }
+        else
+        {
+            //Game over
+            gameOverText.SetActive(true);
+        }
     }
 
     void GetInput()

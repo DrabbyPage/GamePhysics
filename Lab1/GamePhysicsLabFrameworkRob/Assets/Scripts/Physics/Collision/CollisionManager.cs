@@ -56,6 +56,14 @@ public class CollisionManager : MonoBehaviour
                         {
                             currentParticleHull.colliding = true;
                             otherParticleHull.colliding = true;
+                            if (currentParticleHull.gameObject.tag == "spaceship")
+                            {
+                                currentParticleHull.gameObject.GetComponent<SpaceshipManagerScript>().collisions += 1;
+                            }
+                            if (otherParticleHull.gameObject.tag == "spaceship")
+                            {
+                                otherParticleHull.gameObject.GetComponent<SpaceshipManagerScript>().collisions += 1;
+                            }
                         }
                     }
                     
