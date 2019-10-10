@@ -13,7 +13,7 @@ public class CollisionManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         CollisionHull2D currentParticleHull, otherParticleHull;
         bool checkCollision = false;
