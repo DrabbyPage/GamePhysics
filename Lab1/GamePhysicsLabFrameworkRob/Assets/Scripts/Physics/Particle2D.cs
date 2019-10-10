@@ -337,6 +337,16 @@ public class Particle2D : MonoBehaviour
     #endregion
 
     #region manipulators
+    public void SetPositionX(float newX)
+    {
+        position.x = newX;
+    }
+
+    public void SetPositionY(float newY)
+    {
+        position.y = newY;
+    }
+
     public void SetVelocityX(float newVel)
     {
         velocity.x = newVel;

@@ -63,6 +63,7 @@ public class CircleCollisionHull2D : CollisionHull2D
                 // find the point in the center of the overlap between the two circles
                 c.contactCount = 1;
                 float distanceToContactPoint = ((distance * distance - other.radius * other.radius + radius * radius) / (2 * distance));
+                c.contact[0].penetration = radius - distanceToContactPoint;
                 c.contact[0].point.x = thisCenter.x + Mathf.Cos(theta) * distanceToContactPoint;
                 // if broken, put in abs inside of sqrt
                 c.contact[0].point.y = thisCenter.y + Mathf.Sin(theta) * distanceToContactPoint;
