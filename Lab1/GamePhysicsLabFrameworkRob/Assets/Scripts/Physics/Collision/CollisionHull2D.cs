@@ -68,14 +68,14 @@ public abstract class CollisionHull2D : MonoBehaviour
             //Debug.Log("impulse per IMass" + impulsePerIMass);
             //Debug.Log("New Particle Velocity " + a.particle.velocity.x + impulsePerIMass.x * a.particle.GetInvMass());
 
-            a.particle.SetVelocityX(a.particle.velocity.x * impulsePerIMass.x * a.particle.GetInvMass());
-            a.particle.SetVelocityY(a.particle.velocity.y * impulsePerIMass.y * a.particle.GetInvMass());
+            a.particle.SetVelocityX((a.particle.velocity.x+ b.particle.velocity.x) * impulsePerIMass.x * a.particle.GetInvMass());
+            a.particle.SetVelocityY((a.particle.velocity.y+ b.particle.velocity.y) * impulsePerIMass.y * a.particle.GetInvMass());
 
              if (b.particle != null)
-               { 
+               {
                 // Particle 1 goes in the opposite direction 
-                b.particle.SetVelocityX(b.particle.velocity.x * impulsePerIMass.x * b.particle.GetInvMass());
-                b.particle.SetVelocityY(b.particle.velocity.y * impulsePerIMass.y * b.particle.GetInvMass());
+                b.particle.SetVelocityX((b.particle.velocity.x + a.particle.velocity.x) * impulsePerIMass.x * b.particle.GetInvMass());
+                b.particle.SetVelocityY((b.particle.velocity.y + a.particle.velocity.y) * impulsePerIMass.y * b.particle.GetInvMass());
             }
         }
 
