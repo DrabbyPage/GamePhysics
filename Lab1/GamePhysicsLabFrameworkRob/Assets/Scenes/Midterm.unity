@@ -452,7 +452,6 @@ GameObject:
   - component: {fileID: 1041680883}
   - component: {fileID: 1041680882}
   - component: {fileID: 1041680881}
-  - component: {fileID: 1041680880}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -460,19 +459,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &1041680880
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1041680879}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1041680881
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -577,8 +563,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1135084343}
   - component: {fileID: 1135084342}
-  - component: {fileID: 1135084344}
   - component: {fileID: 1135084346}
+  - component: {fileID: 1135084344}
   - component: {fileID: 1135084345}
   m_Layer: 0
   m_Name: Spaceship
@@ -644,7 +630,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135084341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: -2.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -680,7 +666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationThrusterStrength: {x: 0.1, y: 0}
   rotationDrag: {x: 0, y: 0}
-  linearThrusterStrength: {x: 1, y: 0}
+  linearThrusterStrength: {x: 1.4, y: 0}
   collisions: 0
   gameOverText: {fileID: 2138461263}
 --- !u!114 &1135084346
@@ -786,8 +772,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 12.757199
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

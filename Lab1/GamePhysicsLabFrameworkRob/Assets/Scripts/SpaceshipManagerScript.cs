@@ -21,6 +21,8 @@ public class SpaceshipManagerScript : MonoBehaviour
     {
         if (collisions < 3)
         {
+            CheckPos();
+
             GetInput();
         }
         else
@@ -36,24 +38,24 @@ public class SpaceshipManagerScript : MonoBehaviour
         {
             //particle.AddForce()
             Debug.Log("Rear Thruster");
-            Vector2 angledThrust = new Vector2(linearThrusterStrength.x * Mathf.Cos(particle.rotation), linearThrusterStrength.y * Mathf.Sin(particle.rotation));
+            Vector2 angledThrust = (Vector2)transform.up *linearThrusterStrength.magnitude;
             particle.AddForce(angledThrust);
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            Vector2 angledThrust = new Vector2(-linearThrusterStrength.x * Mathf.Cos(Mathf.Rad2Deg * particle.rotation), linearThrusterStrength.y * Mathf.Sin(Mathf.Rad2Deg * particle.rotation));
+            Vector2 angledThrust = -(Vector2)transform.up*linearThrusterStrength.magnitude;
             particle.AddForce(angledThrust);
             Debug.Log("Forward Thruster");
         }
 
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
         {
-            if (Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Debug.Log("Port Thruster");
                 particle.AddRotationForce(-rotationThrusterStrength);
             }
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.RightArrow))
             {
                 Debug.Log("Starboard Thruster");
                 particle.AddRotationForce(rotationThrusterStrength);
@@ -64,5 +66,14 @@ public class SpaceshipManagerScript : MonoBehaviour
             particle.AddRotationForce(-0.5f * particle.angForce);
             particle.angularVelocity *= 0.95f;
         }
+    }
+
+    void CheckPos()
+    {
+        if (transform.position.y > 11 || transform.position.y < -11 || transform.position.x > -31 || transform.position.x < -80)
+        {
+            gameOverText.SetActive(true);
+        }
+
     }
 }

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 303705713813911740}
   - component: {fileID: 303705713813911731}
-  - component: {fileID: 303705713813911730}
   - component: {fileID: 1891428278727978940}
+  - component: {fileID: 303705713813911730}
   m_Layer: 0
   m_Name: Asteroid
   m_TagString: Asteroid
@@ -82,22 +82,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &303705713813911730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 303705713813911729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a70e213da4fbbc4cab2ded00da66261, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colliding: 0
-  restitution: 0
-  radius: 0.5
-  thisCenter: {x: 0, y: 0}
 --- !u!114 &1891428278727978940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,7 +101,7 @@ MonoBehaviour:
   rotation: 0
   angularVelocity: 0
   angularAcceleration: 0
-  startingMass: 1
+  startingMass: 5
   surfaceNormal_unit: {x: 0, y: 1}
   frictionOpposingForce: {x: 0, y: 0}
   frictionCoeff_static: 0.5
@@ -149,3 +133,19 @@ MonoBehaviour:
   torque: 0
   pointOfAppliedForce: {x: 0, y: 0}
   angForce: {x: 0, y: 0}
+--- !u!114 &303705713813911730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303705713813911729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a70e213da4fbbc4cab2ded00da66261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliding: 0
+  restitution: 0
+  radius: 0.5
+  thisCenter: {x: 0, y: 0}

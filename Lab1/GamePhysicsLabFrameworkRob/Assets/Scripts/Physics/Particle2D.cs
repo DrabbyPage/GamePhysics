@@ -65,7 +65,7 @@ public class Particle2D : MonoBehaviour
 
     // Lab 3 step 2
     public float torque;
-    public Vector2 pointOfAppliedForce;
+    public Vector2 pointOfAppliedForce = (Vector2)Vector3.up;
     public Vector2 angForce;
 
     public void SetMass(float newMass)
@@ -187,7 +187,7 @@ public class Particle2D : MonoBehaviour
         // }
 
         // hard code all scenarios for the forces
-        UpdateInput();
+        // UpdateInput();
 
         UpdateForce();
 
@@ -195,8 +195,8 @@ public class Particle2D : MonoBehaviour
 
         //apply to transform
         transform.position = position;
-        transform.eulerAngles = new Vector3(0, 0, rotation);
-
+        //transform.eulerAngles = new Vector3(0, 0, rotation);
+        transform.rotation = Quaternion.Euler(0, 0, rotation);
         // lab 1 Step 4
         //test
         //acceleration.x = -Mathf.Sin(Time.fixedTime);
@@ -207,7 +207,11 @@ public class Particle2D : MonoBehaviour
 
         UpdateAngAcc();
 
+        pointOfAppliedForce = (Vector2)(transform.position+ Vector3.up);
+
         ApplyTorque(pointOfAppliedForce, angForce);
+
+        rotation = rotation % 360;
     }
 
     void UpdateForce()

@@ -53,7 +53,7 @@ public class CircleCollisionHull2D : CollisionHull2D
         // 6. Do the test: distSqr <= sumSqr
         if (distance <= totalRadii)
         {
-            c.a = this;
+            c.a = gameObject.GetComponent<CircleCollisionHull2D>();
             c.b = other;
             c.status = true;
             
