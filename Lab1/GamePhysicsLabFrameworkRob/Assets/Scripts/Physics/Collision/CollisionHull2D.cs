@@ -37,47 +37,50 @@ public abstract class CollisionHull2D : MonoBehaviour
         // 3. Check if the contact is resting rather than colliding
         public void ContactResolver(Contact con)
         {
-            Vector2 separatingVelocity = (a.particle.velocity - b.particle.velocity) * con.normal;
-            //Debug.Log(separatingVelocity);
-            // particles are moving away from each other or resting
-            if (separatingVelocity.y > 0 && separatingVelocity.x > 0)
+            //Vector2 velDiff = a.particle.velocity - b.particle.velocity;
+
+            float xVelDiff = a.particle.velocity.x - b.particle.velocity.x;
+            float yVelDiff = a.particle.velocity.y - b.particle.velocity.y;
+
+            float distX = b.particle.position.x - a.particle.position.x;
+            float distY = b.particle.position.y - a.particle.position.y;
+
+            Debug.Log(xVelDiff * distX + yVelDiff * distY);
+
+            if(xVelDiff * distX + yVelDiff * distY >= 0)
             {
-                return;
+                float angle = -Mathf.Atan2(yVelDiff, xVelDiff) * Mathf.Rad2Deg;
+
+                float massA = a.particle.GetMass();
+                float massB = b.particle.GetMass();
+
+                // float magVelA = a.particle.velocity.magnitude;
+                // float origRotA = a.particle.rotation * Mathf.Deg2Rad;
+                // 
+                // float magVelB = b.particle.velocity.magnitude;
+                // float origRotB = b.particle.rotation * Mathf.Deg2Rad;
+
+                // https://matthew-brett.github.io/teaching/rotation_2d.html
+                // Vector2 origVelA = new Vector2(magVelA * Mathf.Cos(origRotA + angle), magVelA * Mathf.Sin(origRotA + angle));
+                // Vector2 origVelB = new Vector2(magVelB * Mathf.Cos(origRotB + angle), magVelB * Mathf.Sin(origRotB + angle));
+
+                Vector2 rotatedVectorA = Quaternion.Euler(0, 0, angle) * a.particle.velocity;
+                Vector2 rotatedVectorB = Quaternion.Euler(0, 0, angle) * b.particle.velocity;
+
+                Debug.Log("we here");
+
+                Vector2 newVelA = new Vector2(rotatedVectorA.x * (massA - massB) / (massA + massB) + rotatedVectorB.x * 2 * massB / (massA + massB), rotatedVectorA.y);
+                Vector2 newVelB = new Vector2(rotatedVectorB.x * (massA - massB) / (massA + massB) + rotatedVectorA.x * 2 * massB / (massA + massB), rotatedVectorB.y);
+
+                Vector2 finalVelA = Quaternion.Euler(0, 0, -angle) * newVelA;
+                Vector2 finalVelB = Quaternion.Euler(0, 0, -angle) * newVelB;
+
+                a.particle.SetVelocityX(finalVelA.x);
+                a.particle.SetVelocityY(finalVelA.y);
+
+                b.particle.SetVelocityX(finalVelB.x);
+                b.particle.SetVelocityY(finalVelB.y);
             }
-
-            Vector2 newSeparatingVelocity = -separatingVelocity * con.restitutionCoefficient;
-            Vector2 deltaVelocity = newSeparatingVelocity - separatingVelocity;
-            //Debug.Log("Delta Velocity " + deltaVelocity);
-            
-            float totalInverseMass = a.particle.GetInvMass() + b.particle.GetInvMass();
-            //Debug.Log("Total Inverse Mass " + totalInverseMass);
-
-            if (totalInverseMass <= 0)
-            {
-                return;
-            }
-
-            Vector2 impulse = deltaVelocity / totalInverseMass;
-            //Debug.Log("Impulse" + impulse);
-
-            // Find the amount of impulse per unit of inverse mass.
-            Vector2 impulsePerIMass = con.normal * impulse;
-            //Debug.Log("Normal " + con.normal);
-            // Apply impulses: they are applied in the direction of the contact, 
-            // and are proportional to the inverse mass. 
-            //Debug.Log(impulse);
-            //Debug.Log("impulse per IMass" + impulsePerIMass);
-            //Debug.Log("New Particle Velocity " + a.particle.velocity.x + impulsePerIMass.x * a.particle.GetInvMass());
-
-            a.particle.SetVelocityX(a.particle.velocity.x + impulsePerIMass.x * a.particle.GetInvMass());
-            a.particle.SetVelocityY(a.particle.velocity.y + impulsePerIMass.y * a.particle.GetInvMass());
-
-             if (b.particle != null)
-             {
-                // Particle 1 goes in the opposite direction 
-                b.particle.SetVelocityX(b.particle.velocity.x + impulsePerIMass.x * -b.particle.GetInvMass());
-                b.particle.SetVelocityY(b.particle.velocity.y + impulsePerIMass.y * -b.particle.GetInvMass());
-             }
 
             resolveInterpenetration(con);
         }
@@ -85,7 +88,7 @@ public abstract class CollisionHull2D : MonoBehaviour
         public void resolveInterpenetration(Contact con)
         {
             Vector2[] particleMovement = new Vector2[2];
-            Debug.Log(con.penetration);
+            //Debug.Log(con.penetration);
             if (con.penetration <= 0)
             {
                 return;
@@ -101,7 +104,6 @@ public abstract class CollisionHull2D : MonoBehaviour
             particleMovement[0] = movementPerIMass * a.particle.GetInvMass();
             particleMovement[1] = movementPerIMass * -b.particle.GetInvMass();
 
-            Debug.Log(particleMovement[0]);
             a.particle.SetPositionX(a.transform.position.x + particleMovement[0].x);
             a.particle.SetPositionY(a.transform.position.y + particleMovement[0].y);
             b.particle.SetPositionX(b.transform.position.x + particleMovement[1].x);
