@@ -10,6 +10,7 @@ public class SpaceshipManagerScript : MonoBehaviour
     public Vector2 linearThrusterStrength;
     public int collisions = 0;
     public GameObject gameOverText;
+    public TimerScript timerScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,7 @@ public class SpaceshipManagerScript : MonoBehaviour
         else
         {
             //Game over
+            timerScript.spaceshipAlive = false;
             gameOverText.SetActive(true);
         }
     }
@@ -73,6 +75,7 @@ public class SpaceshipManagerScript : MonoBehaviour
         if (transform.position.y > 11 || transform.position.y < -11 || transform.position.x > -31 || transform.position.x < -80)
         {
             gameOverText.SetActive(true);
+            timerScript.spaceshipAlive = false;
         }
 
     }
