@@ -6,7 +6,7 @@ public class SpaceshipManagerScript : MonoBehaviour
 {
     Particle2D particle;
     public Vector2 rotationThrusterStrength;
-    public Vector2 rotationDrag;
+    //public Vector2 rotationDrag;
     public Vector2 linearThrusterStrength;
     public int collisions = 0;
     public GameObject gameOverText;
@@ -67,6 +67,7 @@ public class SpaceshipManagerScript : MonoBehaviour
         {
             particle.AddRotationForce(-0.5f * particle.angForce);
             particle.angularVelocity *= 0.95f;
+            particle.velocity *= 0.95f;
         }
     }
 

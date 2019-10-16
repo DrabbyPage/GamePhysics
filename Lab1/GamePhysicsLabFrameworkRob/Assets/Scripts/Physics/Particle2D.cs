@@ -63,6 +63,8 @@ public class Particle2D : MonoBehaviour
     public float rectWidth;
     public float rodLength;
 
+    public Vector2 force;
+
     // Lab 3 step 2
     public float torque;
     public Vector2 pointOfAppliedForce = (Vector2)Vector3.up;
@@ -86,7 +88,7 @@ public class Particle2D : MonoBehaviour
     }
 
     // lab 2 setp 2
-    Vector2 force;
+    
     public void AddForce(Vector2 newForce)
     {
         // D'Alembert

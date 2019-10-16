@@ -759,8 +759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationThrusterStrength: {x: 0.1, y: 0}
-  rotationDrag: {x: 0, y: 0}
-  linearThrusterStrength: {x: 1.4, y: 0}
+  linearThrusterStrength: {x: 10, y: 0}
   collisions: 0
   gameOverText: {fileID: 2138461263}
   timerScript: {fileID: 79390892}
@@ -812,6 +811,7 @@ MonoBehaviour:
   rectHeight: 0
   rectWidth: 0
   rodLength: 0
+  force: {x: 0, y: 0}
   torque: 0
   pointOfAppliedForce: {x: 0, y: 0}
   angForce: {x: 0, y: 0}
