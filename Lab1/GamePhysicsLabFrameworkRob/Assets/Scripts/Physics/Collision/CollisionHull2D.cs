@@ -45,8 +45,6 @@ public abstract class CollisionHull2D : MonoBehaviour
             float distX = b.particle.position.x - a.particle.position.x;
             float distY = b.particle.position.y - a.particle.position.y;
 
-            Debug.Log(xVelDiff * distX + yVelDiff * distY);
-
             if(xVelDiff * distX + yVelDiff * distY >= 0)
             {
                 float angle = -Mathf.Atan2(yVelDiff, xVelDiff) * Mathf.Rad2Deg;
@@ -67,8 +65,6 @@ public abstract class CollisionHull2D : MonoBehaviour
                 Vector2 rotatedVectorA = Quaternion.Euler(0, 0, angle) * a.particle.velocity;
                 Vector2 rotatedVectorB = Quaternion.Euler(0, 0, angle) * b.particle.velocity;
 
-                Debug.Log("we here");
-
                 Vector2 newVelA = new Vector2(rotatedVectorA.x * (massA - massB) / (massA + massB) + rotatedVectorB.x * 2 * massB / (massA + massB), rotatedVectorA.y);
                 Vector2 newVelB = new Vector2(rotatedVectorB.x * (massA - massB) / (massA + massB) + rotatedVectorA.x * 2 * massB / (massA + massB), rotatedVectorB.y);
 
@@ -88,7 +84,7 @@ public abstract class CollisionHull2D : MonoBehaviour
         public void resolveInterpenetration(Contact con)
         {
             Vector2[] particleMovement = new Vector2[2];
-            //Debug.Log(con.penetration);
+
             if (con.penetration <= 0)
             {
                 return;
@@ -137,12 +133,8 @@ public abstract class CollisionHull2D : MonoBehaviour
                 // Sort through contacts and order them from smallest to largest closing velocity
                 for (int i = 0; i < contactCount - 1; i++)
                 {
-                    //Debug.Log("Contact normal:" + contact[i].normal);
-                    //Debug.Log("Contact point:" + contact[i].point);
-                    //Debug.Log("a velocity: " + a.particle.velocity);
-                    //Debug.Log("b velocity: " + b.particle.velocity);
                     Vector2 currentSV = (a.particle.velocity - b.particle.velocity) * contact[i].normal;
-                    //Debug.Log("CurrentSV" + currentSV);
+
                     Vector2 nextSV = (a.particle.velocity - b.particle.velocity) * contact[i + 1].normal;
                     if (currentSV.magnitude > nextSV.magnitude)
                     {
@@ -156,18 +148,6 @@ public abstract class CollisionHull2D : MonoBehaviour
                 ResolveAllContacts();
             }
 
-            //Contact lowestSVContact = contact[0];
-            //Vector2 lowestSV = (a.particle.velocity - b.particle.velocity) * lowestSVContact.normal;
-            //for (int i = 1; i < contact.Length; i++)
-            //{
-            //    Vector2 currentSV = (a.particle.velocity - b.particle.velocity) * contact[i].normal;
-            //    if (currentSV.magnitude < lowestSV.magnitude)
-            //    {
-            //        lowestSV = currentSV;
-            //        lowestSVContact = contact[i];
-            //    }
-            //}
-            //ContactResolver(lowestSVContact);
         }
 
         // POSSIBLE 2ND METHOD
