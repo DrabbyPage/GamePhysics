@@ -22,8 +22,8 @@ public abstract class CollisionHull2D : MonoBehaviour
         public Vector2 closingVelocity;
 
         public Collision()
-        { 
-            
+        {
+
         }
 
         // Velocity after collision = -(restitution * closing velocity)
@@ -45,11 +45,8 @@ public abstract class CollisionHull2D : MonoBehaviour
             float distX = b.particle.position.x - a.particle.position.x;
             float distY = b.particle.position.y - a.particle.position.y;
 
-<<<<<<< HEAD
             //Debug.Log(xVelDiff * distX + yVelDiff * distY);
 
-=======
->>>>>>> 4f16dddb454ed18c3eb2c77faae9a6a883e88d27
             if(xVelDiff * distX + yVelDiff * distY >= 0)
             {
                 float angle = -Mathf.Atan2(yVelDiff, xVelDiff) * Mathf.Rad2Deg;
@@ -59,7 +56,7 @@ public abstract class CollisionHull2D : MonoBehaviour
 
                 // float magVelA = a.particle.velocity.magnitude;
                 // float origRotA = a.particle.rotation * Mathf.Deg2Rad;
-                // 
+                //
                 // float magVelB = b.particle.velocity.magnitude;
                 // float origRotB = b.particle.rotation * Mathf.Deg2Rad;
 
@@ -70,11 +67,8 @@ public abstract class CollisionHull2D : MonoBehaviour
                 Vector2 rotatedVectorA = Quaternion.Euler(0, 0, angle) * a.particle.velocity;
                 Vector2 rotatedVectorB = Quaternion.Euler(0, 0, angle) * b.particle.velocity;
 
-<<<<<<< HEAD
                 //Debug.Log("we here");
 
-=======
->>>>>>> 4f16dddb454ed18c3eb2c77faae9a6a883e88d27
                 Vector2 newVelA = new Vector2(rotatedVectorA.x * (massA - massB) / (massA + massB) + rotatedVectorB.x * 2 * massB / (massA + massB), rotatedVectorA.y);
                 Vector2 newVelB = new Vector2(rotatedVectorB.x * (massA - massB) / (massA + massB) + rotatedVectorA.x * 2 * massB / (massA + massB), rotatedVectorB.y);
 
@@ -205,13 +199,13 @@ public abstract class CollisionHull2D : MonoBehaviour
         particle = GetComponent<Particle2D>();
         c = new Collision();
         Debug.Log(c);
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public static bool TestCollision(CollisionHull2D a, CollisionHull2D b, ref Collision c)
