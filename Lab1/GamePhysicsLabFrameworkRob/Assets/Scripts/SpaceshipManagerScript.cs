@@ -20,7 +20,7 @@ public class SpaceshipManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (collisions < 3)
+        if (collisions < 6)
         {
             CheckPos();
 

@@ -25,7 +25,7 @@ public class CollisionManager : MonoBehaviour
             if(particles[i]!= null)
             {
                 currentParticleHull = particles[i].GetComponent<Particle2D>().colHull;
-                for (int j = 0; j < particles.Count; j++)
+                for (int j = i + 1; j < particles.Count; j++)
                 {
                     if(particles[j] != null && particles[j] != particles[i])
                     {
@@ -36,33 +36,31 @@ public class CollisionManager : MonoBehaviour
                             // If it's AABB, look for that specific componenet
                             case CollisionHull2D.HULLTYPE.hull_aabb:
                                 checkCollision = currentParticleHull.TestCollisionVSAABB(particles[j].GetComponent<AxisAlignBoundingBoxHull2D>(), ref particles[i].GetComponent<AxisAlignBoundingBoxHull2D>().c);
-                                Debug.Log("AABB Success");
+                                //Debug.Log("AABB Success");
                                 break;
                             // If it's circle, look for that specific componenet
                             case CollisionHull2D.HULLTYPE.hull_circle:
                                 
                                 checkCollision = currentParticleHull.TestCollisionVSCircle(particles[j].GetComponent<CircleCollisionHull2D>(), ref particles[i].GetComponent<CircleCollisionHull2D>().c);
-                                Debug.Log("cirlce Success");
+                                //Debug.Log("cirlce Success");
                                 break;
                             // If it's OBB, look for that specific componenet
                             case CollisionHull2D.HULLTYPE.hull_obb:
                                 checkCollision = currentParticleHull.TestCollisionVSOBB(particles[j].GetComponent<ObjectBoundingBoxHull2D>(), ref particles[i].GetComponent<ObjectBoundingBoxHull2D>().c);
-                                Debug.Log("OBB Success");
+                                //Debug.Log("OBB Success");
                                 break;
                         }
 
                         // If the two objects collide, change their color to red
                         if (checkCollision)
                         {
+                            Debug.Log("checking collisions");
                             currentParticleHull.colliding = true;
                             otherParticleHull.colliding = true;
-                            if (currentParticleHull.gameObject.tag == "spaceship")
+                            if ((currentParticleHull.gameObject.tag == "Spaceship" && otherParticleHull.gameObject.tag == "Asteroid") || (currentParticleHull.gameObject.tag == "Asteroid" && otherParticleHull.gameObject.tag == "Spaceship"))
                             {
+                                Debug.Log("spaceship collision");
                                 currentParticleHull.gameObject.GetComponent<SpaceshipManagerScript>().collisions += 1;
-                            }
-                            if (otherParticleHull.gameObject.tag == "spaceship")
-                            {
-                                otherParticleHull.gameObject.GetComponent<SpaceshipManagerScript>().collisions += 1;
                             }
                         }
                     }

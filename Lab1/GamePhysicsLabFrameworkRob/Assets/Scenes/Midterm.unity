@@ -263,8 +263,8 @@ MonoBehaviour:
   spawnTimeInterval: 5
   randomX: 1
   randomY: 0
-  rangeMin: -1
-  rangeMax: 1
+  rangeMin: -5
+  rangeMax: 5
 --- !u!1 &254674620
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,8 +481,8 @@ MonoBehaviour:
   spawnTimeInterval: 5
   randomX: 0
   randomY: 1
-  rangeMin: -1
-  rangeMax: 1
+  rangeMin: -5
+  rangeMax: 5
 --- !u!1 &964526337
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,8 +533,8 @@ MonoBehaviour:
   spawnTimeInterval: 5
   randomX: 0
   randomY: 1
-  rangeMin: -1
-  rangeMax: 1
+  rangeMin: -5
+  rangeMax: 5
 --- !u!1 &1041680879
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 1135084345}
   m_Layer: 0
   m_Name: Spaceship
-  m_TagString: Untagged
+  m_TagString: Spaceship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -705,7 +705,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cda6c49fd9d444944abe6af1efb961e7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e511cc46a85ce942beca059788ef21e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -744,7 +744,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliding: 0
   restitution: 0.01
-  radius: 0.5
+  radius: 2
   thisCenter: {x: 0, y: 0}
 --- !u!114 &1135084345
 MonoBehaviour:
@@ -948,8 +948,8 @@ MonoBehaviour:
   spawnTimeInterval: 5
   randomX: 1
   randomY: 0
-  rangeMin: -1
-  rangeMax: 1
+  rangeMin: -5
+  rangeMax: 5
 --- !u!1 &1948834313
 GameObject:
   m_ObjectHideFlags: 0

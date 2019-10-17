@@ -45,7 +45,7 @@ public abstract class CollisionHull2D : MonoBehaviour
             float distX = b.particle.position.x - a.particle.position.x;
             float distY = b.particle.position.y - a.particle.position.y;
 
-            Debug.Log(xVelDiff * distX + yVelDiff * distY);
+            //Debug.Log(xVelDiff * distX + yVelDiff * distY);
 
             if(xVelDiff * distX + yVelDiff * distY >= 0)
             {
@@ -67,7 +67,7 @@ public abstract class CollisionHull2D : MonoBehaviour
                 Vector2 rotatedVectorA = Quaternion.Euler(0, 0, angle) * a.particle.velocity;
                 Vector2 rotatedVectorB = Quaternion.Euler(0, 0, angle) * b.particle.velocity;
 
-                Debug.Log("we here");
+                //Debug.Log("we here");
 
                 Vector2 newVelA = new Vector2(rotatedVectorA.x * (massA - massB) / (massA + massB) + rotatedVectorB.x * 2 * massB / (massA + massB), rotatedVectorA.y);
                 Vector2 newVelB = new Vector2(rotatedVectorB.x * (massA - massB) / (massA + massB) + rotatedVectorA.x * 2 * massB / (massA + massB), rotatedVectorB.y);
@@ -133,7 +133,7 @@ public abstract class CollisionHull2D : MonoBehaviour
             if (contact != null)
             {
                 Contact tmp;
-                Debug.Log("Contact Count " + contactCount);
+                //Debug.Log("Contact Count " + contactCount);
                 // Sort through contacts and order them from smallest to largest closing velocity
                 for (int i = 0; i < contactCount - 1; i++)
                 {
