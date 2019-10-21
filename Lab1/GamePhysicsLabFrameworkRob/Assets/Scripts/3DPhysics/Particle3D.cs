@@ -31,6 +31,8 @@ public class Particle3DTransform
     public Vector3 acceleration;
 
     public float rotation;
+
+    // need this to be vector 3
     public float angularVelocity;
     public float angularAcceleration;
 
@@ -77,7 +79,9 @@ public class Particle3DForces
 public class Torque
 {
     // Lab 3 step 2
+    // need this to be vector 3
     public float torque;
+
     public Vector3 pointOfAppliedForce = (Vector3)Vector3.up;
     public Vector3 angForce;
     public Vector3 force;
