@@ -325,14 +325,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e308ae50259d21e48b5234e182613e41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lol: {x: 0, y: 0, z: 0, w: 0}
   colHull: {fileID: 0}
   particle3DTransform:
     position: {x: 0, y: 0, z: 0}
     velocity: {x: 0, y: 0, z: 0}
     acceleration: {x: 0, y: 0, z: 0}
     rotation: 0
-    angularVelocity: 0
-    angularAcceleration: 0
+    angularVelocity: {x: 0, y: 0, z: 0}
+    angularAcceleration: {x: 0, y: 0, z: 0}
     typeOfPositioning: 0
     typeOfRotation: 0
   forces:
@@ -359,7 +360,7 @@ MonoBehaviour:
     springStiffnesCoeff: 5
     basicForce: {x: 0, y: 0, z: 0}
   torqueContainer:
-    torque: 0
+    torque: {x: 0, y: 0, z: 0}
     pointOfAppliedForce: {x: 0, y: 1, z: 0}
     angForce: {x: 0, y: 0, z: 0}
     force: {x: 0, y: 0, z: 0}
@@ -426,7 +427,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005665445}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.200215, y: -12.168167, z: 133.23576}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

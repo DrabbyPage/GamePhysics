@@ -24,17 +24,103 @@ public enum TorqueType
 }
 
 [System.Serializable]
+public class MadeQuaternion
+{
+    public Vector4 quat;
+
+    Vector4 normalized()
+    {
+        return quat.normalized;
+    }
+
+    float magnitude()
+    {
+        float mag = 0;
+
+        mag = Mathf.Sqrt(quat.w * quat.w + quat.x * quat.x + quat.y * quat.y + quat.z * quat.z);
+
+        return mag;
+    }
+
+    float DotProduct(MadeQuaternion otherQuat)
+    {
+        float product = 0;
+        product = quat.w * otherQuat.quat.w + quat.x * otherQuat.quat.x + quat.y * otherQuat.quat.y + quat.z * otherQuat.quat.z;
+        return product;
+    }
+
+    // maybe need to work on????
+    Vector4 Inverse()
+    {
+        Vector4 inverse = Vector4.zero;
+
+        Vector4 qStar = new Vector4(-quat.x, -quat.y, -quat.z, quat.w);
+
+        //Vector4 qDenominator = (1 - quat.x - quat.y - quat.z) * 0.5f;
+
+        return inverse;
+    }
+
+    public static MadeQuaternion operator*(MadeQuaternion myQuat, MadeQuaternion otherQuat)
+    {
+        MadeQuaternion newQuat = new MadeQuaternion();
+
+        float myQuatW = myQuat.quat.w;
+        float otherQuatW = otherQuat.quat.w;
+
+        Vector3 myQuatXYZ = new Vector3(myQuat.quat.x, myQuat.quat.y, myQuat.quat.z);
+        Vector3 otherQuatXYZ = new Vector3(otherQuat.quat.x, otherQuat.quat.y, otherQuat.quat.z);
+
+        float newW = myQuatW * otherQuatW - Vector3.Dot(myQuatXYZ, otherQuatXYZ);
+
+        Vector3 newQuatXYZ = myQuatW * otherQuatXYZ + otherQuatW * myQuatXYZ + Vector3.Cross(myQuatXYZ, otherQuatXYZ);
+
+        newQuat.quat = new Vector4(newQuatXYZ.x, newQuatXYZ.y, newQuatXYZ.z, newW);
+
+        return newQuat;
+    }
+
+    public static Vector4 operator*(MadeQuaternion myQuat, Vector3 otherVector)
+    {
+        Vector4 newVector = Vector4.zero;
+
+        float myQuatW = myQuat.quat.w;
+
+        Vector3 myQuatXYZ = new Vector3(myQuat.quat.x, myQuat.quat.y, myQuat.quat.z);
+        Vector3 otherXYZ = new Vector3(otherVector.x, otherVector.y, otherVector.z);
+
+        newVector = Vector3.Cross(otherXYZ + 2 * myQuatXYZ, Vector3.Cross(myQuatXYZ, otherXYZ) + myQuatW * otherXYZ); 
+
+        return newVector;
+    }
+
+    public static MadeQuaternion operator*(MadeQuaternion myQuat, float scalar)
+    {
+        MadeQuaternion newQuat = new MadeQuaternion();
+
+        newQuat.quat = scalar * myQuat.quat;
+
+        return newQuat;
+    }
+}
+
+[System.Serializable]
 public class Particle3DTransform
 {
     public Vector3 position;
     public Vector3 velocity;
     public Vector3 acceleration;
 
+    // needs to be a quaternion
     public float rotation;
 
-    // need this to be vector 3
-    public float angularVelocity;
-    public float angularAcceleration;
+    // need to work on
+    /*
+        Rotation is a quaternion (from a single float about the Z-axis in 2D)
+        Angular velocity, angular acceleration and torque are 3D vectors (from single floats about the Z axis in 2D)
+     */
+    public Vector3 angularVelocity;
+    public Vector3 angularAcceleration;
 
     public PositionType typeOfPositioning;
     public RotationType typeOfRotation;
@@ -79,8 +165,7 @@ public class Particle3DForces
 public class Torque
 {
     // Lab 3 step 2
-    // need this to be vector 3
-    public float torque;
+    public Vector3 torque;
 
     public Vector3 pointOfAppliedForce = (Vector3)Vector3.up;
     public Vector3 angForce;
@@ -177,17 +262,17 @@ public class Particle3D : MonoBehaviour
         particle3DTransform.velocity += particle3DTransform.acceleration * dt;
     }
 
-    void UpdateRotationEulerExplicit(float dt)
-    {
-        particle3DTransform.rotation += particle3DTransform.angularVelocity * dt;
-        particle3DTransform.angularVelocity += particle3DTransform.angularAcceleration * dt;
-    }
-
-    void UpdateRotationKinematic(float dt)
-    {
-        particle3DTransform.rotation += particle3DTransform.angularVelocity * dt + 0.5f * particle3DTransform.angularAcceleration * dt * dt;
-        particle3DTransform.angularVelocity += particle3DTransform.angularAcceleration * dt;
-    }
+    // void UpdateRotationEulerExplicit(float dt)
+    // {
+    //     particle3DTransform.rotation += particle3DTransform.angularVelocity * dt;
+    //     particle3DTransform.angularVelocity += particle3DTransform.angularAcceleration * dt;
+    // }
+    // 
+    // void UpdateRotationKinematic(float dt)
+    // {
+    //     particle3DTransform.rotation += particle3DTransform.angularVelocity * dt + 0.5f * particle3DTransform.angularAcceleration * dt * dt;
+    //     particle3DTransform.angularVelocity += particle3DTransform.angularAcceleration * dt;
+    // }
 
     // Start is called before the first frame update
     void Start()
@@ -217,10 +302,10 @@ public class Particle3D : MonoBehaviour
         switch(particle3DTransform.typeOfRotation)
         {
             case RotationType.euler:
-                UpdateRotationEulerExplicit(Time.deltaTime);
+                //UpdateRotationEulerExplicit(Time.deltaTime);
                 break;
             case RotationType.kinematic:
-                UpdateRotationKinematic(Time.deltaTime);
+                //UpdateRotationKinematic(Time.deltaTime);
                 break;
         }
 
@@ -231,7 +316,7 @@ public class Particle3D : MonoBehaviour
         //apply to transform
         transform.position = particle3DTransform.position;
         //transform.eulerAngles = new Vector3(0, 0, rotation);
-        transform.rotation = Quaternion.Euler(0, 0, particle3DTransform.rotation);
+        //transform.rotation = Quaternion.Euler(0, 0, particle3DTransform.rotation);
         // lab 1 Step 4
         //test
         //acceleration.x = -Mathf.Sin(Time.fixedTime);
@@ -308,7 +393,7 @@ public class Particle3D : MonoBehaviour
     {
         //Debug.Log(momentOfInertia);
         particle3DTransform.angularAcceleration = torqueContainer.torque * torqueContainer.invInertia;
-        torqueContainer.torque = 0;
+        torqueContainer.torque = Vector3.zero;
     }
 
     void ApplyTorque(Vector3 forcePos, Vector3 newForce)
@@ -316,7 +401,7 @@ public class Particle3D : MonoBehaviour
 
         Vector3 momentArm = forcePos - particle3DTransform.position;
 
-        torqueContainer.torque += (momentArm.x * newForce.y - momentArm.y * newForce.x);
+        //torqueContainer.torque += (momentArm.x * newForce.y - momentArm.y * newForce.x);
     }
 
     #region Inertia Functions
@@ -382,12 +467,12 @@ public class Particle3D : MonoBehaviour
         particle3DTransform.acceleration.y = newAcc;
     }
 
-    public void SetAngularVelocity(float newVel)
+    public void SetAngularVelocity(Vector3 newVel)
     {
         particle3DTransform.angularVelocity = newVel;
     }
 
-    public void SetAngularAcceleration(float newAcc)
+    public void SetAngularAcceleration(Vector3 newAcc)
     {
         particle3DTransform.angularAcceleration = newAcc;
     }
@@ -399,8 +484,8 @@ public class Particle3D : MonoBehaviour
         particle3DTransform.rotation = 0;
         particle3DTransform.velocity = new Vector3(0, 0);
         particle3DTransform.acceleration = new Vector3(0, 0);
-        particle3DTransform.angularVelocity = 0;
-        particle3DTransform.angularAcceleration = 0;
+        particle3DTransform.angularVelocity = new Vector3(0,0);
+        particle3DTransform.angularAcceleration = new Vector3(0,0);
     }
     #endregion
 
