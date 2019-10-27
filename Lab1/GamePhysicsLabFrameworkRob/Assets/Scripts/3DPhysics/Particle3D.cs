@@ -28,12 +28,169 @@ public class MadeQuaternion
 {
     public Vector4 quat;
 
-    Vector4 normalized()
+    MadeQuaternion()
+    {
+
+    }
+
+    MadeQuaternion(float w, float eulerX, float eulerY, float eulerZ)
+    {
+        // https://math.stackexchange.com/questions/2975109/how-to-convert-euler-angles-to-quaternions-and-get-the-same-euler-angles-back-fr
+        /*
+             (yaw, pitch, roll) = (r[0], r[1], r[2])
+              qx = np.sin(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) - np.cos(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
+              qy = np.cos(roll/2) * np.sin(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.cos(pitch/2) * np.sin(yaw/2)
+              qz = np.cos(roll/2) * np.cos(pitch/2) * np.sin(yaw/2) - np.sin(roll/2) * np.sin(pitch/2) * np.cos(yaw/2)
+              qw = np.cos(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
+              return [qx, qy, qz, qw]
+         */
+
+        float xTheta = eulerX/2 * Mathf.Deg2Rad;
+        float yTheta = eulerX/2 * Mathf.Deg2Rad;
+        float zTheta = eulerX/2 * Mathf.Deg2Rad;
+
+        float xSinTheta = Mathf.Sin(xTheta);
+        float xCosTheta = Mathf.Cos(xTheta);
+
+        float ySinTheta = Mathf.Sin(yTheta);
+        float yCosTheta = Mathf.Cos(yTheta);
+
+        float zSinTheta = Mathf.Sin(zTheta);
+        float zCosTheta = Mathf.Cos(zTheta);
+
+        quat.x = xSinTheta * yCosTheta * zCosTheta - xCosTheta * ySinTheta * zSinTheta;
+        quat.y = xCosTheta * ySinTheta * zCosTheta + xSinTheta * yCosTheta * zSinTheta;
+        quat.z = xCosTheta * yCosTheta * zSinTheta - xSinTheta * ySinTheta * zCosTheta;
+        quat.w = xCosTheta * yCosTheta * zCosTheta + xSinTheta * ySinTheta * zSinTheta;
+    }
+
+    public MadeQuaternion EulerToQuat(float eulerX, float eulerY, float eulerZ)
+    {
+        MadeQuaternion newQuat = new MadeQuaternion();
+
+        // https://math.stackexchange.com/questions/2975109/how-to-convert-euler-angles-to-quaternions-and-get-the-same-euler-angles-back-fr
+        /*
+             (yaw, pitch, roll) = (r[0], r[1], r[2])
+              qx = np.sin(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) - np.cos(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
+              qy = np.cos(roll/2) * np.sin(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.cos(pitch/2) * np.sin(yaw/2)
+              qz = np.cos(roll/2) * np.cos(pitch/2) * np.sin(yaw/2) - np.sin(roll/2) * np.sin(pitch/2) * np.cos(yaw/2)
+              qw = np.cos(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
+              return [qx, qy, qz, qw]
+         */
+
+        float xTheta = eulerX / 2 * Mathf.Deg2Rad;
+        float yTheta = eulerX / 2 * Mathf.Deg2Rad;
+        float zTheta = eulerX / 2 * Mathf.Deg2Rad;
+
+        float xSinTheta = Mathf.Sin(xTheta);
+        float xCosTheta = Mathf.Cos(xTheta);
+
+        float ySinTheta = Mathf.Sin(yTheta);
+        float yCosTheta = Mathf.Cos(yTheta);
+
+        float zSinTheta = Mathf.Sin(zTheta);
+        float zCosTheta = Mathf.Cos(zTheta);
+
+        newQuat.quat.x = xSinTheta * yCosTheta * zCosTheta - xCosTheta * ySinTheta * zSinTheta;
+        newQuat.quat.y = xCosTheta * ySinTheta * zCosTheta + xSinTheta * yCosTheta * zSinTheta;
+        newQuat.quat.z = xCosTheta * yCosTheta * zSinTheta - xSinTheta * ySinTheta * zCosTheta;
+        newQuat.quat.w = xCosTheta * yCosTheta * zCosTheta + xSinTheta * ySinTheta * zSinTheta;
+
+        return newQuat;
+    }
+
+    public MadeQuaternion EulerToQuat(Vector3 vec3Euler)
+    {
+        MadeQuaternion newQuat = new MadeQuaternion();
+
+        // https://math.stackexchange.com/questions/2975109/how-to-convert-euler-angles-to-quaternions-and-get-the-same-euler-angles-back-fr
+        /*
+             (yaw, pitch, roll) = (r[0], r[1], r[2])
+              qx = np.sin(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) - np.cos(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
+              qy = np.cos(roll/2) * np.sin(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.cos(pitch/2) * np.sin(yaw/2)
+              qz = np.cos(roll/2) * np.cos(pitch/2) * np.sin(yaw/2) - np.sin(roll/2) * np.sin(pitch/2) * np.cos(yaw/2)
+              qw = np.cos(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
+              return [qx, qy, qz, qw]
+         */
+
+        float xTheta = vec3Euler.x / 2 * Mathf.Deg2Rad;
+        float yTheta = vec3Euler.y / 2 * Mathf.Deg2Rad;
+        float zTheta = vec3Euler.z / 2 * Mathf.Deg2Rad;
+
+        float xSinTheta = Mathf.Sin(xTheta);
+        float xCosTheta = Mathf.Cos(xTheta);
+
+        float ySinTheta = Mathf.Sin(yTheta);
+        float yCosTheta = Mathf.Cos(yTheta);
+
+        float zSinTheta = Mathf.Sin(zTheta);
+        float zCosTheta = Mathf.Cos(zTheta);
+
+        newQuat.quat.x = xSinTheta * yCosTheta * zCosTheta - xCosTheta * ySinTheta * zSinTheta;
+        newQuat.quat.y = xCosTheta * ySinTheta * zCosTheta + xSinTheta * yCosTheta * zSinTheta;
+        newQuat.quat.z = xCosTheta * yCosTheta * zSinTheta - xSinTheta * ySinTheta * zCosTheta;
+        newQuat.quat.w = xCosTheta * yCosTheta * zCosTheta + xSinTheta * ySinTheta * zSinTheta;
+
+        return newQuat;
+    }
+
+
+    public Vector3 MadeQuatToEuler()
+    {
+        // https://math.stackexchange.com/questions/2975109/how-to-convert-euler-angles-to-quaternions-and-get-the-same-euler-angles-back-fr
+
+        /*
+         (x, y, z, w) = (q[0], q[1], q[2], q[3])
+          t0 = +2.0 * (w * x + y * z)
+          t1 = +1.0 - 2.0 * (x * x + y * y)
+          roll = math.atan2(t0, t1)
+          t2 = +2.0 * (w * y - z * x)
+          t2 = +1.0 if t2 > +1.0 else t2
+          t2 = -1.0 if t2 < -1.0 else t2
+          pitch = math.asin(t2)
+          t3 = +2.0 * (w * z + x * y)
+          t4 = +1.0 - 2.0 * (y * y + z * z)
+          yaw = math.atan2(t3, t4)
+          return [yaw, pitch, roll] 
+        */
+
+        Vector3 angles = Vector3.zero;
+
+        float t0 = 2 * (quat.w * quat.x + quat.y * quat.z);
+        float t1 = 1 - 2 * (quat.x * quat.x + quat.y * quat.y);
+
+        float eulerX = Mathf.Atan2(t0, t1);
+
+        float t2 = 2 * (quat.w * quat.y - quat.z * quat.x);
+
+        if(t2 > 1)
+        {
+            t2 = 1;
+        }
+
+        if( t2 < -1)
+        {
+            t2 = -1;
+        }
+
+        float eulerY = Mathf.Asin(t2);
+
+        float t3 = 2 * (quat.w * quat.z + quat.x * quat.y);
+        float t4 = 1 - 2 * (quat.y * quat.y + quat.z * quat.z);
+
+        float eulerZ = Mathf.Atan2(t3, t4);
+
+        angles = new Vector3(eulerX, eulerY, eulerZ);
+
+        return angles;
+    }
+
+    public Vector4 normalized()
     {
         return quat.normalized;
     }
 
-    float magnitude()
+    public float magnitude()
     {
         float mag = 0;
 
@@ -42,7 +199,7 @@ public class MadeQuaternion
         return mag;
     }
 
-    float DotProduct(MadeQuaternion otherQuat)
+    public float DotProduct(MadeQuaternion otherQuat)
     {
         float product = 0;
         product = quat.w * otherQuat.quat.w + quat.x * otherQuat.quat.x + quat.y * otherQuat.quat.y + quat.z * otherQuat.quat.z;
@@ -50,7 +207,7 @@ public class MadeQuaternion
     }
 
     // maybe need to work on????
-    Vector4 Inverse()
+    public Vector4 Inverse()
     {
         Vector4 inverse = Vector4.zero;
 
@@ -112,7 +269,8 @@ public class Particle3DTransform
     public Vector3 acceleration;
 
     // needs to be a quaternion
-    public float rotation;
+    public MadeQuaternion rotation;
+    public Vector3 eulerAngle;
 
     // need to work on
     /*
@@ -262,17 +420,21 @@ public class Particle3D : MonoBehaviour
         particle3DTransform.velocity += particle3DTransform.acceleration * dt;
     }
 
-    // void UpdateRotationEulerExplicit(float dt)
-    // {
-    //     particle3DTransform.rotation += particle3DTransform.angularVelocity * dt;
-    //     particle3DTransform.angularVelocity += particle3DTransform.angularAcceleration * dt;
-    // }
-    // 
-    // void UpdateRotationKinematic(float dt)
-    // {
-    //     particle3DTransform.rotation += particle3DTransform.angularVelocity * dt + 0.5f * particle3DTransform.angularAcceleration * dt * dt;
-    //     particle3DTransform.angularVelocity += particle3DTransform.angularAcceleration * dt;
-    // }
+    void UpdateRotationEulerExplicit(float dt)
+    {
+        
+
+        particle3DTransform.eulerAngle += particle3DTransform.angularVelocity * dt;
+        particle3DTransform.rotation.EulerToQuat(particle3DTransform.eulerAngle);
+        particle3DTransform.angularVelocity += particle3DTransform.angularAcceleration * dt;
+    }
+    
+    void UpdateRotationKinematic(float dt)
+    {
+        particle3DTransform.eulerAngle += particle3DTransform.angularVelocity * dt + 0.5f * particle3DTransform.angularAcceleration * dt * dt;
+        particle3DTransform.rotation = particle3DTransform.rotation.EulerToQuat(particle3DTransform.eulerAngle);
+        particle3DTransform.angularVelocity += particle3DTransform.angularAcceleration * dt;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -331,7 +493,6 @@ public class Particle3D : MonoBehaviour
 
         ApplyTorque(torqueContainer.pointOfAppliedForce, torqueContainer.angForce);
 
-        particle3DTransform.rotation = particle3DTransform.rotation % 360;
     }
 
     void UpdateForce()
@@ -398,10 +559,11 @@ public class Particle3D : MonoBehaviour
 
     void ApplyTorque(Vector3 forcePos, Vector3 newForce)
     {
-
+        // The torque is calculated according to the formula, τ= rxF. 
+        // This means that the cross product of the distance vector and the force vector gives the resultant.
         Vector3 momentArm = forcePos - particle3DTransform.position;
 
-        //torqueContainer.torque += (momentArm.x * newForce.y - momentArm.y * newForce.x);
+        torqueContainer.torque = Vector3.Cross(momentArm, newForce);
     }
 
     #region Inertia Functions
@@ -480,12 +642,12 @@ public class Particle3D : MonoBehaviour
     public void ResetObj()
     {
         transform.position = new Vector3(0, 0, 0);
-        particle3DTransform.position = new Vector3(0, 0);
-        particle3DTransform.rotation = 0;
-        particle3DTransform.velocity = new Vector3(0, 0);
-        particle3DTransform.acceleration = new Vector3(0, 0);
-        particle3DTransform.angularVelocity = new Vector3(0,0);
-        particle3DTransform.angularAcceleration = new Vector3(0,0);
+        particle3DTransform.position = new Vector3(0, 0, 0);
+        particle3DTransform.rotation.quat = new Vector4(0, 0, 0, 1);
+        particle3DTransform.velocity = new Vector3(0, 0, 0);
+        particle3DTransform.acceleration = new Vector3(0, 0, 0);
+        particle3DTransform.angularVelocity = new Vector3(0, 0, 0);
+        particle3DTransform.angularAcceleration = new Vector3(0, 0, 0);
     }
     #endregion
 
