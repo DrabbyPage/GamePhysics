@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEditor;
+using System.Reflection;
+
+
 
 public enum PositionType
 {
@@ -28,12 +32,12 @@ public class MadeQuaternion
 {
     public Vector4 quat;
 
-    MadeQuaternion()
+    public MadeQuaternion()
     {
-
+        quat = new Vector4(0, 0, 0, 1);
     }
 
-    MadeQuaternion(float w, float eulerX, float eulerY, float eulerZ)
+    public MadeQuaternion(float eulerX, float eulerY, float eulerZ)
     {
         // https://math.stackexchange.com/questions/2975109/how-to-convert-euler-angles-to-quaternions-and-get-the-same-euler-angles-back-fr
         /*
@@ -134,7 +138,6 @@ public class MadeQuaternion
         return newQuat;
     }
 
-
     public Vector3 MadeQuatToEuler()
     {
         // https://math.stackexchange.com/questions/2975109/how-to-convert-euler-angles-to-quaternions-and-get-the-same-euler-angles-back-fr
@@ -159,7 +162,7 @@ public class MadeQuaternion
         float t0 = 2 * (quat.w * quat.x + quat.y * quat.z);
         float t1 = 1 - 2 * (quat.x * quat.x + quat.y * quat.y);
 
-        float eulerX = Mathf.Atan2(t0, t1);
+        float eulerX = Mathf.Atan2(t0, t1) * Mathf.Rad2Deg;
 
         float t2 = 2 * (quat.w * quat.y - quat.z * quat.x);
 
@@ -173,12 +176,12 @@ public class MadeQuaternion
             t2 = -1;
         }
 
-        float eulerY = Mathf.Asin(t2);
+        float eulerY = Mathf.Asin(t2) * Mathf.Rad2Deg;
 
         float t3 = 2 * (quat.w * quat.z + quat.x * quat.y);
         float t4 = 1 - 2 * (quat.y * quat.y + quat.z * quat.z);
 
-        float eulerZ = Mathf.Atan2(t3, t4);
+        float eulerZ = Mathf.Atan2(t3, t4) * Mathf.Rad2Deg;
 
         angles = new Vector3(eulerX, eulerY, eulerZ);
 
@@ -333,12 +336,35 @@ public class Torque
     public float invInertia;
     public TorqueType objType;
 
+    public DiskTorque diskTorque;
+    public RingTorque  ringTorque;
+    public RectangleTorque rectangleTorque;
+    public RodTorque rodTorque;
+}
 
+[System.Serializable]
+public struct DiskTorque
+{
     public float diskRadius;
+}
+
+[System.Serializable]
+public struct RingTorque
+{
     public float ringOuterRadius;
     public float ringInnerRadius;
+}
+
+[System.Serializable]
+public struct RectangleTorque
+{
     public float rectHeight;
     public float rectWidth;
+}
+
+[System.Serializable]
+public struct RodTorque
+{
     public float rodLength;
 }
 
@@ -422,11 +448,13 @@ public class Particle3D : MonoBehaviour
 
     void UpdateRotationEulerExplicit(float dt)
     {
-        
-
-        particle3DTransform.eulerAngle += particle3DTransform.angularVelocity * dt;
-        particle3DTransform.rotation.EulerToQuat(particle3DTransform.eulerAngle);
+        particle3DTransform.eulerAngle = particle3DTransform.eulerAngle + (dt * particle3DTransform.angularVelocity);
+        particle3DTransform.rotation = particle3DTransform.rotation.EulerToQuat(particle3DTransform.eulerAngle);
         particle3DTransform.angularVelocity += particle3DTransform.angularAcceleration * dt;
+
+        particle3DTransform.eulerAngle.x = particle3DTransform.eulerAngle.x % 360;
+        particle3DTransform.eulerAngle.y = particle3DTransform.eulerAngle.y % 360;
+        particle3DTransform.eulerAngle.z = particle3DTransform.eulerAngle.z % 360;
     }
     
     void UpdateRotationKinematic(float dt)
@@ -434,6 +462,10 @@ public class Particle3D : MonoBehaviour
         particle3DTransform.eulerAngle += particle3DTransform.angularVelocity * dt + 0.5f * particle3DTransform.angularAcceleration * dt * dt;
         particle3DTransform.rotation = particle3DTransform.rotation.EulerToQuat(particle3DTransform.eulerAngle);
         particle3DTransform.angularVelocity += particle3DTransform.angularAcceleration * dt;
+
+        particle3DTransform.eulerAngle.x = particle3DTransform.eulerAngle.x % 360;
+        particle3DTransform.eulerAngle.y = particle3DTransform.eulerAngle.y % 360;
+        particle3DTransform.eulerAngle.z = particle3DTransform.eulerAngle.z % 360;
     }
 
     // Start is called before the first frame update
@@ -442,6 +474,10 @@ public class Particle3D : MonoBehaviour
         SetMass(forces.startingMass);
 
         particle3DTransform.position = transform.position;
+
+        Quaternion rot = gameObject.transform.rotation;
+        Vector4 quatVals = new Vector4(rot.x, rot.y, rot.z, 1);
+        particle3DTransform.rotation = new MadeQuaternion(quatVals.x,quatVals.y,quatVals.z);
 
         UpdateInertia();
 
@@ -464,10 +500,10 @@ public class Particle3D : MonoBehaviour
         switch(particle3DTransform.typeOfRotation)
         {
             case RotationType.euler:
-                //UpdateRotationEulerExplicit(Time.deltaTime);
+                UpdateRotationEulerExplicit(Time.deltaTime);
                 break;
             case RotationType.kinematic:
-                //UpdateRotationKinematic(Time.deltaTime);
+                UpdateRotationKinematic(Time.deltaTime);
                 break;
         }
 
@@ -477,21 +513,20 @@ public class Particle3D : MonoBehaviour
 
         //apply to transform
         transform.position = particle3DTransform.position;
-        //transform.eulerAngles = new Vector3(0, 0, rotation);
-        //transform.rotation = Quaternion.Euler(0, 0, particle3DTransform.rotation);
-        // lab 1 Step 4
-        //test
-        //acceleration.x = -Mathf.Sin(Time.fixedTime);
-        //angularAcceleration = -Mathf.Sin(Time.fixedTime);
-        // hard code all scenarios for the forces
 
-        UpdateForce();
+
+        float rotX = particle3DTransform.rotation.quat.x;
+        float rotY = particle3DTransform.rotation.quat.y;
+        float rotZ = particle3DTransform.rotation.quat.z;
+        float rotW = particle3DTransform.rotation.quat.w;
+        transform.rotation = new Quaternion(rotX, rotY, rotZ, rotW);
+
+        UpdateInertia();
+
+        ApplyTorque(torqueContainer.pointOfAppliedForce, torqueContainer.angForce);
 
         UpdateAngAcc();
 
-        torqueContainer.pointOfAppliedForce = (Vector3)(transform.position + Vector3.up);
-
-        ApplyTorque(torqueContainer.pointOfAppliedForce, torqueContainer.angForce);
 
     }
 
@@ -534,16 +569,16 @@ public class Particle3D : MonoBehaviour
         switch (torqueContainer.objType)
         {
             case TorqueType.disk: // disk
-                torqueContainer.momentOfInertia = DiskInertia(torqueContainer.diskRadius);
+                torqueContainer.momentOfInertia = DiskInertia(torqueContainer.diskTorque.diskRadius);
                 break;
             case TorqueType.ring: // ring
-                torqueContainer.momentOfInertia = RingInertia(torqueContainer.ringOuterRadius, torqueContainer.ringInnerRadius);
+                torqueContainer.momentOfInertia = RingInertia(torqueContainer.ringTorque.ringOuterRadius, torqueContainer.ringTorque.ringInnerRadius);
                 break;
             case TorqueType.rect: // rect
-                torqueContainer.momentOfInertia = RectangleInertia(torqueContainer.rectHeight, torqueContainer.rectWidth);
+                torqueContainer.momentOfInertia = RectangleInertia(torqueContainer.rectangleTorque.rectHeight, torqueContainer.rectangleTorque.rectWidth);
                 break;
             case TorqueType.rod: // rod
-                torqueContainer.momentOfInertia = RodInertia(torqueContainer.rodLength);
+                torqueContainer.momentOfInertia = RodInertia(torqueContainer.rodTorque.rodLength);
                 break;
         }
 
@@ -552,7 +587,7 @@ public class Particle3D : MonoBehaviour
 
     void UpdateAngAcc()
     {
-        //Debug.Log(momentOfInertia);
+        Debug.Log(torqueContainer.momentOfInertia);
         particle3DTransform.angularAcceleration = torqueContainer.torque * torqueContainer.invInertia;
         torqueContainer.torque = Vector3.zero;
     }

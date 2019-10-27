@@ -325,20 +325,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e308ae50259d21e48b5234e182613e41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lol: {x: 0, y: 0, z: 0, w: 0}
   colHull: {fileID: 0}
   particle3DTransform:
     position: {x: 0, y: 0, z: 0}
     velocity: {x: 0, y: 0, z: 0}
     acceleration: {x: 0, y: 0, z: 0}
-    rotation: 0
+    rotation:
+      quat: {x: 0, y: 0, z: 0, w: 0}
+    eulerAngle: {x: 0, y: 0, z: 0}
     angularVelocity: {x: 0, y: 0, z: 0}
     angularAcceleration: {x: 0, y: 0, z: 0}
     typeOfPositioning: 0
-    typeOfRotation: 0
+    typeOfRotation: 1
   forces:
-    startingMass: 0
-    mass: 0
+    startingMass: 2
+    mass: 2
     massInv: 0
     generateGravity: 0
     generateNormal: 0
@@ -367,12 +368,16 @@ MonoBehaviour:
     momentOfInertia: 0
     invInertia: 0
     objType: 0
-    diskRadius: 0
-    ringOuterRadius: 0
-    ringInnerRadius: 0
-    rectHeight: 0
-    rectWidth: 0
-    rodLength: 0
+    diskTorque:
+      diskRadius: 1
+    ringTorque:
+      ringOuterRadius: 2
+      ringInnerRadius: 1
+    rectangleTorque:
+      rectHeight: 1
+      rectWidth: 1
+    rodTorque:
+      rodLength: 1
 --- !u!23 &2005665447
 MeshRenderer:
   m_ObjectHideFlags: 0
