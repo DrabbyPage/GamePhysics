@@ -240,9 +240,9 @@ public class MadeQuaternion
         return newQuat;
     }
 
-    public static Vector4 operator*(MadeQuaternion myQuat, Vector3 otherVector)
+    public static Vector3 operator*(MadeQuaternion myQuat, Vector3 otherVector)
     {
-        Vector4 newVector = Vector4.zero;
+        Vector3 newVector = Vector3.zero;
 
         float myQuatW = myQuat.quat.w;
 
@@ -328,44 +328,66 @@ public class Torque
     // Lab 3 step 2
     public Vector3 torque;
 
-    public Vector3 pointOfAppliedForce = (Vector3)Vector3.up;
+    public Vector3 pointOfAppliedForce = Vector3.up;
     public Vector3 angForce;
     public Vector3 force;
+    
+    // new stuff
+    public Vector3 localCenterOfMass;
+    public Vector3 worldCenterOfMass;
 
     public float momentOfInertia;
     public float invInertia;
     public TorqueType objType;
 
-    public DiskTorque diskTorque;
-    public RingTorque  ringTorque;
-    public RectangleTorque rectangleTorque;
-    public RodTorque rodTorque;
+    public SolidSphereTorque solidSphereTorque;
+    public HollowSphereTorque  hollowSphereTorque;
+    public SolidBoxTorque solidBoxTorque;
+    public HollowBoxTorque hollowBoxTorque;
+    public SolidCylinderTorque solidCylinderTorque;
+    public SolidConeTorque solidConeTorque;
 }
 
 [System.Serializable]
-public struct DiskTorque
+public struct SolidSphereTorque
 {
-    public float diskRadius;
+    public float radius;
 }
 
 [System.Serializable]
-public struct RingTorque
+public struct HollowSphereTorque
 {
-    public float ringOuterRadius;
-    public float ringInnerRadius;
+    public float radius;
 }
 
 [System.Serializable]
-public struct RectangleTorque
+public struct SolidBoxTorque
 {
-    public float rectHeight;
-    public float rectWidth;
+    public float length;
+    public float width;
+    public float height;
 }
 
 [System.Serializable]
-public struct RodTorque
+public struct HollowBoxTorque
 {
-    public float rodLength;
+    public float length;
+    public float width;
+    public float height;
+}
+
+[System.Serializable]
+public struct SolidCylinderTorque
+{
+    public float radius;
+    public float height;
+}
+
+[System.Serializable]
+public struct SolidConeTorque
+{
+    public float radius;
+    public float height;
 }
 
 // slide number 54 
@@ -386,6 +408,9 @@ public class Particle3D : MonoBehaviour
     [SerializeField]
     Torque torqueContainer;
 
+    Matrix4x4 worldTransformMatrix;
+
+    Matrix4x4 worldTranformInverseMatrix;
 
 
     public void SetMass(float newMass)
@@ -471,6 +496,12 @@ public class Particle3D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        worldTransformMatrix = Matrix4x4.TRS(gameObject.transform.position, gameObject.transform.rotation, gameObject.transform.localScale);
+        worldTranformInverseMatrix = Matrix4x4.Inverse(worldTransformMatrix);
+
+        torqueContainer.worldCenterOfMass = transform.position;
+        torqueContainer.localCenterOfMass = Vector3.zero;
+
         SetMass(forces.startingMass);
 
         particle3DTransform.position = transform.position;
@@ -487,7 +518,13 @@ public class Particle3D : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        switch(particle3DTransform.typeOfPositioning)
+        worldTransformMatrix = Matrix4x4.TRS(gameObject.transform.position, gameObject.transform.rotation, gameObject.transform.localScale);
+        worldTranformInverseMatrix = Matrix4x4.Inverse(worldTransformMatrix);
+
+        torqueContainer.worldCenterOfMass = transform.position;
+
+
+        switch (particle3DTransform.typeOfPositioning)
         {
             case PositionType.euler:
                 UpdatePositionEulerExplicit(Time.deltaTime);
@@ -630,6 +667,110 @@ public class Particle3D : MonoBehaviour
         inertia = (1f / 12f) * forces.mass * rodLength * rodLength;
         return inertia;
     }
+
+    Matrix4x4 SolidSphereTensor(float radius, float mass)
+    {
+        Matrix4x4 newMat = new Matrix4x4();
+
+        float inputVal = 0.4f * mass * radius * radius;
+
+        newMat.SetColumn(0, new Vector4(inputVal, 0, 0, 0));
+        newMat.SetColumn(0, new Vector4(0, inputVal, 0, 0));
+        newMat.SetColumn(0, new Vector4(0, 0, inputVal, 0));
+        newMat.SetColumn(0, new Vector4(0, 0, 0, 1));
+
+
+        return newMat;
+    }
+
+    Matrix4x4 HollowSphereTensor(float radius, float mass)
+    {
+        Matrix4x4 newMat = new Matrix4x4();
+
+        float inputVal = 0.66f * mass * radius * radius;
+
+        newMat.SetColumn(0, new Vector4(inputVal, 0, 0, 0));
+        newMat.SetColumn(0, new Vector4(0, inputVal, 0, 0));
+        newMat.SetColumn(0, new Vector4(0, 0, inputVal, 0));
+        newMat.SetColumn(0, new Vector4(0, 0, 0, 1));
+
+
+        return newMat;
+    }
+
+    Matrix4x4 SolidBox(float height, float width, float length, float mass)
+    {
+        Matrix4x4 newMat = new Matrix4x4();
+
+        float col1Input = 0.083f * mass * (height * height + length * length);
+        float col2Input = 0.083f * mass * (length * length + width * width);
+        float col3Input = 0.083f * mass * (width * width + height * height);
+
+
+        newMat.SetColumn(0, new Vector4(col1Input, 0, 0, 0));
+        newMat.SetColumn(0, new Vector4(0, col2Input, 0, 0));
+        newMat.SetColumn(0, new Vector4(0, 0, col3Input, 0));
+        newMat.SetColumn(0, new Vector4(0, 0, 0, 1));
+
+
+        return newMat;
+    }
+
+    Matrix4x4 HollowBoxTensor(float length, float width, float height, float mass)
+    {
+        Matrix4x4 newMat = new Matrix4x4();
+
+        float col1Input = 1.66f * mass * (height * height + length * length);
+        float col2Input = 1.66f * mass * (length * length + width * width);
+        float col3Input = 1.66f * mass * (width * width + height * height);
+
+
+        newMat.SetColumn(0, new Vector4(col1Input, 0, 0, 0));
+        newMat.SetColumn(0, new Vector4(0, col2Input, 0, 0));
+        newMat.SetColumn(0, new Vector4(0, 0, col3Input, 0));
+        newMat.SetColumn(0, new Vector4(0, 0, 0, 1));
+
+
+        return newMat;
+    }
+
+    Matrix4x4 SolidCylinderTensor(float radius, float height, float mass)
+    {
+        Matrix4x4 newMat = new Matrix4x4();
+
+        float col1Input = 0.083f * mass * (3 * radius * radius + height * height);
+        float col2Input = col1Input;
+        float col3Input = 0.5f * mass * radius * radius;
+
+
+        newMat.SetColumn(0, new Vector4(col1Input, 0, 0, 0));
+        newMat.SetColumn(0, new Vector4(0, col2Input, 0, 0));
+        newMat.SetColumn(0, new Vector4(0, 0, col3Input, 0));
+        newMat.SetColumn(0, new Vector4(0, 0, 0, 1));
+
+
+        return newMat;
+    }
+
+    // axis parallel to third lacal basis ***FOUND IN THE SLIDES #18***
+    Matrix4x4 SolidConeTensor(float radius, float height, float mass)
+    {
+        Matrix4x4 newMat = new Matrix4x4();
+
+        float col1Input = 0.6f * mass * height * height + 0.15f * mass * radius * radius;
+        float col2Input = col1Input;
+        float col3Input = 0.3f * mass * radius * radius;
+
+
+        newMat.SetColumn(0, new Vector4(col1Input, 0, 0, 0));
+        newMat.SetColumn(0, new Vector4(0, col2Input, 0, 0));
+        newMat.SetColumn(0, new Vector4(0, 0, col3Input, 0));
+        newMat.SetColumn(0, new Vector4(0, 0, 0, 1));
+
+
+        return newMat;
+    }
+
 
     #endregion
 
