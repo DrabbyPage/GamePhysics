@@ -21,10 +21,12 @@ public enum RotationType
 
 public enum TorqueType
 {
-    disk = 0,
-    ring = 1,
-    rect = 2,
-    rod = 3
+    SolidSphere = 0,
+    HollowSphere = 1,
+    SolidBox = 2,
+    HollowBox = 3,
+    SolidCylinder = 4,
+    SolidCone = 5
 }
 
 [System.Serializable]
@@ -605,17 +607,23 @@ public class Particle3D : MonoBehaviour
     {
         switch (torqueContainer.objType)
         {
-            case TorqueType.disk: // disk
-                torqueContainer.momentOfInertia = DiskInertia(torqueContainer.diskTorque.diskRadius);
+            case TorqueType.SolidSphere: // 
+
                 break;
-            case TorqueType.ring: // ring
-                torqueContainer.momentOfInertia = RingInertia(torqueContainer.ringTorque.ringOuterRadius, torqueContainer.ringTorque.ringInnerRadius);
+            case TorqueType.HollowSphere: // 
+
                 break;
-            case TorqueType.rect: // rect
-                torqueContainer.momentOfInertia = RectangleInertia(torqueContainer.rectangleTorque.rectHeight, torqueContainer.rectangleTorque.rectWidth);
+            case TorqueType.SolidBox: // 
+
                 break;
-            case TorqueType.rod: // rod
-                torqueContainer.momentOfInertia = RodInertia(torqueContainer.rodTorque.rodLength);
+            case TorqueType.HollowBox: // 
+
+                break;
+            case TorqueType.SolidCylinder:
+
+                break;
+            case TorqueType.SolidCone:
+
                 break;
         }
 
@@ -624,7 +632,7 @@ public class Particle3D : MonoBehaviour
 
     void UpdateAngAcc()
     {
-        Debug.Log(torqueContainer.momentOfInertia);
+        //Debug.Log(torqueContainer.momentOfInertia);
         particle3DTransform.angularAcceleration = torqueContainer.torque * torqueContainer.invInertia;
         torqueContainer.torque = Vector3.zero;
     }
@@ -639,34 +647,6 @@ public class Particle3D : MonoBehaviour
     }
 
     #region Inertia Functions
-
-    float DiskInertia(float diskRadius)
-    {
-        float inertia = 0f;
-        inertia = 0.5f * forces.mass * diskRadius * diskRadius;
-        return inertia;
-    }
-
-    float RingInertia(float ringOuterRadius, float ringInnerRadius)
-    {
-        float inertia = 0f;
-        inertia = 0.5f * forces.mass * (ringOuterRadius * ringOuterRadius + ringInnerRadius * ringInnerRadius);
-        return inertia;
-    }
-
-    float RectangleInertia(float rectHeight, float rectWidth)
-    {
-        float inertia = 0f;
-        inertia = (1f / 12f) * forces.mass * (rectHeight * rectHeight + rectWidth * rectWidth);
-        return inertia;
-    }
-
-    float RodInertia(float rodLength)
-    {
-        float inertia = 0f;
-        inertia = (1f / 12f) * forces.mass * rodLength * rodLength;
-        return inertia;
-    }
 
     Matrix4x4 SolidSphereTensor(float radius, float mass)
     {
@@ -683,6 +663,7 @@ public class Particle3D : MonoBehaviour
         return newMat;
     }
 
+    // cube: 𝐼 = 1/6 * mass * size^2
     Matrix4x4 HollowSphereTensor(float radius, float mass)
     {
         Matrix4x4 newMat = new Matrix4x4();
@@ -698,7 +679,7 @@ public class Particle3D : MonoBehaviour
         return newMat;
     }
 
-    Matrix4x4 SolidBox(float height, float width, float length, float mass)
+    Matrix4x4 SolidBoxTensor(float height, float width, float length, float mass)
     {
         Matrix4x4 newMat = new Matrix4x4();
 
