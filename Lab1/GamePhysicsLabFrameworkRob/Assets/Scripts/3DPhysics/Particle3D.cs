@@ -57,7 +57,7 @@ public class MadeMatrix4x4
         matrix[15] = p;
     }
 
-    public float calculateDetermionate()
+    public float calculateDeterminate()
     {
         float newDet = matrix[8] * matrix[5] * matrix[2] +
                        matrix[4] * matrix[9] * matrix[2] +
@@ -100,13 +100,19 @@ public class MadeMatrix4x4
 
         invMatrix[8] = mat21 * mat32 * mat44 + mat22 * mat34 * mat41 + mat24 * mat31 * mat42 - mat24 * mat32 * mat41 - mat22 * mat31 * mat44 - mat21 * mat34 * mat42;
         invMatrix[9] = -mat11 * mat32 * mat44 - mat12 * mat34 * mat41 - mat14 * mat31 * mat42 + mat14 * mat32 * mat41 + mat12 * mat31 * mat44 + mat11 * mat34 * mat42;
-        invMatrix[10] = 0;
-        invMatrix[11] = 0;
+        invMatrix[10] = mat11 * mat22 * mat44 + mat12 * mat24 * mat41 + mat14 * mat21 * mat42 - mat14 * mat22 * mat41 - mat12 * mat21 * mat44 - mat11 * mat24 * mat42;
+        invMatrix[11] = -mat11 * mat22 * mat34 - mat12 * mat24 * mat31 - mat14 * mat21 * mat32 + mat14 * mat22 * mat31 + mat12 * mat21 * mat34 + mat11 * mat24 * mat32;
 
-        invMatrix[12] = 0;
-        invMatrix[13] = 0;
-        invMatrix[14] = 0;
-        invMatrix[15] = 0;
+        invMatrix[12] = -mat21 * mat32 * mat43 - mat22 * mat33 * mat41 - mat23 * mat31 * mat42 + mat23 * mat32 * mat41 + mat22 * mat31 * mat43 + mat21 * mat33 * mat42;
+        invMatrix[13] = mat11 * mat32 * mat43 + mat12 * mat33 * mat41 + mat13 * mat31 * mat42 - mat13 * mat32 * mat41 - mat12 * mat31 * mat43 - mat11 * mat33 * mat43;
+        invMatrix[14] = -mat11 * mat22 * mat43 - mat12 * mat23 * mat41 - mat13 * mat21 * mat42 + mat13 * mat22 * mat41 + mat12 * mat21 * mat43 + mat11 * mat23 * mat42;
+        invMatrix[15] = mat11 * mat22 * mat33 + mat12 * mat23 * mat31 + mat13 * mat21 * mat32 - mat13 * mat22 * mat31 - mat12 * mat21 * mat33 - mat11 * mat23 * mat32;
+
+        float det = calculateDeterminate();
+        for (int i = 0; i < invMatrix.Count; i++)
+        {
+            invMatrix[i] = (1/det) * invMatrix[i];
+        }
     }
 }
 
