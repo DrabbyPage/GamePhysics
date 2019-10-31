@@ -784,6 +784,7 @@ public class Particle3D : MonoBehaviour
                                                  0,1,0,transform.position.y,
                                                  0,0,1,transform.position.z,
                                                  0,0,0,1);
+        worldTransformMatrix.calculateInv();
         worldTranformInverseMatrix.matrix = worldTransformMatrix.invMatrix;
 
         torqueContainer.worldCenterOfMass = transform.position;
