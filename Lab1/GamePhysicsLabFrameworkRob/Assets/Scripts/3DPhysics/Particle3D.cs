@@ -29,6 +29,87 @@ public enum TorqueType
     SolidCone = 5
 }
 
+public class MadeMatrix4x4
+{
+    public List<float> matrix = new List<float>(16);
+    public List<float> invMatrix = new List<float>(16);
+
+    public MadeMatrix4x4(float a, float b, float c, float d,
+                  float e, float f, float g, float h,
+                  float i, float j, float k, float l,
+                  float m, float n, float o, float p)
+    {
+        matrix[0] = a;
+        matrix[1] = b;
+        matrix[2] = c;
+        matrix[3] = d;
+        matrix[4] = e;
+        matrix[5] = f;
+        matrix[6] = g;
+        matrix[7] = h;
+        matrix[8] = i;
+        matrix[9] = j;
+        matrix[10] = k;
+        matrix[11] = l;
+        matrix[12] = m;
+        matrix[13] = n;
+        matrix[14] = o;
+        matrix[15] = p;
+    }
+
+    public float calculateDetermionate()
+    {
+        float newDet = matrix[8] * matrix[5] * matrix[2] +
+                       matrix[4] * matrix[9] * matrix[2] +
+                       matrix[8] * matrix[1] * matrix[6] -
+                       matrix[0] * matrix[9] * matrix[6] -
+                       matrix[4] * matrix[1] * matrix[10] +
+                       matrix[0] * matrix[5] * matrix[10];
+
+        return newDet;
+    }
+
+    public void calculateInv()
+    {
+        float mat11 = matrix[0];
+        float mat12 = matrix[1];
+        float mat13 = matrix[2];
+        float mat14 = matrix[3];
+        float mat21 = matrix[4];
+        float mat22 = matrix[5];
+        float mat23 = matrix[6];
+        float mat24 = matrix[7];
+        float mat31 = matrix[8];
+        float mat32 = matrix[9];
+        float mat33 = matrix[10];
+        float mat34 = matrix[11];
+        float mat41 = matrix[12];
+        float mat42 = matrix[13];
+        float mat43 = matrix[14];
+        float mat44 = matrix[15];
+
+        invMatrix[0] = mat22 * mat33 * mat44 + mat23 * mat34 * mat42 + mat24 * mat32 * mat43 - mat24 * mat33 * mat42 - mat23 * mat32 * mat44 - mat22 * mat34 * mat43;
+        invMatrix[1] = -mat12 * mat33 * mat44 - mat13 * mat34 * mat42 - mat14 * mat32 * mat43 + mat14 * mat33 * mat42 + mat13 * mat32 * mat44 + mat12 * mat34 * mat43;
+        invMatrix[2] = mat12 * mat23 * mat44 + mat13 * mat24 * mat42 + mat14 * mat22 * mat43 - mat14 * mat23 * mat42 - mat13 * mat22 * mat44 - mat12 * mat24 * mat43;
+        invMatrix[3] = -mat12 * mat23 * mat34 - mat13 * mat24 * mat32 - mat14 * mat22 * mat33 + mat14 * mat23 * mat32 + mat13 * mat22 * mat34 + mat12 * mat24 * mat33;
+
+        invMatrix[4] = -mat21 * mat33 * mat44 - mat23 * mat34 * mat41 - mat24 * mat31 * mat43 + mat24 * mat33 * mat41 + mat23 * mat31 * mat44 + mat21 * mat34 * mat43;
+        invMatrix[5] = mat11 * mat33 * mat44 + mat13 * mat34 * mat41 + mat14 * mat31 * mat43 - mat14 * mat33 * mat41 - mat13 * mat31 * mat44 - mat11 * mat34 * mat43;
+        invMatrix[6] = -mat11 * mat23 * mat44 - mat13 * mat24 * mat41 - mat14 * mat21 * mat43 + mat14 * mat23 * mat41 + mat13 * mat21 * mat44 + mat11 * mat24 * mat43;
+        invMatrix[7] = mat11 * mat23 * mat34 + mat13 * mat24 * mat31 + mat14 * mat21 * mat33 - mat14 * mat23 * mat31 - mat13 * mat21 * mat34 - mat11 * mat24 * mat33;
+
+        invMatrix[8] = mat21 * mat32 * mat44 + mat22 * mat34 * mat41 + mat24 * mat31 * mat42 - mat24 * mat32 * mat41 - mat22 * mat31 * mat44 - mat21 * mat34 * mat42;
+        invMatrix[9] = -mat11 * mat32 * mat44 - mat12 * mat34 * mat41 - mat14 * mat31 * mat42 + mat14 * mat32 * mat41 + mat12 * mat31 * mat44 + mat11 * mat34 * mat42;
+        invMatrix[10] = 0;
+        invMatrix[11] = 0;
+
+        invMatrix[12] = 0;
+        invMatrix[13] = 0;
+        invMatrix[14] = 0;
+        invMatrix[15] = 0;
+    }
+}
+
 [System.Serializable]
 public class MadeQuaternion
 {
@@ -41,19 +122,18 @@ public class MadeQuaternion
 
     public MadeQuaternion(float eulerX, float eulerY, float eulerZ)
     {
-        // https://math.stackexchange.com/questions/2975109/how-to-convert-euler-angles-to-quaternions-and-get-the-same-euler-angles-back-fr
         /*
              (yaw, pitch, roll) = (r[0], r[1], r[2])
-              qx = np.sin(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) - np.cos(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
-              qy = np.cos(roll/2) * np.sin(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.cos(pitch/2) * np.sin(yaw/2)
-              qz = np.cos(roll/2) * np.cos(pitch/2) * np.sin(yaw/2) - np.sin(roll/2) * np.sin(pitch/2) * np.cos(yaw/2)
-              qw = np.cos(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
+              qx = sin(roll/2) * cos(pitch/2) * cos(yaw/2) - cos(roll/2) * sin(pitch/2) * sin(yaw/2)
+              qy = cos(roll/2) * sin(pitch/2) * cos(yaw/2) + sin(roll/2) * cos(pitch/2) * sin(yaw/2)
+              qz = cos(roll/2) * cos(pitch/2) * sin(yaw/2) - sin(roll/2) * sin(pitch/2) * cos(yaw/2)
+              qw = cos(roll/2) * cos(pitch/2) * cos(yaw/2) + sin(roll/2) * sin(pitch/2) * sin(yaw/2)
               return [qx, qy, qz, qw]
          */
 
-        float xTheta = eulerX/2 * Mathf.Deg2Rad;
-        float yTheta = eulerX/2 * Mathf.Deg2Rad;
-        float zTheta = eulerX/2 * Mathf.Deg2Rad;
+        float xTheta = eulerX*0.5f * Mathf.Deg2Rad;
+        float yTheta = eulerY*0.5f * Mathf.Deg2Rad;
+        float zTheta = eulerZ*0.5f * Mathf.Deg2Rad;
 
         float xSinTheta = Mathf.Sin(xTheta);
         float xCosTheta = Mathf.Cos(xTheta);
@@ -74,13 +154,12 @@ public class MadeQuaternion
     {
         MadeQuaternion newQuat = new MadeQuaternion();
 
-        // https://math.stackexchange.com/questions/2975109/how-to-convert-euler-angles-to-quaternions-and-get-the-same-euler-angles-back-fr
         /*
              (yaw, pitch, roll) = (r[0], r[1], r[2])
-              qx = np.sin(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) - np.cos(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
-              qy = np.cos(roll/2) * np.sin(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.cos(pitch/2) * np.sin(yaw/2)
-              qz = np.cos(roll/2) * np.cos(pitch/2) * np.sin(yaw/2) - np.sin(roll/2) * np.sin(pitch/2) * np.cos(yaw/2)
-              qw = np.cos(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
+              qx = sin(roll/2) * cos(pitch/2) * cos(yaw/2) - cos(roll/2) * sin(pitch/2) * sin(yaw/2)
+              qy = cos(roll/2) * sin(pitch/2) * cos(yaw/2) + sin(roll/2) * cos(pitch/2) * sin(yaw/2)
+              qz = cos(roll/2) * cos(pitch/2) * sin(yaw/2) - sin(roll/2) * sin(pitch/2) * cos(yaw/2)
+              qw = cos(roll/2) * cos(pitch/2) * cos(yaw/2) + sin(roll/2) * sin(pitch/2) * sin(yaw/2)
               return [qx, qy, qz, qw]
          */
 
@@ -109,13 +188,12 @@ public class MadeQuaternion
     {
         MadeQuaternion newQuat = new MadeQuaternion();
 
-        // https://math.stackexchange.com/questions/2975109/how-to-convert-euler-angles-to-quaternions-and-get-the-same-euler-angles-back-fr
         /*
              (yaw, pitch, roll) = (r[0], r[1], r[2])
-              qx = np.sin(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) - np.cos(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
-              qy = np.cos(roll/2) * np.sin(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.cos(pitch/2) * np.sin(yaw/2)
-              qz = np.cos(roll/2) * np.cos(pitch/2) * np.sin(yaw/2) - np.sin(roll/2) * np.sin(pitch/2) * np.cos(yaw/2)
-              qw = np.cos(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
+              qx = sin(roll/2) * cos(pitch/2) * cos(yaw/2) - cos(roll/2) * sin(pitch/2) * sin(yaw/2)
+              qy = cos(roll/2) * sin(pitch/2) * cos(yaw/2) + sin(roll/2) * cos(pitch/2) * sin(yaw/2)
+              qz = cos(roll/2) * cos(pitch/2) * sin(yaw/2) - sin(roll/2) * sin(pitch/2) * cos(yaw/2)
+              qw = cos(roll/2) * cos(pitch/2) * cos(yaw/2) + sin(roll/2) * sin(pitch/2) * sin(yaw/2)
               return [qx, qy, qz, qw]
          */
 
@@ -410,9 +488,9 @@ public class Particle3D : MonoBehaviour
     [SerializeField]
     Torque torqueContainer;
 
-    Matrix4x4 worldTransformMatrix;
+    MadeMatrix4x4 worldTransformMatrix;
 
-    Matrix4x4 worldTranformInverseMatrix;
+    MadeMatrix4x4 worldTranformInverseMatrix;
 
 
     public void SetMass(float newMass)
@@ -498,8 +576,13 @@ public class Particle3D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        worldTransformMatrix = Matrix4x4.TRS(gameObject.transform.position, gameObject.transform.rotation, gameObject.transform.localScale);
-        worldTranformInverseMatrix = Matrix4x4.Inverse(worldTransformMatrix);
+        worldTransformMatrix = new MadeMatrix4x4 (
+                                                    0,0,0,0,
+                                                    0,0,0,0,
+                                                    0,0,0,0,
+                                                    0,0,0,0
+                                                 );
+        worldTransformMatrix.calculateInv();
 
         torqueContainer.worldCenterOfMass = transform.position;
         torqueContainer.localCenterOfMass = Vector3.zero;
