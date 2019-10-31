@@ -600,6 +600,7 @@ public class Torque
     public SolidConeTorque solidConeTorque;
 }
 
+#region Torque objects
 [System.Serializable]
 public struct SolidSphereTorque
 {
@@ -641,6 +642,8 @@ public struct SolidConeTorque
     public float radius;
     public float height;
 }
+
+#endregion
 
 // slide number 54 
 // normalize the reulst at the end of quaternion
@@ -756,6 +759,8 @@ public class Particle3D : MonoBehaviour
                                                  );
         worldTransformMatrix.calculateInv();
 
+        worldTranformInverseMatrix.matrix = worldTransformMatrix.invMatrix;
+
         torqueContainer.worldCenterOfMass = transform.position;
         torqueContainer.localCenterOfMass = Vector3.zero;
 
@@ -775,8 +780,11 @@ public class Particle3D : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        worldTransformMatrix = Matrix4x4.TRS(gameObject.transform.position, gameObject.transform.rotation, gameObject.transform.localScale);
-        worldTranformInverseMatrix = Matrix4x4.Inverse(worldTransformMatrix);
+        worldTransformMatrix = new MadeMatrix4x4(1,0,0,transform.position.x,
+                                                 0,1,0,transform.position.y,
+                                                 0,0,1,transform.position.z,
+                                                 0,0,0,1);
+        worldTranformInverseMatrix.matrix = worldTransformMatrix.invMatrix;
 
         torqueContainer.worldCenterOfMass = transform.position;
 
