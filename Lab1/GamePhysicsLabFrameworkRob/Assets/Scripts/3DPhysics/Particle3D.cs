@@ -34,10 +34,41 @@ public class MadeMatrix4x4
     public List<float> matrix = new List<float>(16);
     public List<float> invMatrix = new List<float>(16);
 
+    public MadeMatrix4x4 zero()
+    {
+        MadeMatrix4x4 zero = new MadeMatrix4x4(
+                                                0, 0, 0, 0,
+                                                0, 0, 0, 0,
+                                                0, 0, 0, 0,
+                                                0, 0, 0, 0
+                                                );
+        return zero;
+    }
+
+    public MadeMatrix4x4()
+    {
+        matrix[0] = 0;
+        matrix[1] = 0;
+        matrix[2] = 0;
+        matrix[3] = 0;
+        matrix[4] = 0;
+        matrix[5] = 0;
+        matrix[6] = 0;
+        matrix[7] = 0;
+        matrix[8] = 0;
+        matrix[9] = 0;
+        matrix[10] = 0;
+        matrix[11] = 0;
+        matrix[12] = 0;
+        matrix[13] = 0;
+        matrix[14] = 0;
+        matrix[15] = 0;
+    }
+    
     public MadeMatrix4x4(float a, float b, float c, float d,
-                  float e, float f, float g, float h,
-                  float i, float j, float k, float l,
-                  float m, float n, float o, float p)
+                         float e, float f, float g, float h,
+                         float i, float j, float k, float l,
+                         float m, float n, float o, float p)
     {
         matrix[0] = a;
         matrix[1] = b;
@@ -114,6 +145,141 @@ public class MadeMatrix4x4
             invMatrix[i] = (1/det) * invMatrix[i];
         }
     }
+
+    public static MadeMatrix4x4 operator *(MadeMatrix4x4 myQuad, MadeMatrix4x4 otherQuad)
+    {
+        MadeMatrix4x4 newMat = new MadeMatrix4x4();
+        /*
+          0, 1, 2, 3,
+          4, 5, 6, 7,
+          8, 9,10,11,
+         12,13,14,15
+         */
+
+        /*
+         00,01,02,03
+         10,11,12,13
+         20,21,22,23
+         30,31,32,33
+         */
+
+        #region left quad vals
+        float leftQuad00 = myQuad.matrix[0];
+        float leftQuad01 = myQuad.matrix[1];
+        float leftQuad02 = myQuad.matrix[2];
+        float leftQuad03 = myQuad.matrix[3];
+                              
+        float leftQuad10 = myQuad.matrix[4];
+        float leftQuad11 = myQuad.matrix[5];
+        float leftQuad12 = myQuad.matrix[6];
+        float leftQuad13 = myQuad.matrix[7];
+                               
+        float leftQuad20 = myQuad.matrix[8];
+        float leftQuad21 = myQuad.matrix[9];
+        float leftQuad22 = myQuad.matrix[10];
+        float leftQuad23 = myQuad.matrix[11];
+                               
+        float leftQuad30 = myQuad.matrix[12];
+        float leftQuad31 = myQuad.matrix[13];
+        float leftQuad32 = myQuad.matrix[14];
+        float leftQuad33 = myQuad.matrix[15];
+
+        #endregion
+
+        #region right quad vals
+        float rightQuad00 = otherQuad.matrix[0];
+        float rightQuad01 = otherQuad.matrix[1];
+        float rightQuad02 = otherQuad.matrix[2];
+        float rightQuad03 = otherQuad.matrix[3];
+
+        float rightQuad10 = otherQuad.matrix[4];
+        float rightQuad11 = otherQuad.matrix[5];
+        float rightQuad12 = otherQuad.matrix[6];
+        float rightQuad13 = otherQuad.matrix[7];
+
+        float rightQuad20 = otherQuad.matrix[8];
+        float rightQuad21 = otherQuad.matrix[9];
+        float rightQuad22 = otherQuad.matrix[10];
+        float rightQuad23 = otherQuad.matrix[11];
+
+        float rightQuad30 = otherQuad.matrix[12];
+        float rightQuad31 = otherQuad.matrix[13];
+        float rightQuad32 = otherQuad.matrix[14];
+        float rightQuad33 = otherQuad.matrix[15];
+        #endregion
+
+        newMat.matrix[0] = leftQuad00 * rightQuad00 + leftQuad01 * rightQuad10 + leftQuad02 * rightQuad20 + leftQuad03 * rightQuad30;
+        newMat.matrix[1] = leftQuad00 * rightQuad01 + leftQuad01 * rightQuad11 + leftQuad02 * rightQuad21 + leftQuad03 * rightQuad31;
+        newMat.matrix[2] = leftQuad00 * rightQuad02 + leftQuad01 * rightQuad12 + leftQuad02 * rightQuad22 + leftQuad03 * rightQuad32;
+        newMat.matrix[3] = leftQuad00 * rightQuad03 + leftQuad01 * rightQuad13 + leftQuad02 * rightQuad23 + leftQuad03 * rightQuad33;
+
+        newMat.matrix[4] = leftQuad10 * rightQuad00 + leftQuad11 * rightQuad10 + leftQuad12 * rightQuad20 + leftQuad13 * rightQuad30;
+        newMat.matrix[5] = leftQuad10 * rightQuad01 + leftQuad11 * rightQuad11 + leftQuad12 * rightQuad21 + leftQuad13 * rightQuad31;
+        newMat.matrix[6] = leftQuad10 * rightQuad02 + leftQuad11 * rightQuad12 + leftQuad12 * rightQuad22 + leftQuad13 * rightQuad32;
+        newMat.matrix[7] = leftQuad10 * rightQuad03 + leftQuad11 * rightQuad13 + leftQuad12 * rightQuad23 + leftQuad13 * rightQuad33;
+
+        newMat.matrix[8] = leftQuad20 * rightQuad00 + leftQuad21 * rightQuad10 + leftQuad22 * rightQuad20 + leftQuad23 * rightQuad30;
+        newMat.matrix[9] = leftQuad20 * rightQuad01 + leftQuad21 * rightQuad11 + leftQuad22 * rightQuad21 + leftQuad23 * rightQuad31;
+        newMat.matrix[10] = leftQuad20 * rightQuad02 + leftQuad21 * rightQuad12 + leftQuad22 * rightQuad22 + leftQuad23 * rightQuad32;
+        newMat.matrix[11] = leftQuad20 * rightQuad03 + leftQuad21 * rightQuad13 + leftQuad22 * rightQuad23 + leftQuad23 * rightQuad33;
+
+        newMat.matrix[12] = leftQuad30 * rightQuad00 + leftQuad31 * rightQuad10 + leftQuad32 * rightQuad20 + leftQuad33 * rightQuad30;
+        newMat.matrix[13] = leftQuad30 * rightQuad01 + leftQuad31 * rightQuad11 + leftQuad32 * rightQuad21 + leftQuad33 * rightQuad31;
+        newMat.matrix[14] = leftQuad30 * rightQuad02 + leftQuad31 * rightQuad12 + leftQuad32 * rightQuad22 + leftQuad33 * rightQuad32;
+        newMat.matrix[15] = leftQuad30 * rightQuad03 + leftQuad31 * rightQuad13 + leftQuad32 * rightQuad23 + leftQuad33 * rightQuad33;
+
+        return newMat;
+    }
+
+    public static Vector4 operator *(Vector4 myVec4, MadeMatrix4x4 otherQuad)
+    {
+        /*
+         0, 1, 2, 3,
+         4, 5, 6, 7,
+         8, 9,10,11,
+         12,13,14,15
+        */
+
+        /*
+         00,01,02,03
+         10,11,12,13
+         20,21,22,23
+         30,31,32,33
+         */
+
+        #region left quad vals
+        float otherQuad00 = otherQuad.matrix[0];
+        float otherQuad01 = otherQuad.matrix[1];
+        float otherQuad02 = otherQuad.matrix[2];
+        float otherQuad03 = otherQuad.matrix[3];
+                       
+        float otherQuad10 = otherQuad.matrix[4];
+        float otherQuad11 = otherQuad.matrix[5];
+        float otherQuad12 = otherQuad.matrix[6];
+        float otherQuad13 = otherQuad.matrix[7];
+                       
+        float otherQuad20 = otherQuad.matrix[8];
+        float otherQuad21 = otherQuad.matrix[9];
+        float otherQuad22 = otherQuad.matrix[10];
+        float otherQuad23 = otherQuad.matrix[11];
+                       
+        float otherQuad30 = otherQuad.matrix[12];
+        float otherQuad31 = otherQuad.matrix[13];
+        float otherQuad32 = otherQuad.matrix[14];
+        float otherQuad33 = otherQuad.matrix[15];
+
+        #endregion
+
+        Vector4 newVec4 = Vector4.zero;
+
+        newVec4.x = myVec4.x * otherQuad00 + myVec4.y * otherQuad10 + myVec4.z * otherQuad20 + myVec4.w * otherQuad30;
+        newVec4.y = myVec4.x * otherQuad01 + myVec4.y * otherQuad11 + myVec4.z * otherQuad21 + myVec4.w * otherQuad31;
+        newVec4.z = myVec4.x * otherQuad02 + myVec4.y * otherQuad12 + myVec4.z * otherQuad22 + myVec4.w * otherQuad32;
+        newVec4.w = myVec4.x * otherQuad03 + myVec4.y * otherQuad13 + myVec4.z * otherQuad23 + myVec4.w * otherQuad33;
+
+        return newVec4;
+    }
+
 }
 
 [System.Serializable]
