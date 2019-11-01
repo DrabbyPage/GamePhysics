@@ -88,6 +88,37 @@ public class MadeMatrix4x4
         matrix[15] = p;
     }
 
+    public void SetColumn(int colIndex, Vector4 col)
+    {
+        switch (colIndex)
+        {
+            case 0:
+                matrix[0] = col.w;
+                matrix[1] = col.x;
+                matrix[2] = col.y;
+                matrix[3] = col.z;
+                break;
+            case 1:
+                matrix[4] = col.w;
+                matrix[5] = col.x;
+                matrix[6] = col.y;
+                matrix[7] = col.z;
+                break;
+            case 2:
+                matrix[8] = col.w;
+                matrix[9] = col.x;
+                matrix[10] = col.y;
+                matrix[11] = col.z;
+                break;
+            case 3:
+                matrix[12] = col.w;
+                matrix[13] = col.x;
+                matrix[14] = col.y;
+                matrix[15] = col.z;
+                break;
+        }
+    }
+
     public float calculateDeterminate()
     {
         float newDet = matrix[8] * matrix[5] * matrix[2] +
@@ -588,8 +619,8 @@ public class Torque
     public Vector3 localCenterOfMass;
     public Vector3 worldCenterOfMass;
 
-    public float momentOfInertia;
-    public float invInertia;
+    public MadeMatrix4x4 momentOfInertia;
+    public MadeMatrix4x4 invInertia;
     public TorqueType objType;
 
     public SolidSphereTorque solidSphereTorque;
@@ -872,32 +903,33 @@ public class Particle3D : MonoBehaviour
         switch (torqueContainer.objType)
         {
             case TorqueType.SolidSphere: // 
-
+                torqueContainer.momentOfInertia = SolidSphereTensor(torqueContainer.solidSphereTorque.radius, GetMass());
+                //torqueContainer.invInertia = torqueContainer.momentOfInertia.invMatrix;
                 break;
             case TorqueType.HollowSphere: // 
-
+                torqueContainer.momentOfInertia = HollowSphereTensor(torqueContainer.hollowSphereTorque.radius, GetMass());
                 break;
             case TorqueType.SolidBox: // 
-
+                torqueContainer.momentOfInertia = SolidBoxTensor(torqueContainer.solidBoxTorque.height, torqueContainer.solidBoxTorque.width, torqueContainer.solidBoxTorque.length, GetMass());
                 break;
             case TorqueType.HollowBox: // 
-
+                torqueContainer.momentOfInertia = HollowBoxTensor(torqueContainer.hollowBoxTorque.length, torqueContainer.hollowBoxTorque.width, torqueContainer.hollowBoxTorque.height, GetMass());
                 break;
             case TorqueType.SolidCylinder:
-
+                torqueContainer.momentOfInertia = SolidCylinderTensor(torqueContainer.solidCylinderTorque.radius, torqueContainer.solidCylinderTorque.height, GetMass());
                 break;
             case TorqueType.SolidCone:
-
+                torqueContainer.momentOfInertia = SolidConeTensor(torqueContainer.solidConeTorque.radius, torqueContainer.solidConeTorque.height, GetMass());
                 break;
         }
 
-        torqueContainer.invInertia = 1 / torqueContainer.momentOfInertia;
+        //torqueContainer.invInertia = 1 / torqueContainer.momentOfInertia;
     }
 
     void UpdateAngAcc()
     {
         //Debug.Log(torqueContainer.momentOfInertia);
-        particle3DTransform.angularAcceleration = torqueContainer.torque * torqueContainer.invInertia;
+        particle3DTransform.angularAcceleration = torqueContainer.torque * (worldTransformMatrix * torqueContainer.invInertia * worldTranformInverseMatrix);
         torqueContainer.torque = Vector3.zero;
     }
 
@@ -912,9 +944,9 @@ public class Particle3D : MonoBehaviour
 
     #region Inertia Functions
 
-    Matrix4x4 SolidSphereTensor(float radius, float mass)
+    MadeMatrix4x4 SolidSphereTensor(float radius, float mass)
     {
-        Matrix4x4 newMat = new Matrix4x4();
+        MadeMatrix4x4 newMat = new MadeMatrix4x4();
 
         float inputVal = 0.4f * mass * radius * radius;
 
@@ -928,9 +960,9 @@ public class Particle3D : MonoBehaviour
     }
 
     // cube: 𝐼 = 1/6 * mass * size^2
-    Matrix4x4 HollowSphereTensor(float radius, float mass)
+    MadeMatrix4x4 HollowSphereTensor(float radius, float mass)
     {
-        Matrix4x4 newMat = new Matrix4x4();
+        MadeMatrix4x4 newMat = new MadeMatrix4x4();
 
         float inputVal = 0.66f * mass * radius * radius;
 
@@ -943,9 +975,9 @@ public class Particle3D : MonoBehaviour
         return newMat;
     }
 
-    Matrix4x4 SolidBoxTensor(float height, float width, float length, float mass)
+    MadeMatrix4x4 SolidBoxTensor(float height, float width, float length, float mass)
     {
-        Matrix4x4 newMat = new Matrix4x4();
+        MadeMatrix4x4 newMat = new MadeMatrix4x4();
 
         float col1Input = 0.083f * mass * (height * height + length * length);
         float col2Input = 0.083f * mass * (length * length + width * width);
@@ -961,9 +993,9 @@ public class Particle3D : MonoBehaviour
         return newMat;
     }
 
-    Matrix4x4 HollowBoxTensor(float length, float width, float height, float mass)
+    MadeMatrix4x4 HollowBoxTensor(float length, float width, float height, float mass)
     {
-        Matrix4x4 newMat = new Matrix4x4();
+        MadeMatrix4x4 newMat = new MadeMatrix4x4();
 
         float col1Input = 1.66f * mass * (height * height + length * length);
         float col2Input = 1.66f * mass * (length * length + width * width);
@@ -979,9 +1011,9 @@ public class Particle3D : MonoBehaviour
         return newMat;
     }
 
-    Matrix4x4 SolidCylinderTensor(float radius, float height, float mass)
+    MadeMatrix4x4 SolidCylinderTensor(float radius, float height, float mass)
     {
-        Matrix4x4 newMat = new Matrix4x4();
+        MadeMatrix4x4 newMat = new MadeMatrix4x4();
 
         float col1Input = 0.083f * mass * (3 * radius * radius + height * height);
         float col2Input = col1Input;
@@ -998,9 +1030,9 @@ public class Particle3D : MonoBehaviour
     }
 
     // axis parallel to third lacal basis ***FOUND IN THE SLIDES #18***
-    Matrix4x4 SolidConeTensor(float radius, float height, float mass)
+    MadeMatrix4x4 SolidConeTensor(float radius, float height, float mass)
     {
-        Matrix4x4 newMat = new Matrix4x4();
+        MadeMatrix4x4 newMat = new MadeMatrix4x4();
 
         float col1Input = 0.6f * mass * height * height + 0.15f * mass * radius * radius;
         float col2Input = col1Input;
