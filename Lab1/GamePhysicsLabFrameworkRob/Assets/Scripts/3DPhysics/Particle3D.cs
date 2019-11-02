@@ -31,8 +31,38 @@ public enum TorqueType
 
 public class MadeMatrix4x4
 {
-    public List<float> matrix = new List<float>(16);
-    public List<float> invMatrix = new List<float>(16);
+    public List<float> matrix = new List<float>();
+    public List<float> invMatrix = new List<float>();
+
+    public void ListMatrix()
+    {
+        string printMsg = "";
+        for(int i = 0; i < matrix.Count;i++)
+        {
+            if (i % 4 == 0 && i != 0)
+            {
+                printMsg += "\n";
+            }
+
+            printMsg += matrix[i].ToString() + " ";
+
+        }
+        Debug.Log(printMsg);
+    }
+
+    public void ListInverseMatrix()
+    {
+        string printMsg = "";
+        for (int i = 0; i < invMatrix.Count; i++)
+        {
+
+            printMsg += invMatrix[i].ToString() + " ";
+
+
+        }
+        Debug.Log(printMsg);
+    }
+
 
     public MadeMatrix4x4 zero()
     {
@@ -47,45 +77,43 @@ public class MadeMatrix4x4
 
     public MadeMatrix4x4()
     {
-        matrix[0] = 0;
-        matrix[1] = 0;
-        matrix[2] = 0;
-        matrix[3] = 0;
-        matrix[4] = 0;
-        matrix[5] = 0;
-        matrix[6] = 0;
-        matrix[7] = 0;
-        matrix[8] = 0;
-        matrix[9] = 0;
-        matrix[10] = 0;
-        matrix[11] = 0;
-        matrix[12] = 0;
-        matrix[13] = 0;
-        matrix[14] = 0;
-        matrix[15] = 0;
+        for(int i = 0; i < 16; i++)
+        {
+            matrix.Add(0);
+        }
+
+        for (int i = 0; i < 16; i++)
+        {
+            invMatrix.Add(0);
+        }
     }
-    
+
     public MadeMatrix4x4(float a, float b, float c, float d,
                          float e, float f, float g, float h,
                          float i, float j, float k, float l,
                          float m, float n, float o, float p)
     {
-        matrix[0] = a;
-        matrix[1] = b;
-        matrix[2] = c;
-        matrix[3] = d;
-        matrix[4] = e;
-        matrix[5] = f;
-        matrix[6] = g;
-        matrix[7] = h;
-        matrix[8] = i;
-        matrix[9] = j;
-        matrix[10] = k;
-        matrix[11] = l;
-        matrix[12] = m;
-        matrix[13] = n;
-        matrix[14] = o;
-        matrix[15] = p;
+        matrix.Add(a);
+        matrix.Add(b);
+        matrix.Add(c);
+        matrix.Add(d);
+        matrix.Add(e);
+        matrix.Add(f);
+        matrix.Add(g);
+        matrix.Add(h);
+        matrix.Add(i);
+        matrix.Add(j);
+        matrix.Add(k);
+        matrix.Add(l);
+        matrix.Add(m);
+        matrix.Add(n);
+        matrix.Add(o);
+        matrix.Add(p);
+
+        for (int q = 0; q < 16; q++)
+        {
+            invMatrix.Add(0);
+        }
     }
 
     public void SetColumn(int colIndex, Vector4 col)
@@ -313,6 +341,7 @@ public class MadeMatrix4x4
 
 }
 
+#region Quaternions
 [System.Serializable]
 public class MadeQuaternion
 {
@@ -546,7 +575,9 @@ public class MadeQuaternion
         return newQuat;
     }
 }
+#endregion
 
+#region Particle3d transform
 [System.Serializable]
 public class Particle3DTransform
 {
@@ -569,12 +600,14 @@ public class Particle3DTransform
     public PositionType typeOfPositioning;
     public RotationType typeOfRotation;
 }
+#endregion
 
+#region 3d forces
 [System.Serializable]
 public class Particle3DForces
 {
-    public float startingMass;
-    public float mass;
+    public float startingMass = 1.0f;
+    public float mass = 1.0f;
     public float massInv;
 
     [SerializeField]
@@ -604,7 +637,9 @@ public class Particle3DForces
 
     public Vector3 basicForce;
 }
+#endregion
 
+#region 3d torque
 [System.Serializable]
 public class Torque
 {
@@ -619,8 +654,8 @@ public class Torque
     public Vector3 localCenterOfMass;
     public Vector3 worldCenterOfMass;
 
-    public MadeMatrix4x4 momentOfInertia;
-    public MadeMatrix4x4 invInertia;
+    public MadeMatrix4x4 momentOfInertia = new MadeMatrix4x4();
+    public MadeMatrix4x4 invInertia = new MadeMatrix4x4();
     public TorqueType objType;
 
     public SolidSphereTorque solidSphereTorque;
@@ -630,6 +665,8 @@ public class Torque
     public SolidCylinderTorque solidCylinderTorque;
     public SolidConeTorque solidConeTorque;
 }
+
+#endregion
 
 #region Torque objects
 [System.Serializable]
@@ -698,7 +735,7 @@ public class Particle3D : MonoBehaviour
 
     MadeMatrix4x4 worldTranformInverseMatrix;
 
-
+    #region mass
     public void SetMass(float newMass)
     {
         //mass = newMass > 0.0f ? newMass: 0.0f;
@@ -716,8 +753,9 @@ public class Particle3D : MonoBehaviour
         return forces.massInv;
     }
 
-    // lab 2 setp 2
+    #endregion
 
+    #region add torque forces functions
     public void AddForce(Vector3 newForce)
     {
         // D'Alembert
@@ -728,6 +766,7 @@ public class Particle3D : MonoBehaviour
     {
         torqueContainer.angForce += newRotForce;
     }
+    #endregion
 
     void UpdateAcceleration()
     {
@@ -738,6 +777,7 @@ public class Particle3D : MonoBehaviour
         torqueContainer.force.Set(0.0f, 0.0f, 0.0f);
     }
 
+    #region position kin and euler
     // Lab 1 Step 2
     void UpdatePositionEulerExplicit(float dt)
     {
@@ -756,7 +796,9 @@ public class Particle3D : MonoBehaviour
         particle3DTransform.position += particle3DTransform.velocity * dt + 0.5f * particle3DTransform.acceleration * dt * dt;
         particle3DTransform.velocity += particle3DTransform.acceleration * dt;
     }
+    #endregion
 
+    #region Rotation Euler and Kin
     void UpdateRotationEulerExplicit(float dt)
     {
         particle3DTransform.eulerAngle = particle3DTransform.eulerAngle + (dt * particle3DTransform.angularVelocity);
@@ -778,18 +820,21 @@ public class Particle3D : MonoBehaviour
         particle3DTransform.eulerAngle.y = particle3DTransform.eulerAngle.y % 360;
         particle3DTransform.eulerAngle.z = particle3DTransform.eulerAngle.z % 360;
     }
+    #endregion region
 
     // Start is called before the first frame update
     void Start()
     {
-        worldTransformMatrix = new MadeMatrix4x4 (
-                                                    0,0,0,0,
-                                                    0,0,0,0,
-                                                    0,0,0,0,
-                                                    0,0,0,0
+        worldTransformMatrix = new MadeMatrix4x4(
+                                                    1.0f, 0.0f, 0.0f, transform.position.x,
+                                                    0.0f, 1.0f, 0.0f, transform.position.y,
+                                                    0.0f, 0.0f, 1.0f, transform.position.z,
+                                                    0.0f, 0.0f, 0.0f, 1.0f
                                                  );
+
         worldTransformMatrix.calculateInv();
 
+        worldTranformInverseMatrix = new MadeMatrix4x4();
         worldTranformInverseMatrix.matrix = worldTransformMatrix.invMatrix;
 
         torqueContainer.worldCenterOfMass = transform.position;
@@ -811,11 +856,15 @@ public class Particle3D : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        worldTransformMatrix = new MadeMatrix4x4(1,0,0,transform.position.x,
-                                                 0,1,0,transform.position.y,
-                                                 0,0,1,transform.position.z,
-                                                 0,0,0,1);
+        worldTransformMatrix = new MadeMatrix4x4(
+                                                    1.0f, 0.0f, 0.0f, transform.position.x,
+                                                    0.0f, 1.0f, 0.0f, transform.position.y,
+                                                    0.0f, 0.0f, 1.0f, transform.position.z,
+                                                    0.0f, 0.0f, 0.0f, 1.0f
+                                                 );
+
         worldTransformMatrix.calculateInv();
+
         worldTranformInverseMatrix.matrix = worldTransformMatrix.invMatrix;
 
         torqueContainer.worldCenterOfMass = transform.position;
@@ -922,6 +971,11 @@ public class Particle3D : MonoBehaviour
                 torqueContainer.momentOfInertia = SolidConeTensor(torqueContainer.solidConeTorque.radius, torqueContainer.solidConeTorque.height, GetMass());
                 break;
         }
+        torqueContainer.momentOfInertia.ListMatrix();
+        torqueContainer.momentOfInertia.calculateInv();
+
+
+        torqueContainer.invInertia.matrix = torqueContainer.momentOfInertia.invMatrix;
 
         //torqueContainer.invInertia = 1 / torqueContainer.momentOfInertia;
     }
@@ -942,19 +996,18 @@ public class Particle3D : MonoBehaviour
         torqueContainer.torque = Vector3.Cross(momentArm, newForce);
     }
 
-    #region Inertia Functions
+    #region Torque Tensors
 
     MadeMatrix4x4 SolidSphereTensor(float radius, float mass)
     {
-        MadeMatrix4x4 newMat = new MadeMatrix4x4();
-
         float inputVal = 0.4f * mass * radius * radius;
 
-        newMat.SetColumn(0, new Vector4(inputVal, 0, 0, 0));
-        newMat.SetColumn(0, new Vector4(0, inputVal, 0, 0));
-        newMat.SetColumn(0, new Vector4(0, 0, inputVal, 0));
-        newMat.SetColumn(0, new Vector4(0, 0, 0, 1));
-
+        MadeMatrix4x4 newMat = new MadeMatrix4x4(
+                                                    inputVal, 0, 0, 0,
+                                                    0, inputVal, 0, 0,
+                                                    0, 0, inputVal, 0,
+                                                    0, 0, 0, 1
+                                                 );
 
         return newMat;
     }
@@ -962,50 +1015,47 @@ public class Particle3D : MonoBehaviour
     // cube: 𝐼 = 1/6 * mass * size^2
     MadeMatrix4x4 HollowSphereTensor(float radius, float mass)
     {
-        MadeMatrix4x4 newMat = new MadeMatrix4x4();
-
         float inputVal = 0.66f * mass * radius * radius;
 
-        newMat.SetColumn(0, new Vector4(inputVal, 0, 0, 0));
-        newMat.SetColumn(0, new Vector4(0, inputVal, 0, 0));
-        newMat.SetColumn(0, new Vector4(0, 0, inputVal, 0));
-        newMat.SetColumn(0, new Vector4(0, 0, 0, 1));
-
+        MadeMatrix4x4 newMat = new MadeMatrix4x4(
+                                            inputVal, 0, 0, 0,
+                                            0, inputVal, 0, 0,
+                                            0, 0, inputVal, 0,
+                                            0, 0, 0, 1
+                                         );
 
         return newMat;
     }
 
     MadeMatrix4x4 SolidBoxTensor(float height, float width, float length, float mass)
     {
-        MadeMatrix4x4 newMat = new MadeMatrix4x4();
-
         float col1Input = 0.083f * mass * (height * height + length * length);
         float col2Input = 0.083f * mass * (length * length + width * width);
         float col3Input = 0.083f * mass * (width * width + height * height);
 
-
-        newMat.SetColumn(0, new Vector4(col1Input, 0, 0, 0));
-        newMat.SetColumn(0, new Vector4(0, col2Input, 0, 0));
-        newMat.SetColumn(0, new Vector4(0, 0, col3Input, 0));
-        newMat.SetColumn(0, new Vector4(0, 0, 0, 1));
-
+        MadeMatrix4x4 newMat = new MadeMatrix4x4(
+                                            col1Input, 0, 0, 0,
+                                            0, col2Input, 0, 0,
+                                            0, 0, col3Input, 0,
+                                            0, 0, 0, 1
+                                         );
 
         return newMat;
     }
 
     MadeMatrix4x4 HollowBoxTensor(float length, float width, float height, float mass)
     {
-        MadeMatrix4x4 newMat = new MadeMatrix4x4();
 
         float col1Input = 1.66f * mass * (height * height + length * length);
         float col2Input = 1.66f * mass * (length * length + width * width);
         float col3Input = 1.66f * mass * (width * width + height * height);
 
-
-        newMat.SetColumn(0, new Vector4(col1Input, 0, 0, 0));
-        newMat.SetColumn(0, new Vector4(0, col2Input, 0, 0));
-        newMat.SetColumn(0, new Vector4(0, 0, col3Input, 0));
-        newMat.SetColumn(0, new Vector4(0, 0, 0, 1));
+        MadeMatrix4x4 newMat = new MadeMatrix4x4(
+                                    col1Input, 0, 0, 0,
+                                    0, col2Input, 0, 0,
+                                    0, 0, col3Input, 0,
+                                    0, 0, 0, 1
+                                 );
 
 
         return newMat;
@@ -1013,17 +1063,16 @@ public class Particle3D : MonoBehaviour
 
     MadeMatrix4x4 SolidCylinderTensor(float radius, float height, float mass)
     {
-        MadeMatrix4x4 newMat = new MadeMatrix4x4();
-
         float col1Input = 0.083f * mass * (3 * radius * radius + height * height);
         float col2Input = col1Input;
         float col3Input = 0.5f * mass * radius * radius;
 
-
-        newMat.SetColumn(0, new Vector4(col1Input, 0, 0, 0));
-        newMat.SetColumn(0, new Vector4(0, col2Input, 0, 0));
-        newMat.SetColumn(0, new Vector4(0, 0, col3Input, 0));
-        newMat.SetColumn(0, new Vector4(0, 0, 0, 1));
+        MadeMatrix4x4 newMat = new MadeMatrix4x4(
+                                    col1Input, 0, 0, 0,
+                                    0, col2Input, 0, 0,
+                                    0, 0, col3Input, 0,
+                                    0, 0, 0, 1
+                                 );
 
 
         return newMat;
@@ -1032,17 +1081,16 @@ public class Particle3D : MonoBehaviour
     // axis parallel to third lacal basis ***FOUND IN THE SLIDES #18***
     MadeMatrix4x4 SolidConeTensor(float radius, float height, float mass)
     {
-        MadeMatrix4x4 newMat = new MadeMatrix4x4();
-
         float col1Input = 0.6f * mass * height * height + 0.15f * mass * radius * radius;
         float col2Input = col1Input;
         float col3Input = 0.3f * mass * radius * radius;
 
-
-        newMat.SetColumn(0, new Vector4(col1Input, 0, 0, 0));
-        newMat.SetColumn(0, new Vector4(0, col2Input, 0, 0));
-        newMat.SetColumn(0, new Vector4(0, 0, col3Input, 0));
-        newMat.SetColumn(0, new Vector4(0, 0, 0, 1));
+        MadeMatrix4x4 newMat = new MadeMatrix4x4(
+                                    col1Input, 0, 0, 0,
+                                    0, col2Input, 0, 0,
+                                    0, 0, col3Input, 0,
+                                    0, 0, 0, 1
+                                 );
 
 
         return newMat;
