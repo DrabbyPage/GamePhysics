@@ -1,0 +1,93 @@
+
+
+Collision 3D:
+
+Whats in each object?
+	- sphere has:
+		radius
+		position
+	- ABB rectangle:
+		length
+		width
+		height
+		position
+	- OBB rectangle:
+		length
+		width
+		height
+		position
+		rotation
+
+Math for ABB box points:
+	*** Look at your drawing ***
+
+Calculating the object collision:
+	sphere-sphere:
+		if distanceVector.magnitude < radiusOfSphere1 + radiusOfSphere2
+			return true;
+		else 
+			return false;
+
+	sphere-ABB
+		// Transform the center of the sphere into box coordinates. 
+		Vector3 center = sphere.getAxis(3); 
+		Vector3 relCenter = box.transform.transformInverse(center);
+
+		// Early out check to see if we can exclude the contact. 
+		if (real_abs(relCenter.x) - sphere.radius > box.halfSize.x || 
+		    real_abs(relCenter.y) - sphere.radius > box.halfSize.y || 
+		    real_abs(relCenter.z) - sphere.radius > box.halfSize.z) 
+		   {
+			return 0; 
+		   }
+
+		Vector3 closestPt(0,0,0);
+		real dist;
+
+		// Clamp each coordinate to the box. 
+		dist = relCenter.x; 
+		if (dist > box.halfSize.x) 
+			dist = box.halfSize.x; 
+		if (dist < -box.halfSize.x) 
+			dist = -box.halfSize.x; 
+
+		closestPt.x = dist;
+
+		dist = relCenter.y; 
+	
+		if (dist > box.halfSize.y) 
+			dist = box.halfSize.y; 
+		if (dist < -box.halfSize.y) 
+			dist = -box.halfSize.y; 
+
+		closestPt.y = dist;
+
+		dist = relCenter.z; 
+
+		if (dist > box.halfSize.z) 
+			dist = box.halfSize.z; 
+		if (dist < -box.halfSize.z) 
+			dist = -box.halfSize.z; 
+
+		closestPt.z = dist;
+
+		// Check to see if we’re in contact. 
+		dist = (closestPt - relCenter).squareMagnitude(); 
+
+		if (dist > sphere.radius * sphere.radius)
+			return 0;
+		
+		// compile the contact 
+		Vector3 closestPtWorld = box.transform.transform(closestPt);
+
+		Contact* contact = data->contacts; 
+		contact->contactNormal = (closestPtWorld - center);
+
+		contact->contactNormal.normalize(); 
+		contact->contactPoint = closestPtWorld;
+		contact->penetration = sphere.radius - real_sqrt(dist); contact->setBodyData(box.body, sphere.body, data->friction, data->restitution);
+		data->addContacts(1); return 1;
+
+	Box-Box:
+		Millington pg 353 on pdf or 322 in book
+		
