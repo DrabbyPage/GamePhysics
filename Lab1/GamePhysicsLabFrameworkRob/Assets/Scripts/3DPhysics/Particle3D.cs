@@ -856,16 +856,7 @@ public class Particle3D : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        worldTransformMatrix = new MadeMatrix4x4(
-                                                    1.0f, 0.0f, 0.0f, transform.position.x,
-                                                    0.0f, 1.0f, 0.0f, transform.position.y,
-                                                    0.0f, 0.0f, 1.0f, transform.position.z,
-                                                    0.0f, 0.0f, 0.0f, 1.0f
-                                                 );
-
-        worldTransformMatrix.calculateInv();
-
-        worldTranformInverseMatrix.matrix = worldTransformMatrix.invMatrix;
+        UpdateWorldMatrix();
 
         torqueContainer.worldCenterOfMass = transform.position;
 
@@ -911,6 +902,27 @@ public class Particle3D : MonoBehaviour
         UpdateAngAcc();
 
 
+    }
+
+    void UpdateWorldMatrix()
+    {
+        float cosX = Mathf.Cos(particle3DTransform.eulerAngle.x * Mathf.Deg2Rad);
+        float sinX = Mathf.Sin(particle3DTransform.eulerAngle.x * Mathf.Deg2Rad);
+        float cosY = Mathf.Cos(particle3DTransform.eulerAngle.y * Mathf.Deg2Rad);
+        float sinY = Mathf.Sin(particle3DTransform.eulerAngle.y * Mathf.Deg2Rad);
+        float cosZ = Mathf.Cos(particle3DTransform.eulerAngle.z * Mathf.Deg2Rad);
+        float sinZ = Mathf.Sin(particle3DTransform.eulerAngle.z * Mathf.Deg2Rad);
+
+        worldTransformMatrix = new MadeMatrix4x4(
+                                                    cosY * cosZ, -cosY*sinZ, sinY, transform.position.x,
+                                                    sinX*sinY*cosZ+cosX*sinZ, -sinX*sinY*sinZ+cosX*cosZ, -sinX*cosY, transform.position.y,
+                                                    -cosX*sinY*cosZ+sinX*sinZ, cosX*sinY*sinZ+sinX*cosZ, cosX*cosY, transform.position.z,
+                                                    0.0f, 0.0f, 0.0f, 1.0f
+                                                 );
+
+        worldTransformMatrix.calculateInv();
+
+        worldTranformInverseMatrix.matrix = worldTransformMatrix.invMatrix;
     }
 
     void UpdateForce()
