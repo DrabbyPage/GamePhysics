@@ -121,28 +121,28 @@ public class MadeMatrix4x4
         switch (colIndex)
         {
             case 0:
-                matrix[0] = col.w;
-                matrix[1] = col.x;
-                matrix[2] = col.y;
-                matrix[3] = col.z;
+                matrix[0] = col.x;
+                matrix[1] = col.y;
+                matrix[2] = col.z;
+                matrix[3] = col.w;
                 break;
             case 1:
-                matrix[4] = col.w;
-                matrix[5] = col.x;
-                matrix[6] = col.y;
-                matrix[7] = col.z;
+                matrix[4] = col.x;
+                matrix[5] = col.y;
+                matrix[6] = col.z;
+                matrix[7] = col.w;
                 break;
             case 2:
-                matrix[8] = col.w;
-                matrix[9] = col.x;
-                matrix[10] = col.y;
-                matrix[11] = col.z;
+                matrix[8] = col.x;
+                matrix[9] = col.y;
+                matrix[10] = col.z;
+                matrix[11] = col.w;
                 break;
             case 3:
-                matrix[12] = col.w;
-                matrix[13] = col.x;
-                matrix[14] = col.y;
-                matrix[15] = col.z;
+                matrix[12] = col.x;
+                matrix[13] = col.y;
+                matrix[14] = col.z;
+                matrix[15] = col.w;
                 break;
         }
     }
