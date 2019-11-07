@@ -15,7 +15,7 @@ public class CollisionManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        CollisionHull2D currentParticleHull, otherParticleHull;
+        CollisionHull3D currentParticleHull, otherParticleHull;
         bool checkCollision = false;
 
 
@@ -24,29 +24,29 @@ public class CollisionManager : MonoBehaviour
         {
             if(particles[i]!= null)
             {
-                currentParticleHull = particles[i].GetComponent<Particle2D>().colHull;
+                currentParticleHull = particles[i].GetComponent<Particle3D>().colHull;
                 for (int j = i + 1; j < particles.Count; j++)
                 {
                     if(particles[j] != null && particles[j] != particles[i])
                     {
-                        otherParticleHull = particles[j].GetComponent<Particle2D>().colHull;
+                        otherParticleHull = particles[j].GetComponent<Particle3D>().colHull;
                         // Determine which type the second particle is
                         switch (otherParticleHull.type)
                         {
                             // If it's AABB, look for that specific componenet
-                            case CollisionHull2D.HULLTYPE.hull_aabb:
-                                checkCollision = currentParticleHull.TestCollisionVSAABB(particles[j].GetComponent<AxisAlignBoundingBoxHull2D>(), ref particles[i].GetComponent<AxisAlignBoundingBoxHull2D>().c);
+                            case CollisionHull3D.HULLTYPE.hull_aabb:
+                                checkCollision = currentParticleHull.TestCollisionVSAABB3D(particles[j].GetComponent<AABBCollisionHull3D>(), ref particles[i].GetComponent<AABBCollisionHull3D>().c);
                                 //Debug.Log("AABB Success");
                                 break;
                             // If it's circle, look for that specific componenet
-                            case CollisionHull2D.HULLTYPE.hull_circle:
+                            case CollisionHull3D.HULLTYPE.hull_sphere:
                                 
-                                checkCollision = currentParticleHull.TestCollisionVSCircle(particles[j].GetComponent<CircleCollisionHull2D>(), ref particles[i].GetComponent<CircleCollisionHull2D>().c);
+                                checkCollision = currentParticleHull.TestCollisionVSSphere(particles[j].GetComponent<SphereCollisionHull3D>(), ref particles[i].GetComponent<SphereCollisionHull3D>().c);
                                 //Debug.Log("cirlce Success");
                                 break;
                             // If it's OBB, look for that specific componenet
-                            case CollisionHull2D.HULLTYPE.hull_obb:
-                                checkCollision = currentParticleHull.TestCollisionVSOBB(particles[j].GetComponent<ObjectBoundingBoxHull2D>(), ref particles[i].GetComponent<ObjectBoundingBoxHull2D>().c);
+                            case CollisionHull3D.HULLTYPE.hull_obb:
+                                checkCollision = currentParticleHull.TestCollisionVSOBB3D(particles[j].GetComponent<OBBCollisionHull3D>(), ref particles[i].GetComponent<OBBCollisionHull3D>().c);
                                 //Debug.Log("OBB Success");
                                 break;
                         }
@@ -57,11 +57,6 @@ public class CollisionManager : MonoBehaviour
                             Debug.Log("checking collisions");
                             currentParticleHull.colliding = true;
                             otherParticleHull.colliding = true;
-                            if ((currentParticleHull.gameObject.tag == "Spaceship" && otherParticleHull.gameObject.tag == "Asteroid") || (currentParticleHull.gameObject.tag == "Asteroid" && otherParticleHull.gameObject.tag == "Spaceship"))
-                            {
-                                Debug.Log("spaceship collision");
-                                currentParticleHull.gameObject.GetComponent<SpaceshipManagerScript>().collisions += 1;
-                            }
                         }
                     }
                     
@@ -74,12 +69,12 @@ public class CollisionManager : MonoBehaviour
         {
             if (particles[i] != null)
             {
-                currentParticleHull = particles[i].GetComponent<Particle2D>().colHull;
+                currentParticleHull = particles[i].GetComponent<Particle3D>().colHull;
                 if (currentParticleHull.colliding)
                 {
                     currentParticleHull.gameObject.GetComponent<Renderer>().material.color = Color.red;
-                    currentParticleHull.c.OrderContacts();
-                    currentParticleHull.c.ResolveAllContacts();
+                    //currentParticleHull.c.OrderContacts();
+                    //currentParticleHull.c.ResolveAllContacts();
                 }
                 else 
                 {

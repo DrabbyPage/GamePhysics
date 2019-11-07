@@ -29,6 +29,7 @@ public enum TorqueType
     SolidCone = 5
 }
 
+#region mat 4
 public class MadeMatrix4x4
 {
     public List<float> matrix = new List<float>();
@@ -340,6 +341,7 @@ public class MadeMatrix4x4
     }
 
 }
+#endregion
 
 #region Quaternions
 [System.Serializable]
@@ -718,11 +720,11 @@ public struct SolidConeTorque
 
 public class Particle3D : MonoBehaviour
 {
-    public CollisionHull2D colHull;
+    public CollisionHull3D colHull;
     //public List<Particle2D> otherColParticleList;
 
     [SerializeField]
-    Particle3DTransform particle3DTransform;
+    public Particle3DTransform particle3DTransform;
 
     // lab2 step 1
     [SerializeField]
@@ -850,7 +852,7 @@ public class Particle3D : MonoBehaviour
 
         UpdateInertia();
 
-        colHull = this.gameObject.GetComponent<CollisionHull2D>();
+        colHull = this.gameObject.GetComponent<CollisionHull3D>();
     }
 
     // Update is called once per frame
