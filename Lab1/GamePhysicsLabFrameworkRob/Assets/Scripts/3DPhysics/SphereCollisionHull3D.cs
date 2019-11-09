@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SphereCollisionHull3D : CollisionHull3D
 {
+    public SphereCollisionHull3D() : base(HULLTYPE.hull_sphere) { }
     public Vector3 centerOfSphere;
     public float radius;
 

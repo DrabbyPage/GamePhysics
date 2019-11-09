@@ -154,6 +154,10 @@ public abstract class CollisionHull3D : MonoBehaviour
         hull_aabb,
         hull_obb,
     }
+    protected CollisionHull3D(HULLTYPE type_set)
+    {
+        type = type_set;
+    }
 
     public HULLTYPE type { get; }
 
@@ -167,6 +171,7 @@ public abstract class CollisionHull3D : MonoBehaviour
     void Start()
     {
         particle = GetComponent<Particle3D>();
+        c = new Collision();
     }
 
     // Update is called once per frame

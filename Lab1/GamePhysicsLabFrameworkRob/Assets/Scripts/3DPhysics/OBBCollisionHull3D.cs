@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OBBCollisionHull3D : CollisionHull3D
 {
+    public OBBCollisionHull3D() : base(HULLTYPE.hull_obb) { }
     // Start is called before the first frame update
     void Start()
     {

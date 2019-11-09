@@ -35,14 +35,28 @@ public class CollisionManager : MonoBehaviour
                         {
                             // If it's AABB, look for that specific componenet
                             case CollisionHull3D.HULLTYPE.hull_aabb:
-                                checkCollision = currentParticleHull.TestCollisionVSAABB3D(particles[j].GetComponent<AABBCollisionHull3D>(), ref particles[i].GetComponent<AABBCollisionHull3D>().c);
-                                //Debug.Log("AABB Success");
+                                Debug.Log("currentparticleHull " + currentParticleHull.type);
+                                Debug.Log("OtherparticleHull " + otherParticleHull.type);
+                                Debug.Log("checkCollision: " + checkCollision);
+                                Debug.Log("i " + i + " j " + j);
+                                Debug.Log("Collision event " + particles[i].
+                                    GetComponent<AABBCollisionHull3D>()
+                                    );
+                                CollisionHull3D.Collision c = new CollisionHull3D.Collision();
+                                checkCollision =
+                                    currentParticleHull.
+                                    TestCollisionVSAABB3D(particles[j].
+                                    GetComponent<AABBCollisionHull3D>(),
+                                    ref c);
+                                    //ref particles[i].
+                                    //GetComponent<AABBCollisionHull3D>().c);
+                                
                                 break;
                             // If it's circle, look for that specific componenet
                             case CollisionHull3D.HULLTYPE.hull_sphere:
                                 
                                 checkCollision = currentParticleHull.TestCollisionVSSphere(particles[j].GetComponent<SphereCollisionHull3D>(), ref particles[i].GetComponent<SphereCollisionHull3D>().c);
-                                Debug.Log("checkCollision: " + checkCollision);
+                                
                                 break;
                             // If it's OBB, look for that specific componenet
                             case CollisionHull3D.HULLTYPE.hull_obb:

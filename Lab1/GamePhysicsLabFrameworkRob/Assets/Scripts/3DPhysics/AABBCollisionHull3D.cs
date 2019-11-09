@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AABBCollisionHull3D : CollisionHull3D
 {
+    public AABBCollisionHull3D() : base(HULLTYPE.hull_aabb) { }
     public Vector3 rectCenter;
     [SerializeField] public float length;
     [SerializeField] public float width;
@@ -42,6 +43,7 @@ public class AABBCollisionHull3D : CollisionHull3D
 
     public override bool TestCollisionVSSphere(SphereCollisionHull3D other, ref Collision c)
     {
+        Debug.Log("This " + this + " other " + other);
         return other.TestCollisionVSAABB3D(this, ref c);
     }
 
