@@ -47,21 +47,6 @@ public class SphereCollisionHull3D : CollisionHull3D
         Vector3 relCenter = other.transform.InverseTransformPoint(center);
 
         /*
-        // Early out check to see if we can exclude the contact. 
-        if (real_abs(relCenter.x) - sphere.radius > box.halfSize.x || 
-        real_abs(relCenter.y) - sphere.radius > box.halfSize.y || 
-        real_abs(relCenter.z) - sphere.radius > box.halfSize.z) 
-        { 
-        return 0;
-        }
-        */
-        if( Mathf.Abs(relCenter.x)-radius>other.length/2 ||
-            Mathf.Abs(relCenter.y)-radius>other.height/2 ||
-            Mathf.Abs(relCenter.z)-radius>other.width/2)
-        {
-            //return false;
-        }
-        /*
         Vector3 closestPt(0,0,0);
         real dist;
         // Clamp each coordinate to the box. 
@@ -78,13 +63,13 @@ public class SphereCollisionHull3D : CollisionHull3D
 
         dist = relCenter.x;
 
-        if(dist > other.length/2)
+        if(dist > other.length * 0.5f)
         {
-            dist = other.length / 2;
+            dist = other.length * 0.5f;
         }
-        if(dist < -other.length / 2)
+        if(dist < -other.length * 0.5f)
         {
-            dist = -other.length / 2;
+            dist = -other.length * 0.5f;
         }
 
         closestPoint.x = dist;
@@ -102,13 +87,13 @@ public class SphereCollisionHull3D : CollisionHull3D
         */
         dist = relCenter.y;
 
-        if (dist > other.height / 2)
+        if (dist > other.height * 0.5f)
         {
-            dist = other.height / 2;
+            dist = other.height * 0.5f;
         }
-        if (dist < -other.height / 2)
+        if (dist < -other.height * 0.5f)
         {
-            dist = -other.height / 2;
+            dist = -other.height * 0.5f;
         }
 
         closestPoint.y = dist;
@@ -124,13 +109,13 @@ public class SphereCollisionHull3D : CollisionHull3D
         */
         dist = relCenter.z;
 
-        if (dist > other.width / 2)
+        if (dist > other.width * 0.5f)
         {
-            dist = other.width / 2;
+            dist = other.width *0.5f;
         }
-        if (dist < -other.width / 2)
+        if (dist < -other.width * 0.5f)
         {
-            dist = -other.width / 2;
+            dist = -other.width * 0.5f;
         }
 
         closestPoint.z = dist;

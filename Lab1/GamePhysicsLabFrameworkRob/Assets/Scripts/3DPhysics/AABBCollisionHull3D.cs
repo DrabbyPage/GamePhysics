@@ -54,6 +54,104 @@ public class AABBCollisionHull3D : CollisionHull3D
 
     public override bool TestCollisionVSAABB3D(AABBCollisionHull3D other, ref Collision c)
     {
+
+        // for each dimension, max extent of A greater than min extent of B
+
+        // rectCenter - 1/2(length or width) for min point in x or y
+        float thisXMin = rectCenter.x - width * 0.5f;
+
+        // rectCenter + 1/2(length or width) for max point in x or y
+        float thisXMax = rectCenter.x + width * 0.5f;
+
+        // rectCenter - 1/2(length or width) for min point in x or y
+        float thisYMin = rectCenter.y - height * 0.5f;
+
+        // rectCenter + 1/2(length or width) for max point in x or y
+        float thisYMax = rectCenter.y + height * 0.5f;
+
+        float thisZMax = rectCenter.z + width * 0.5f;
+
+        float thisZMin = rectCenter.z - width * 0.5f;
+
+        // rectCenter - 1/2(length or width) for min point in x or y
+        float otherXMin = other.rectCenter.x - width * 0.5f;
+
+        // rectCenter + 1/2(length or width) for max point in x or y
+        float otherXMax = other.rectCenter.x + width * 0.5f;
+
+        // rectCenter - 1/2(length or width) for min point in x or y
+        float otherYMin = other.rectCenter.y - height * 0.5f;
+
+        // rectCenter + 1/2(length or width) for max point in x or y
+        float otherYMax = other.rectCenter.y + height * 0.5f;
+
+        float otherZMax = other.rectCenter.z + width * 0.5f;
+
+        float otherZMin = other.rectCenter.z - width * 0.5f;
+
+        // check which min is greater, greater min becomes the one, other becomes other
+        // if one max.x < other max.x && one max.x > other min.x
+        if (otherXMin <= thisXMax && thisXMax <= otherXMax)
+        {
+            // if this passes, check same thing with y
+            if (otherYMin <= thisYMax && thisYMax <= otherYMax)
+            {
+                // if this passes, check same thing with z
+                if (otherZMin <= thisZMax && thisZMax <= otherZMax)
+                {
+                    return true;
+                }
+                else if (otherZMin <= thisZMin && thisZMin <= otherZMax)
+                {
+                    return true;
+                }
+            }
+            else if (otherYMin <= thisYMin && thisYMin <= otherYMax)
+            {
+                // if this passes, check same thing with z
+                if (otherZMin <= thisZMax && thisZMax <= otherZMax)
+                {
+                    return true;
+                }
+                else if (otherZMin <= thisZMin && thisZMin <= otherZMax)
+                {
+                    return true;
+                }
+            }
+        }
+
+        // check which min is greater, greater min becomes the one, other becomes other
+        // if one min.x < other max.x && one min.x > other min.x
+        if (otherXMin <= thisXMin && thisXMin <= otherXMax)
+        {
+            // if this passes, check same thing with y
+            if (otherYMin <= thisYMax && thisYMax <= otherYMax)
+            {
+                // if this passes, check same thing with z
+                if (otherZMin <= thisZMax && thisZMax <= otherZMax)
+                {
+                    return true;
+                }
+                else if (otherZMin <= thisZMin && thisZMin <= otherZMax)
+                {
+                    return true;
+                }
+            }
+            else if (otherYMin <= thisYMin && thisYMin <= otherYMax)
+            {
+                // if this passes, check same thing with z
+                if (otherZMin <= thisZMax && thisZMax <= otherZMax)
+                {
+                    return true;
+                }
+                else if (otherZMin <= thisZMin && thisZMin <= otherZMax)
+                {
+                    return true;
+                }
+            }
+        }
+
+
         return false;
     }
     public override bool TestCollisionVSOBB3D(OBBCollisionHull3D other, ref Collision c)

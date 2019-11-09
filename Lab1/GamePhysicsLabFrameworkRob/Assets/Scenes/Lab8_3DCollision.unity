@@ -120,344 +120,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &19662086
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 19662091}
-  - component: {fileID: 19662090}
-  - component: {fileID: 19662089}
-  - component: {fileID: 19662088}
-  - component: {fileID: 19662087}
-  m_Layer: 0
-  m_Name: Sphere (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &19662087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19662086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e308ae50259d21e48b5234e182613e41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colHull: {fileID: 0}
-  particle3DTransform:
-    position: {x: 0, y: 0, z: 0}
-    velocity: {x: 0, y: 0, z: 0}
-    acceleration: {x: 0, y: 0, z: 0}
-    rotation:
-      quat: {x: 0, y: 0, z: 0, w: 1}
-    eulerAngle: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    angularAcceleration: {x: 0, y: 0, z: 0}
-    typeOfPositioning: 0
-    typeOfRotation: 0
-  forces:
-    startingMass: 1
-    mass: 1
-    massInv: 0
-    generateGravity: 0
-    generateNormal: 0
-    generateSliding: 0
-    generateStaticsFriction: 0
-    generateKineticFriction: 0
-    generateDrag: 0
-    generateSpring: 0
-    surfaceNormal_unit: {x: 0, y: 1, z: 0}
-    frictionOpposingForce: {x: 0, y: 0, z: 0}
-    frictionCoeff_static: 0.5
-    frictionCoeff_kinetic: 0.5
-    fluidVelocity: {x: 0, y: 0, z: 0}
-    fluidDensity: 1
-    objArea_CrossSection: 3
-    objDragCoeff: 0.5
-    anchorPos: {x: 0, y: 0, z: 0}
-    springRestingLength: 2
-    springStiffnesCoeff: 5
-    basicForce: {x: 0, y: 0, z: 0}
-  torqueContainer:
-    torque: {x: 0, y: 0, z: 0}
-    pointOfAppliedForce: {x: 0, y: 1, z: 0}
-    angForce: {x: 0, y: 0, z: 0}
-    force: {x: 0, y: 0, z: 0}
-    localCenterOfMass: {x: 0, y: 0, z: 0}
-    worldCenterOfMass: {x: 0, y: 0, z: 0}
-    objType: 0
-    solidSphereTorque:
-      radius: 0
-    hollowSphereTorque:
-      radius: 0
-    solidBoxTorque:
-      length: 0
-      width: 0
-      height: 0
-    hollowBoxTorque:
-      length: 0
-      width: 0
-      height: 0
-    solidCylinderTorque:
-      radius: 0
-      height: 0
-    solidConeTorque:
-      radius: 0
-      height: 0
---- !u!114 &19662088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19662086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d7708a1837388049821c4a38c553d0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colliding: 0
-  restitution: 0
-  centerOfSphere: {x: 0, y: 0, z: 0}
-  radius: 0.5
---- !u!23 &19662089
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19662086}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &19662090
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19662086}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &19662091
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19662086}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.35, y: 1.4, z: -5.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &38270176
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 38270180}
-  - component: {fileID: 38270179}
-  - component: {fileID: 38270178}
-  - component: {fileID: 38270177}
-  - component: {fileID: 38270181}
-  m_Layer: 0
-  m_Name: Sphere (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &38270177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 38270176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d7708a1837388049821c4a38c553d0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colliding: 0
-  restitution: 0
-  centerOfSphere: {x: 0, y: 0, z: 0}
-  radius: 0.5
---- !u!23 &38270178
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 38270176}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &38270179
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 38270176}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &38270180
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 38270176}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.07, y: 0.16000009, z: -5.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &38270181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 38270176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e308ae50259d21e48b5234e182613e41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colHull: {fileID: 0}
-  particle3DTransform:
-    position: {x: 0, y: 0, z: 0}
-    velocity: {x: 0, y: 0, z: 0}
-    acceleration: {x: 0, y: 0, z: 0}
-    rotation:
-      quat: {x: 0, y: 0, z: 0, w: 1}
-    eulerAngle: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    angularAcceleration: {x: 0, y: 0, z: 0}
-    typeOfPositioning: 0
-    typeOfRotation: 0
-  forces:
-    startingMass: 1
-    mass: 1
-    massInv: 0
-    generateGravity: 0
-    generateNormal: 0
-    generateSliding: 0
-    generateStaticsFriction: 0
-    generateKineticFriction: 0
-    generateDrag: 0
-    generateSpring: 0
-    surfaceNormal_unit: {x: 0, y: 1, z: 0}
-    frictionOpposingForce: {x: 0, y: 0, z: 0}
-    frictionCoeff_static: 0.5
-    frictionCoeff_kinetic: 0.5
-    fluidVelocity: {x: 0, y: 0, z: 0}
-    fluidDensity: 1
-    objArea_CrossSection: 3
-    objDragCoeff: 0.5
-    anchorPos: {x: 0, y: 0, z: 0}
-    springRestingLength: 2
-    springStiffnesCoeff: 5
-    basicForce: {x: 0, y: 0, z: 0}
-  torqueContainer:
-    torque: {x: 0, y: 0, z: 0}
-    pointOfAppliedForce: {x: 0, y: 1, z: 0}
-    angForce: {x: 0, y: 0, z: 0}
-    force: {x: 0, y: 0, z: 0}
-    localCenterOfMass: {x: 0, y: 0, z: 0}
-    worldCenterOfMass: {x: 0, y: 0, z: 0}
-    objType: 0
-    solidSphereTorque:
-      radius: 0
-    hollowSphereTorque:
-      radius: 0
-    solidBoxTorque:
-      length: 0
-      width: 0
-      height: 0
-    hollowBoxTorque:
-      length: 0
-      width: 0
-      height: 0
-    solidCylinderTorque:
-      radius: 0
-      height: 0
-    solidConeTorque:
-      radius: 0
-      height: 0
 --- !u!1 &179986584
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,10 +150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particles:
-  - {fileID: 1053972081}
-  - {fileID: 38270176}
-  - {fileID: 19662086}
   - {fileID: 1214572641}
+  - {fileID: 316743384}
 --- !u!4 &179986586
 Transform:
   m_ObjectHideFlags: 0
@@ -501,6 +161,177 @@ Transform:
   m_GameObject: {fileID: 179986584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.0966865, y: 0.64576167, z: -7.372636}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &316743384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 316743389}
+  - component: {fileID: 316743388}
+  - component: {fileID: 316743387}
+  - component: {fileID: 316743386}
+  - component: {fileID: 316743385}
+  m_Layer: 0
+  m_Name: Cube (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &316743385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316743384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9747591d58c244da803be92fa22ac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliding: 0
+  restitution: 0
+  rectCenter: {x: 0, y: 0, z: 0}
+  length: 1
+  width: 1
+  height: 1
+--- !u!114 &316743386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316743384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e308ae50259d21e48b5234e182613e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colHull: {fileID: 0}
+  particle3DTransform:
+    position: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    acceleration: {x: 0, y: 0, z: 0}
+    rotation:
+      quat: {x: 0, y: 0, z: 0, w: 1}
+    eulerAngle: {x: 0, y: 0, z: 0}
+    angularVelocity: {x: 0, y: 0, z: 0}
+    angularAcceleration: {x: 0, y: 0, z: 0}
+    typeOfPositioning: 0
+    typeOfRotation: 0
+  forces:
+    startingMass: 1
+    mass: 1
+    massInv: 0
+    generateGravity: 0
+    generateNormal: 0
+    generateSliding: 0
+    generateStaticsFriction: 0
+    generateKineticFriction: 0
+    generateDrag: 0
+    generateSpring: 0
+    surfaceNormal_unit: {x: 0, y: 1, z: 0}
+    frictionOpposingForce: {x: 0, y: 0, z: 0}
+    frictionCoeff_static: 0.5
+    frictionCoeff_kinetic: 0.5
+    fluidVelocity: {x: 0, y: 0, z: 0}
+    fluidDensity: 1
+    objArea_CrossSection: 3
+    objDragCoeff: 0.5
+    anchorPos: {x: 0, y: 0, z: 0}
+    springRestingLength: 2
+    springStiffnesCoeff: 5
+    basicForce: {x: 0, y: 0, z: 0}
+  torqueContainer:
+    torque: {x: 0, y: 0, z: 0}
+    pointOfAppliedForce: {x: 0, y: 0, z: 0}
+    angForce: {x: 0, y: 0, z: 0}
+    force: {x: 0, y: 0, z: 0}
+    localCenterOfMass: {x: 0, y: 0, z: 0}
+    worldCenterOfMass: {x: 0, y: 0, z: 0}
+    objType: 2
+    solidSphereTorque:
+      radius: 0
+    hollowSphereTorque:
+      radius: 0
+    solidBoxTorque:
+      length: 1
+      width: 1
+      height: 1
+    hollowBoxTorque:
+      length: 1
+      width: 1
+      height: 1
+    solidCylinderTorque:
+      radius: 1
+      height: 1
+    solidConeTorque:
+      radius: 1
+      height: 1
+--- !u!23 &316743387
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316743384}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &316743388
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316743384}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &316743389
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316743384}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.44, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -597,175 +428,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1053972081
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1053972085}
-  - component: {fileID: 1053972084}
-  - component: {fileID: 1053972083}
-  - component: {fileID: 1053972082}
-  - component: {fileID: 1053972086}
-  m_Layer: 0
-  m_Name: Sphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1053972082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1053972081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d7708a1837388049821c4a38c553d0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colliding: 0
-  restitution: 0
-  centerOfSphere: {x: 0, y: 0, z: 0}
-  radius: 0.5
---- !u!23 &1053972083
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1053972081}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1053972084
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1053972081}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1053972085
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1053972081}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.12, y: 0.16000009, z: -5.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1053972086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1053972081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e308ae50259d21e48b5234e182613e41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colHull: {fileID: 0}
-  particle3DTransform:
-    position: {x: 0, y: 0, z: 0}
-    velocity: {x: 0, y: 0, z: 0}
-    acceleration: {x: 0, y: 0, z: 0}
-    rotation:
-      quat: {x: 0, y: 0, z: 0, w: 1}
-    eulerAngle: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    angularAcceleration: {x: 0, y: 0, z: 0}
-    typeOfPositioning: 0
-    typeOfRotation: 0
-  forces:
-    startingMass: 1
-    mass: 1
-    massInv: 0
-    generateGravity: 0
-    generateNormal: 0
-    generateSliding: 0
-    generateStaticsFriction: 0
-    generateKineticFriction: 0
-    generateDrag: 0
-    generateSpring: 0
-    surfaceNormal_unit: {x: 0, y: 1, z: 0}
-    frictionOpposingForce: {x: 0, y: 0, z: 0}
-    frictionCoeff_static: 0.5
-    frictionCoeff_kinetic: 0.5
-    fluidVelocity: {x: 0, y: 0, z: 0}
-    fluidDensity: 1
-    objArea_CrossSection: 3
-    objDragCoeff: 0.5
-    anchorPos: {x: 0, y: 0, z: 0}
-    springRestingLength: 2
-    springStiffnesCoeff: 5
-    basicForce: {x: 0, y: 0, z: 0}
-  torqueContainer:
-    torque: {x: 0, y: 0, z: 0}
-    pointOfAppliedForce: {x: 0, y: 1, z: 0}
-    angForce: {x: 0, y: 0, z: 0}
-    force: {x: 0, y: 0, z: 0}
-    localCenterOfMass: {x: 0, y: 0, z: 0}
-    worldCenterOfMass: {x: 0, y: 0, z: 0}
-    objType: 0
-    solidSphereTorque:
-      radius: 0
-    hollowSphereTorque:
-      radius: 0
-    solidBoxTorque:
-      length: 0
-      width: 0
-      height: 0
-    hollowBoxTorque:
-      length: 0
-      width: 0
-      height: 0
-    solidCylinderTorque:
-      radius: 0
-      height: 0
-    solidConeTorque:
-      radius: 0
-      height: 0
 --- !u!1 &1214572641
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,23 +457,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1214572641}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 301056772afbfad41b8be74927a6bb03, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d9747591d58c244da803be92fa22ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   colliding: 0
   restitution: 0
   rectCenter: {x: 0, y: 0, z: 0}
-  length: 0.5
-  width: 0.5
-  height: 0.5
-  frontBotLeft: {x: 0, y: 0, z: 0}
-  frontTopLeft: {x: 0, y: 0, z: 0}
-  frontBotRight: {x: 0, y: 0, z: 0}
-  frontTopRight: {x: 0, y: 0, z: 0}
-  backBotLeft: {x: 0, y: 0, z: 0}
-  backTopLeft: {x: 0, y: 0, z: 0}
-  backBotRight: {x: 0, y: 0, z: 0}
-  backTopRight: {x: 0, y: 0, z: 0}
+  length: 1
+  width: 1
+  height: 1
 --- !u!114 &1214572643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -861,7 +515,7 @@ MonoBehaviour:
     basicForce: {x: 0, y: 0, z: 0}
   torqueContainer:
     torque: {x: 0, y: 0, z: 0}
-    pointOfAppliedForce: {x: 0, y: 1, z: 0}
+    pointOfAppliedForce: {x: 0, y: 0, z: 0}
     angForce: {x: 0, y: 0, z: 0}
     force: {x: 0, y: 0, z: 0}
     localCenterOfMass: {x: 0, y: 0, z: 0}
@@ -872,19 +526,19 @@ MonoBehaviour:
     hollowSphereTorque:
       radius: 0
     solidBoxTorque:
-      length: 0
-      width: 0
-      height: 0
+      length: 1
+      width: 1
+      height: 1
     hollowBoxTorque:
-      length: 0
-      width: 0
-      height: 0
+      length: 1
+      width: 1
+      height: 1
     solidCylinderTorque:
-      radius: 0
-      height: 0
+      radius: 1
+      height: 1
     solidConeTorque:
-      radius: 0
-      height: 0
+      radius: 1
+      height: 1
 --- !u!23 &1214572644
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -938,13 +592,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214572641}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.15, y: 2.17, z: -5.3}
+  m_LocalRotation: {x: -0, y: -0, z: -0.35400948, w: 0.9352419}
+  m_LocalPosition: {x: -1.554, y: 0.00000008577817, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -41.466003}
 --- !u!1 &1329821128
 GameObject:
   m_ObjectHideFlags: 0

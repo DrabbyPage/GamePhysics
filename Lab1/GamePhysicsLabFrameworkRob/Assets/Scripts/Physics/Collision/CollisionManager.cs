@@ -52,13 +52,15 @@ public class CollisionManager : MonoBehaviour
                                 break;
                             // If it's circle, look for that specific componenet
                             case CollisionHull3D.HULLTYPE.hull_sphere:
-                                CollisionHull3D.Collision d = new CollisionHull3D.Collision();
-                                checkCollision = currentParticleHull.TestCollisionVSSphere(particles[j].GetComponent<SphereCollisionHull3D>(), ref d);
+                                CollisionHull3D.Collision abbCollision = new CollisionHull3D.Collision();
+                                checkCollision = currentParticleHull.TestCollisionVSSphere(particles[j].GetComponent<SphereCollisionHull3D>(), ref abbCollision);
                                 
                                 break;
                             // If it's OBB, look for that specific componenet
                             case CollisionHull3D.HULLTYPE.hull_obb:
-                                checkCollision = currentParticleHull.TestCollisionVSOBB3D(particles[j].GetComponent<OBBCollisionHull3D>(), ref particles[i].GetComponent<OBBCollisionHull3D>().c);
+                                CollisionHull3D.Collision obbCollision = new CollisionHull3D.Collision();
+
+                                checkCollision = currentParticleHull.TestCollisionVSOBB3D(particles[j].GetComponent<OBBCollisionHull3D>(), ref obbCollision);
                                 //Debug.Log("OBB Success");
                                 break;
                         }
