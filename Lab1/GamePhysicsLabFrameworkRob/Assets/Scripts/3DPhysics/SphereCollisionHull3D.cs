@@ -17,7 +17,7 @@ public class SphereCollisionHull3D : CollisionHull3D
     // Update is called once per frame
     void Update()
     {
-        
+        centerOfSphere = transform.position;
     }
 
     public override bool TestCollisionVSSphere(SphereCollisionHull3D other, ref Collision c)

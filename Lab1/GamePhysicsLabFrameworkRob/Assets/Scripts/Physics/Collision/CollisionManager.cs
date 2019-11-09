@@ -31,25 +31,23 @@ public class CollisionManager : MonoBehaviour
                     {
                         otherParticleHull = particles[j].GetComponent<Particle3D>().colHull;
                         // Determine which type the second particle is
+                        Debug.Log("Testing i: " + i + " j: " + j);
                         switch (otherParticleHull.type)
                         {
                             // If it's AABB, look for that specific componenet
                             case CollisionHull3D.HULLTYPE.hull_aabb:
-                                Debug.Log("currentparticleHull " + currentParticleHull.type);
-                                Debug.Log("OtherparticleHull " + otherParticleHull.type);
-                                Debug.Log("checkCollision: " + checkCollision);
-                                Debug.Log("i " + i + " j " + j);
-                                Debug.Log("Collision event " + particles[i].
-                                    GetComponent<AABBCollisionHull3D>()
-                                    );
+                                //Debug.Log("currentparticleHull " + currentParticleHull.type);
+                                //Debug.Log("OtherparticleHull " + otherParticleHull.type);
+                                //Debug.Log("checkCollision: " + checkCollision);
+                                //Debug.Log("i " + i + " j " + j);
+                                //Debug.Log("Collision event " + particles[i].GetComponent<AABBCollisionHull3D>());
                                 CollisionHull3D.Collision c = new CollisionHull3D.Collision();
                                 checkCollision =
                                     currentParticleHull.
                                     TestCollisionVSAABB3D(particles[j].
                                     GetComponent<AABBCollisionHull3D>(),
                                     ref c);
-                                    //ref particles[i].
-                                    //GetComponent<AABBCollisionHull3D>().c);
+                                    //ref particles[i].GetComponent<AABBCollisionHull3D>().c);
                                 
                                 break;
                             // If it's circle, look for that specific componenet

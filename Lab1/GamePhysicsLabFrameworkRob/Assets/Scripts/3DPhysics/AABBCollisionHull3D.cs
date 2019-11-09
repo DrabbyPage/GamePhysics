@@ -23,6 +23,11 @@ public class AABBCollisionHull3D : CollisionHull3D
     // Start is called before the first frame update
     void Start()
     {
+        UpdatePosition();
+    }
+
+    void UpdatePosition()
+    {
         rectCenter = transform.position;
         frontTopLeft = new Vector3(rectCenter.x - length / 2, rectCenter.y + height / 2, rectCenter.z - width / 2);
         frontBotLeft = new Vector3(rectCenter.x - length / 2, rectCenter.y - height / 2, rectCenter.z - width / 2);
@@ -38,7 +43,7 @@ public class AABBCollisionHull3D : CollisionHull3D
     // Update is called once per frame
     void Update()
     {
-        
+        UpdatePosition();
     }
 
     public override bool TestCollisionVSSphere(SphereCollisionHull3D other, ref Collision c)
