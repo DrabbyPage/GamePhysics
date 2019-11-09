@@ -42,7 +42,7 @@ public class CollisionManager : MonoBehaviour
                             case CollisionHull3D.HULLTYPE.hull_sphere:
                                 
                                 checkCollision = currentParticleHull.TestCollisionVSSphere(particles[j].GetComponent<SphereCollisionHull3D>(), ref particles[i].GetComponent<SphereCollisionHull3D>().c);
-                                //Debug.Log("cirlce Success");
+                                Debug.Log("checkCollision: " + checkCollision);
                                 break;
                             // If it's OBB, look for that specific componenet
                             case CollisionHull3D.HULLTYPE.hull_obb:
@@ -54,9 +54,10 @@ public class CollisionManager : MonoBehaviour
                         // If the two objects collide, change their color to red
                         if (checkCollision)
                         {
-                            Debug.Log("checking collisions");
+                            //Debug.Log("checking collisions");
                             currentParticleHull.colliding = true;
                             otherParticleHull.colliding = true;
+                            Debug.Log("colliding: " + currentParticleHull.colliding);
                         }
                     }
                     
@@ -73,6 +74,7 @@ public class CollisionManager : MonoBehaviour
                 if (currentParticleHull.colliding)
                 {
                     currentParticleHull.gameObject.GetComponent<Renderer>().material.color = Color.red;
+                    Debug.Log("Changing Color");
                     //currentParticleHull.c.OrderContacts();
                     //currentParticleHull.c.ResolveAllContacts();
                 }

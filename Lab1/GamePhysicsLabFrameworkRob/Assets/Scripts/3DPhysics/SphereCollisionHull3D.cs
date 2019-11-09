@@ -21,6 +21,7 @@ public class SphereCollisionHull3D : CollisionHull3D
 
     public override bool TestCollisionVSSphere(SphereCollisionHull3D other, ref Collision c)
     {
+        centerOfSphere = transform.position;
         Vector3 dist = other.centerOfSphere - centerOfSphere;
         if (dist.magnitude <= radius + other.radius)
         {
