@@ -985,7 +985,7 @@ public class Particle3D : MonoBehaviour
                 torqueContainer.momentOfInertia = SolidConeTensor(torqueContainer.solidConeTorque.radius, torqueContainer.solidConeTorque.height, GetMass());
                 break;
         }
-        torqueContainer.momentOfInertia.ListMatrix();
+        //torqueContainer.momentOfInertia.ListMatrix();
         torqueContainer.momentOfInertia.calculateInv();
 
 

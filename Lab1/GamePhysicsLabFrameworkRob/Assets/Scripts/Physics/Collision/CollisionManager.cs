@@ -31,7 +31,7 @@ public class CollisionManager : MonoBehaviour
                     {
                         otherParticleHull = particles[j].GetComponent<Particle3D>().colHull;
                         // Determine which type the second particle is
-                        Debug.Log("Testing i: " + i + " j: " + j);
+                        //Debug.Log("Testing i: " + i + " j: " + j);
                         switch (otherParticleHull.type)
                         {
                             // If it's AABB, look for that specific componenet

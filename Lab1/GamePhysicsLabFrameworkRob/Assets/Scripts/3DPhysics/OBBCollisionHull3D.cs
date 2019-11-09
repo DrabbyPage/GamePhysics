@@ -28,7 +28,7 @@ public class OBBCollisionHull3D : CollisionHull3D
 
     public override bool TestCollisionVSSphere(SphereCollisionHull3D other, ref Collision c)
     {
-        return false;
+        return other.TestCollisionVSOBB3D(this, ref c);
     }
 
     public override bool TestCollisionVSAABB3D(AABBCollisionHull3D other, ref Collision c)
