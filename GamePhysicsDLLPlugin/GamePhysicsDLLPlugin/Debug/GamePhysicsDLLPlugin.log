@@ -1,0 +1,4 @@
+﻿  GamePhysicsDLLPlugin.cpp
+C:\Users\cameron.belcher\Desktop\Belcher Game Physics\GamePhysics\GamePhysicsDLLPlugin\GamePhysicsDLLPlugin\GamePhysicsDLLPlugin.cpp(14,1): error C2491:  'fnGamePhysicsDLL': definition of dllimport function not allowed
+C:\Users\cameron.belcher\Desktop\Belcher Game Physics\GamePhysics\GamePhysicsDLLPlugin\GamePhysicsDLLPlugin\GamePhysicsDLLPlugin.cpp(20,1): warning C4273:  'GamePhysicsDLL::GamePhysicsDLL': inconsistent dll linkage
+C:\Users\cameron.belcher\Desktop\Belcher Game Physics\GamePhysics\GamePhysicsDLLPlugin\GamePhysicsDLLPlugin\GamePhysicsDLLPlugin.h(16,2): message :  see previous definition of '{ctor}'
