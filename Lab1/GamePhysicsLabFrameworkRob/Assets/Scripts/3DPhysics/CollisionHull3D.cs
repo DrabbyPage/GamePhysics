@@ -25,7 +25,7 @@ public abstract class CollisionHull3D : MonoBehaviour
         {
 
         }
-        /*
+        
         public void ContactResolver(Contact con)
         {
             //Vector2 velDiff = a.particle.velocity - b.particle.velocity;
@@ -57,22 +57,24 @@ public abstract class CollisionHull3D : MonoBehaviour
                 // Vector2 origVelA = new Vector2(magVelA * Mathf.Cos(origRotA + angle), magVelA * Mathf.Sin(origRotA + angle));
                 // Vector2 origVelB = new Vector2(magVelB * Mathf.Cos(origRotB + angle), magVelB * Mathf.Sin(origRotB + angle));
 
-                Vector2 rotatedVectorA = Quaternion.Euler(0, 0, angle) * a.particle.particle3DTransform.velocity;
-                Vector2 rotatedVectorB = Quaternion.Euler(0, 0, angle) * b.particle.particle3DTransform.velocity;
+                Vector3 rotatedVectorA = Quaternion.Euler(0, 0, angle) * a.particle.particle3DTransform.velocity;
+                Vector3 rotatedVectorB = Quaternion.Euler(0, 0, angle) * b.particle.particle3DTransform.velocity;
 
-                //Debug.Log("we here");
+                Debug.Log("we here");
 
-                Vector2 newVelA = new Vector2(rotatedVectorA.x * (massA - massB) / (massA + massB) + rotatedVectorB.x * 2 * massB / (massA + massB), rotatedVectorA.y);
-                Vector2 newVelB = new Vector2(rotatedVectorB.x * (massA - massB) / (massA + massB) + rotatedVectorA.x * 2 * massB / (massA + massB), rotatedVectorB.y);
+                Vector3 newVelA = new Vector3(rotatedVectorA.x * (massA - massB) / (massA + massB) + rotatedVectorB.x * 2 * massB / (massA + massB), rotatedVectorA.y);
+                Vector3 newVelB = new Vector3(rotatedVectorB.x * (massA - massB) / (massA + massB) + rotatedVectorA.x * 2 * massB / (massA + massB), rotatedVectorB.y);
 
-                Vector2 finalVelA = Quaternion.Euler(0, 0, -angle) * newVelA;
-                Vector2 finalVelB = Quaternion.Euler(0, 0, -angle) * newVelB;
+                Vector3 finalVelA = Quaternion.Euler(0, 0, -angle) * newVelA;
+                Vector3 finalVelB = Quaternion.Euler(0, 0, -angle) * newVelB;
 
                 a.particle.SetVelocityX(finalVelA.x);
                 a.particle.SetVelocityY(finalVelA.y);
+                a.particle.SetVelocityZ(finalVelA.z);
 
                 b.particle.SetVelocityX(finalVelB.x);
                 b.particle.SetVelocityY(finalVelB.y);
+                b.particle.SetVelocityZ(finalVelB.z);
             }
 
             resolveInterpenetration(con);
@@ -80,7 +82,7 @@ public abstract class CollisionHull3D : MonoBehaviour
 
         public void resolveInterpenetration(Contact con)
         {
-            Vector2[] particleMovement = new Vector2[2];
+            Vector3[] particleMovement = new Vector3[2];
 
             if (con.penetration <= 0)
             {
@@ -93,14 +95,16 @@ public abstract class CollisionHull3D : MonoBehaviour
                 return;
             }
 
-            Vector2 movementPerIMass = con.normal * (con.penetration / totalInverseMass);
+            Vector3 movementPerIMass = con.normal * (con.penetration / totalInverseMass);
             particleMovement[0] = movementPerIMass * a.particle.GetInvMass();
             particleMovement[1] = movementPerIMass * -b.particle.GetInvMass();
 
             a.particle.SetPositionX(a.transform.position.x + particleMovement[0].x);
             a.particle.SetPositionY(a.transform.position.y + particleMovement[0].y);
+            a.particle.SetPositionZ(a.transform.position.z + particleMovement[0].z);
             b.particle.SetPositionX(b.transform.position.x + particleMovement[1].x);
             b.particle.SetPositionY(b.transform.position.y + particleMovement[1].y);
+            b.particle.SetPositionZ(b.transform.position.z + particleMovement[1].z);
         }
 
         public void ResolveAllContacts()
@@ -130,9 +134,9 @@ public abstract class CollisionHull3D : MonoBehaviour
                 // Sort through contacts and order them from smallest to largest closing velocity
                 for (int i = 0; i < contactCount - 1; i++)
                 {
-                    Vector3 currentSV = (a.particle.particle3DTransform.velocity - b.particle.particle3DTransform.velocity) * contact[i].normal;
+                    Vector3 currentSV = Vector3.Scale((a.particle.particle3DTransform.velocity - b.particle.particle3DTransform.velocity), contact[i].normal);
 
-                    Vector3 nextSV = (a.particle.particle3DTransform.velocity - b.particle.particle3DTransform.velocity) * contact[i + 1].normal;
+                    Vector3 nextSV = Vector3.Scale((a.particle.particle3DTransform.velocity - b.particle.particle3DTransform.velocity), contact[i + 1].normal);
                     if (currentSV.magnitude > nextSV.magnitude)
                     {
                         tmp = contact[i];
@@ -145,7 +149,7 @@ public abstract class CollisionHull3D : MonoBehaviour
                 ResolveAllContacts();
             }
 
-        }*/
+        }
     }
 
     public enum HULLTYPE

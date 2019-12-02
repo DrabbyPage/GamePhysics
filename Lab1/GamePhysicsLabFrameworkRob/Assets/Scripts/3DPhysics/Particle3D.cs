@@ -1124,6 +1124,11 @@ public class Particle3D : MonoBehaviour
         particle3DTransform.position.y = newY;
     }
 
+    public void SetPositionZ(float newZ)
+    {
+        particle3DTransform.position.z = newZ;
+    }
+
     public void SetVelocityX(float newVel)
     {
         particle3DTransform.velocity.x = newVel;
@@ -1134,6 +1139,11 @@ public class Particle3D : MonoBehaviour
         particle3DTransform.velocity.y = newVel;
     }
 
+    public void SetVelocityZ(float newVel)
+    {
+        particle3DTransform.velocity.z = newVel;
+    }
+
     public void SetAccelerationX(float newAcc)
     {
         particle3DTransform.acceleration.x = newAcc;
@@ -1142,6 +1152,11 @@ public class Particle3D : MonoBehaviour
     public void SetAccelerationY(float newAcc)
     {
         particle3DTransform.acceleration.y = newAcc;
+    }
+
+    public void SetAccelerationZ(float newAcc)
+    {
+        particle3DTransform.acceleration.z = newAcc;
     }
 
     public void SetAngularVelocity(Vector3 newVel)

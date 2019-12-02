@@ -52,8 +52,10 @@ public class CollisionManager : MonoBehaviour
                                 break;
                             // If it's circle, look for that specific componenet
                             case CollisionHull3D.HULLTYPE.hull_sphere:
-                                CollisionHull3D.Collision abbCollision = new CollisionHull3D.Collision();
-                                checkCollision = currentParticleHull.TestCollisionVSSphere(particles[j].GetComponent<SphereCollisionHull3D>(), ref abbCollision);
+                                CollisionHull3D.Collision col = new CollisionHull3D.Collision();
+                                checkCollision = currentParticleHull.TestCollisionVSSphere(particles[j].GetComponent<SphereCollisionHull3D>(),
+                                    ref col);
+                                //ref particles[i].GetComponent<SphereCollisionHull3D>().c);
                                 
                                 break;
                             // If it's OBB, look for that specific componenet
@@ -88,9 +90,9 @@ public class CollisionManager : MonoBehaviour
                 if (currentParticleHull.colliding)
                 {
                     currentParticleHull.gameObject.GetComponent<Renderer>().material.color = Color.red;
-                    Debug.Log("Changing Color");
-                    //currentParticleHull.c.OrderContacts();
-                    //currentParticleHull.c.ResolveAllContacts();
+                    //Debug.Log("Here is c: " + currentParticleHull.c.status);
+                    currentParticleHull.c.OrderContacts();
+                    currentParticleHull.c.ResolveAllContacts();
                 }
                 else 
                 {
