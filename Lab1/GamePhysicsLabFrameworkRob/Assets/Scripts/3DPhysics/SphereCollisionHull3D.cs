@@ -12,6 +12,7 @@ public class SphereCollisionHull3D : CollisionHull3D
     void Start()
     {
         centerOfSphere = transform.position;
+        c = new Collision();
     }
 
     // Update is called once per frame
@@ -26,8 +27,11 @@ public class SphereCollisionHull3D : CollisionHull3D
         Vector3 dist = other.centerOfSphere - centerOfSphere;
         if (dist.magnitude <= radius + other.radius)
         {
-            return true;
+            c.a = gameObject.GetComponent<SphereCollisionHull3D>();
+            c.b = other;
+            c.status = true;
 
+            return true;
         }
         else
         {
