@@ -30,6 +30,10 @@ public abstract class CollisionHull3D : MonoBehaviour
         {
             //Vector2 velDiff = a.particle.velocity - b.particle.velocity;
 
+            Debug.Log(a.particle);
+            Debug.Log(b.particle);
+
+
             float xVelDiff = a.particle.particle3DTransform.velocity.x - b.particle.particle3DTransform.velocity.x;
             float yVelDiff = a.particle.particle3DTransform.velocity.y - b.particle.particle3DTransform.velocity.y;
             float zVelDiff = a.particle.particle3DTransform.velocity.z - b.particle.particle3DTransform.velocity.z;
@@ -109,6 +113,7 @@ public abstract class CollisionHull3D : MonoBehaviour
 
         public void ResolveAllContacts()
         {
+            Debug.Log(contactCount);
             if (contactCount != 0)
             {
                 for (int i = 0; i < contactCount; i++)

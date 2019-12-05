@@ -54,8 +54,7 @@ public class CollisionManager : MonoBehaviour
                             case CollisionHull3D.HULLTYPE.hull_sphere:
                                 CollisionHull3D.Collision col = new CollisionHull3D.Collision();
                                 checkCollision = currentParticleHull.TestCollisionVSSphere(particles[j].GetComponent<SphereCollisionHull3D>(),
-                                    ref col);
-                                //ref particles[i].GetComponent<SphereCollisionHull3D>().c);
+                                    ref particles[i].GetComponent<SphereCollisionHull3D>().c);
                                 
                                 break;
                             // If it's OBB, look for that specific componenet

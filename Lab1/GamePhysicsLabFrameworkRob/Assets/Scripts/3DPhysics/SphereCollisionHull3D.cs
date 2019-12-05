@@ -13,6 +13,7 @@ public class SphereCollisionHull3D : CollisionHull3D
     {
         centerOfSphere = transform.position;
         c = new Collision();
+        particle = GetComponent<Particle3D>();
     }
 
     // Update is called once per frame
@@ -27,9 +28,26 @@ public class SphereCollisionHull3D : CollisionHull3D
         Vector3 dist = other.centerOfSphere - centerOfSphere;
         if (dist.magnitude <= radius + other.radius)
         {
+            
             c.a = gameObject.GetComponent<SphereCollisionHull3D>();
             c.b = other;
+            
+            //Check to see if this is setting to false somewhere if this is breaking
             c.status = true;
+
+            Vector3 midline = c.a.transform.position - c.b.transform.position;
+            float size = midline.magnitude;
+
+            Debug.Log("");
+
+            //Have a check to see if it's large enough
+            c.contact[0].normal = midline / size;
+            c.contact[0].point = c.a.transform.position + midline * 0.5f;
+            c.contact[0].penetration = (radius + other.radius - size);
+            c.contact[0].restitutionCoefficient = restitution;
+            
+
+            c.contactCount = 1;
 
             return true;
         }
@@ -147,6 +165,15 @@ public class SphereCollisionHull3D : CollisionHull3D
         }
         else
         {
+            c.a = gameObject.GetComponent<SphereCollisionHull3D>();
+            c.b = other;
+            c.contactCount = 1;
+            c.status = true;
+            c.contact[0].normal = closestPoint - center;
+            c.contact[0].normal.Normalize();
+            c.contact[0].point = closestPoint;
+            c.contact[0].penetration = radius - Mathf.Sqrt(dist);
+            c.contact[0].restitutionCoefficient = restitution;
             return true;
         }
     }       
