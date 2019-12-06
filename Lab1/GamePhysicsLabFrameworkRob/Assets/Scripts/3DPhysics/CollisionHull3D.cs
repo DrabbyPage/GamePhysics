@@ -30,10 +30,6 @@ public abstract class CollisionHull3D : MonoBehaviour
         {
             //Vector2 velDiff = a.particle.velocity - b.particle.velocity;
 
-            Debug.Log(a.particle);
-            Debug.Log(b.particle);
-
-
             float xVelDiff = a.particle.particle3DTransform.velocity.x - b.particle.particle3DTransform.velocity.x;
             float yVelDiff = a.particle.particle3DTransform.velocity.y - b.particle.particle3DTransform.velocity.y;
             float zVelDiff = a.particle.particle3DTransform.velocity.z - b.particle.particle3DTransform.velocity.z;
@@ -63,8 +59,6 @@ public abstract class CollisionHull3D : MonoBehaviour
 
                 Vector3 rotatedVectorA = Quaternion.Euler(0, 0, angle) * a.particle.particle3DTransform.velocity;
                 Vector3 rotatedVectorB = Quaternion.Euler(0, 0, angle) * b.particle.particle3DTransform.velocity;
-
-                Debug.Log("we here");
 
                 Vector3 newVelA = new Vector3(rotatedVectorA.x * (massA - massB) / (massA + massB) + rotatedVectorB.x * 2 * massB / (massA + massB), rotatedVectorA.y);
                 Vector3 newVelB = new Vector3(rotatedVectorB.x * (massA - massB) / (massA + massB) + rotatedVectorA.x * 2 * massB / (massA + massB), rotatedVectorB.y);
@@ -113,7 +107,6 @@ public abstract class CollisionHull3D : MonoBehaviour
 
         public void ResolveAllContacts()
         {
-            Debug.Log(contactCount);
             if (contactCount != 0)
             {
                 for (int i = 0; i < contactCount; i++)
