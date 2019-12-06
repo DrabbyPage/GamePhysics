@@ -66,13 +66,19 @@ public abstract class CollisionHull3D : MonoBehaviour
                 Vector3 finalVelA = Quaternion.Euler(0, 0, -angle) * newVelA;
                 Vector3 finalVelB = Quaternion.Euler(0, 0, -angle) * newVelB;
 
-                a.particle.SetVelocityX(finalVelA.x);
-                a.particle.SetVelocityY(finalVelA.y);
-                a.particle.SetVelocityZ(finalVelA.z);
+                if (a.moveable)
+                {
+                    a.particle.SetVelocityX(finalVelA.x);
+                    a.particle.SetVelocityY(finalVelA.y);
+                    a.particle.SetVelocityZ(finalVelA.z);
+                }
 
-                b.particle.SetVelocityX(finalVelB.x);
-                b.particle.SetVelocityY(finalVelB.y);
-                b.particle.SetVelocityZ(finalVelB.z);
+                if (b.moveable)
+                {
+                    b.particle.SetVelocityX(finalVelB.x);
+                    b.particle.SetVelocityY(finalVelB.y);
+                    b.particle.SetVelocityZ(finalVelB.z);
+                }
             }
 
             resolveInterpenetration(con);
@@ -168,12 +174,14 @@ public abstract class CollisionHull3D : MonoBehaviour
     public bool colliding = false;
     [SerializeField]
     public float restitution = 0f;
+    public bool moveable;
 
     // Start is called before the first frame update
     void Start()
     {
         particle = GetComponent<Particle3D>();
         c = new Collision();
+        
     }
 
     // Update is called once per frame

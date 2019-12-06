@@ -153,7 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliding: 0
-  restitution: 1
+  restitution: 0
+  moveable: 1
   centerOfSphere: {x: 0, y: 0, z: 0}
   radius: 0.5
 --- !u!114 &223498363
@@ -181,8 +182,8 @@ MonoBehaviour:
     typeOfPositioning: 0
     typeOfRotation: 0
   forces:
-    startingMass: 1
-    mass: 1
+    startingMass: 0.01
+    mass: 0.01
     massInv: 0
     generateGravity: 0
     generateNormal: 0
@@ -414,6 +415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliding: 0
   restitution: 0
+  moveable: 0
   centerOfSphere: {x: 0, y: 0, z: 0}
   radius: 0.5
 --- !u!114 &1421298627
@@ -656,6 +658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliding: 0
   restitution: 1
+  moveable: 0
   rectCenter: {x: 0, y: 0, z: 0}
   length: 0.5
   width: 0.5
@@ -835,6 +838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliding: 0
   restitution: 0
+  moveable: 0
   rectCenter: {x: 0, y: 0, z: 0}
   length: 0.5
   width: 0.5
