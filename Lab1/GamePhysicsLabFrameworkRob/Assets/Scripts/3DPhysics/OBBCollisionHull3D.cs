@@ -17,6 +17,8 @@ public class OBBCollisionHull3D : CollisionHull3D
     // Start is called before the first frame update
     void Start()
     {
+        c = new Collision();
+        particle = GetComponent<Particle3D>();
         rectCenter = transform.position;
     }
 

@@ -34,35 +34,32 @@ public class CollisionManager : MonoBehaviour
                         //Debug.Log("Testing i: " + i + " j: " + j);
                         switch (otherParticleHull.type)
                         {
+
                             // If it's AABB, look for that specific componenet
                             case CollisionHull3D.HULLTYPE.hull_aabb:
-                                //Debug.Log("currentparticleHull " + currentParticleHull.type);
-                                //Debug.Log("OtherparticleHull " + otherParticleHull.type);
                                 //Debug.Log("checkCollision: " + checkCollision);
                                 //Debug.Log("i " + i + " j " + j);
                                 //Debug.Log("Collision event " + particles[i].GetComponent<AABBCollisionHull3D>());
-                                CollisionHull3D.Collision c = new CollisionHull3D.Collision();
+                                //CollisionHull3D.Collision c = new CollisionHull3D.Collision();
                                 checkCollision =
-                                    currentParticleHull.
-                                    TestCollisionVSAABB3D(particles[j].
-                                    GetComponent<AABBCollisionHull3D>(),
-                                    ref c);
-                                    //ref particles[i].GetComponent<AABBCollisionHull3D>().c);
+                                    currentParticleHull.TestCollisionVSAABB3D(particles[j].GetComponent<AABBCollisionHull3D>(),
+                                    //ref c);
+                                    ref particles[i].GetComponent<SphereCollisionHull3D>().c);
                                 
                                 break;
                             // If it's circle, look for that specific componenet
                             case CollisionHull3D.HULLTYPE.hull_sphere:
-                                CollisionHull3D.Collision col = new CollisionHull3D.Collision();
+                                //CollisionHull3D.Collision col = new CollisionHull3D.Collision();
                                 checkCollision = currentParticleHull.TestCollisionVSSphere(particles[j].GetComponent<SphereCollisionHull3D>(),
                                     ref particles[i].GetComponent<SphereCollisionHull3D>().c);
                                 
                                 break;
                             // If it's OBB, look for that specific componenet
                             case CollisionHull3D.HULLTYPE.hull_obb:
-                                CollisionHull3D.Collision obbCollision = new CollisionHull3D.Collision();
-
-                                checkCollision = currentParticleHull.TestCollisionVSOBB3D(particles[j].GetComponent<OBBCollisionHull3D>(), ref obbCollision);
-                                //Debug.Log("OBB Success");
+                                //CollisionHull3D.Collision obbCollision = new CollisionHull3D.Collision();
+                                Debug.Log(particles[j].GetComponent<OBBCollisionHull3D>());
+                                checkCollision = currentParticleHull.TestCollisionVSOBB3D(particles[j].GetComponent<OBBCollisionHull3D>(), 
+                                    ref particles[i].GetComponent<SphereCollisionHull3D>().c);
                                 break;
                         }
 
@@ -72,7 +69,6 @@ public class CollisionManager : MonoBehaviour
                             //Debug.Log("checking collisions");
                             currentParticleHull.colliding = true;
                             otherParticleHull.colliding = true;
-                            Debug.Log("colliding: " + currentParticleHull.colliding);
                         }
                     }
                     

@@ -24,6 +24,8 @@ public class AABBCollisionHull3D : CollisionHull3D
     void Start()
     {
         UpdatePosition();
+        c = new Collision();
+        particle = GetComponent<Particle3D>();
     }
 
     void UpdatePosition()

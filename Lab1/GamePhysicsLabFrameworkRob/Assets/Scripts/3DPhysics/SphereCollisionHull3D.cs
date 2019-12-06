@@ -38,14 +38,11 @@ public class SphereCollisionHull3D : CollisionHull3D
             Vector3 midline = c.a.transform.position - c.b.transform.position;
             float size = midline.magnitude;
 
-            Debug.Log("");
-
             //Have a check to see if it's large enough
             c.contact[0].normal = midline / size;
             c.contact[0].point = c.a.transform.position + midline * 0.5f;
             c.contact[0].penetration = (radius + other.radius - size);
             c.contact[0].restitutionCoefficient = restitution;
-            
 
             c.contactCount = 1;
 
@@ -155,10 +152,6 @@ public class SphereCollisionHull3D : CollisionHull3D
 
         dist = (closestPoint - relCenter).sqrMagnitude;
 
-        Debug.Log(closestPoint);
-        Debug.Log(relCenter);
-        Debug.Log(dist);
-
         if (dist>radius*radius)
         {
             return false;
@@ -168,6 +161,7 @@ public class SphereCollisionHull3D : CollisionHull3D
             c.a = gameObject.GetComponent<SphereCollisionHull3D>();
             c.b = other;
             c.contactCount = 1;
+            Debug.Log("Contact Count: " + c.contactCount);
             c.status = true;
             c.contact[0].normal = closestPoint - center;
             c.contact[0].normal.Normalize();
@@ -179,7 +173,6 @@ public class SphereCollisionHull3D : CollisionHull3D
     }       
     public override bool TestCollisionVSOBB3D(OBBCollisionHull3D other, ref Collision c)
     {
-        Debug.Log("we here for the party.");
         /*
          // Transform the center of the sphere into box coordinates. 
          Vector3 center = sphere.getAxis(3); 
@@ -275,16 +268,22 @@ public class SphereCollisionHull3D : CollisionHull3D
 
         dist = (closestPoint - relCenter).sqrMagnitude;
 
-        Debug.Log(closestPoint);
-        Debug.Log(relCenter);
-        Debug.Log(dist);
-
         if (dist > radius * radius)
         {
             return false;
         }
         else
         {
+            c.a = gameObject.GetComponent<SphereCollisionHull3D>();
+            c.b = other;
+            c.contactCount = 1;
+            Debug.Log("Contact Count: " + c.contactCount);
+            c.status = true;
+            c.contact[0].normal = closestPoint - center;
+            c.contact[0].normal.Normalize();
+            c.contact[0].point = closestPoint;
+            c.contact[0].penetration = radius - Mathf.Sqrt(dist);
+            c.contact[0].restitutionCoefficient = restitution;
             return true;
         }
     }
