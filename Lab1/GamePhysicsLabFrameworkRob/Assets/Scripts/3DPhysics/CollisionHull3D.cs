@@ -66,6 +66,11 @@ public abstract class CollisionHull3D : MonoBehaviour
                 Vector3 finalVelA = Quaternion.Euler(0, 0, -angle) * newVelA;
                 Vector3 finalVelB = Quaternion.Euler(0, 0, -angle) * newVelB;
 
+                Vector3 momentum = (1 + a.restitution)* (Vector3.Dot((a.particle.particle3DTransform.velocity - b.particle.particle3DTransform.velocity), a.c.contact[0].normal)
+                    /((1/a.particle.GetMass()) + (1/b.particle.GetMass()))) * a.c.contact[0].normal;
+                finalVelA = a.particle.particle3DTransform.velocity - (momentum / a.particle.GetMass());
+                finalVelB = b.particle.particle3DTransform.velocity - (momentum / b.particle.GetMass());
+
                 if (a.moveable)
                 {
                     a.particle.SetVelocityX(finalVelA.x);
@@ -103,12 +108,19 @@ public abstract class CollisionHull3D : MonoBehaviour
             particleMovement[0] = movementPerIMass * a.particle.GetInvMass();
             particleMovement[1] = movementPerIMass * -b.particle.GetInvMass();
 
-            a.particle.SetPositionX(a.transform.position.x + particleMovement[0].x);
-            a.particle.SetPositionY(a.transform.position.y + particleMovement[0].y);
-            a.particle.SetPositionZ(a.transform.position.z + particleMovement[0].z);
-            b.particle.SetPositionX(b.transform.position.x + particleMovement[1].x);
-            b.particle.SetPositionY(b.transform.position.y + particleMovement[1].y);
-            b.particle.SetPositionZ(b.transform.position.z + particleMovement[1].z);
+            if (a.moveable)
+            {
+                a.particle.SetPositionX(a.transform.position.x + particleMovement[0].x);
+                a.particle.SetPositionY(a.transform.position.y + particleMovement[0].y);
+                a.particle.SetPositionZ(a.transform.position.z + particleMovement[0].z);
+            }
+
+            if (b.moveable)
+            {
+                b.particle.SetPositionX(b.transform.position.x + particleMovement[1].x);
+                b.particle.SetPositionY(b.transform.position.y + particleMovement[1].y);
+                b.particle.SetPositionZ(b.transform.position.z + particleMovement[1].z);
+            }
         }
 
         public void ResolveAllContacts()

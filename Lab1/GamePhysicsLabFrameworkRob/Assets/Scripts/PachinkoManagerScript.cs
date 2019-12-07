@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PachinkoManagerScript : MonoBehaviour
 {
@@ -10,6 +11,12 @@ public class PachinkoManagerScript : MonoBehaviour
     public Vector3 leftForce;
     public Vector3 rightForce;
     public float vel;
+    public Text scoreText;
+    public Particle3D farLeftArea;
+    public Particle3D LeftArea;
+    public Particle3D MidArea;
+    public Particle3D rightArea;
+    public Particle3D farRightArea;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +28,7 @@ public class PachinkoManagerScript : MonoBehaviour
     void Update()
     {
         MoveBall();
+        UpdateScore();
     }
 
     void MoveBall()
@@ -56,4 +64,25 @@ public class PachinkoManagerScript : MonoBehaviour
             }
         }
     }
+
+    void UpdateScore()
+    {
+        scoreText.text = "Score: " + score.ToString();
+    }
+
+    public void SutractSevenPoints()
+    {
+        score = score - 7;
+    }
+
+    public void AddTwoPoints()
+    {
+        score = score +2;
+    }
+
+    public void AddTenPoints()
+    {
+        score = score + 10;
+    }
+
 }

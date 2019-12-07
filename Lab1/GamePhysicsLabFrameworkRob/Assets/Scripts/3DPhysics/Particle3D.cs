@@ -895,7 +895,8 @@ public class Particle3D : MonoBehaviour
         float rotY = particle3DTransform.rotation.quat.y;
         float rotZ = particle3DTransform.rotation.quat.z;
         float rotW = particle3DTransform.rotation.quat.w;
-        transform.rotation = new Quaternion(rotX, rotY, rotZ, rotW);
+        transform.rotation = //new Quaternion(rotX, rotY, rotZ, rotW);
+        Quaternion.Euler(particle3DTransform.eulerAngle);
 
         UpdateInertia();
 
@@ -1142,6 +1143,11 @@ public class Particle3D : MonoBehaviour
     public void SetVelocityZ(float newVel)
     {
         particle3DTransform.velocity.z = newVel;
+    }
+
+    public void SetVelocity(Vector3 newVel)
+    {
+        particle3DTransform.velocity = newVel;
     }
 
     public void SetAccelerationX(float newAcc)
