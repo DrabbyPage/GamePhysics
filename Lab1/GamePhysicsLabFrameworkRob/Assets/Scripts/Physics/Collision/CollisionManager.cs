@@ -84,14 +84,14 @@ public class CollisionManager : MonoBehaviour
                 currentParticleHull = particles[i].GetComponent<Particle3D>().colHull;
                 if (currentParticleHull.colliding)
                 {
-                    currentParticleHull.gameObject.GetComponent<Renderer>().material.color = Color.red;
+                    //currentParticleHull.gameObject.GetComponent<Renderer>().material.color = Color.red;
                     //Debug.Log("Here is c: " + currentParticleHull.c.status);
                     currentParticleHull.c.OrderContacts();
                     currentParticleHull.c.ResolveAllContacts();
                 }
                 else 
                 {
-                    currentParticleHull.gameObject.GetComponent<Renderer>().material.color = Color.green;
+                    //currentParticleHull.gameObject.GetComponent<Renderer>().material.color = Color.green;
                 }
                 // reset colliding check
                 currentParticleHull.colliding = false;

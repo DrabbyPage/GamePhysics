@@ -728,7 +728,7 @@ public class Particle3D : MonoBehaviour
 
     // lab2 step 1
     [SerializeField]
-    Particle3DForces forces;
+    public Particle3DForces forces;
 
     [SerializeField]
     Torque torqueContainer;
@@ -1179,6 +1179,7 @@ public class Particle3D : MonoBehaviour
         particle3DTransform.angularVelocity = new Vector3(0, 0, 0);
         particle3DTransform.angularAcceleration = new Vector3(0, 0, 0);
     }
+
     #endregion
 
 }
