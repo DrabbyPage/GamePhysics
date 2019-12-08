@@ -18,10 +18,12 @@ public class PachinkoManagerScript : MonoBehaviour
     public Particle3D rightArea;
     public Particle3D farRightArea;
 
+    public Vector3 startPos;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        startPos = new Vector3(26.83139f, -1.423678f, 22.17824f);
     }
 
     // Update is called once per frame
@@ -73,16 +75,29 @@ public class PachinkoManagerScript : MonoBehaviour
     public void SutractSevenPoints()
     {
         score = score - 7;
+        ResetBall();
     }
 
     public void AddTwoPoints()
     {
         score = score +2;
+        ResetBall();
     }
 
     public void AddTenPoints()
     {
         score = score + 10;
+        ResetBall();
     }
 
+    public void ResetBall()
+    {
+        ball.SetPositionX(startPos.x);
+        ball.SetPositionY(startPos.y);
+        ball.SetPositionZ(startPos.z);
+        ball.SetVelocityX(0);
+        ballDropped = false;
+        ball.forces.generateGravity = false;
+
+    }
 }

@@ -72,18 +72,16 @@ public class CollisionManager : MonoBehaviour
                     otherParticleHull.colliding = true;
 
                     GameObject plinkoMan = GameObject.Find("PachinkoManager");
-                    if(otherParticleHull.gameObject == plinkoMan.GetComponent<PachinkoManagerScript>().farLeftArea ||
-                       otherParticleHull.gameObject == plinkoMan.GetComponent<PachinkoManagerScript>().farRightArea)
+                    if(otherParticleHull.name == "FarLeftArea" || otherParticleHull.name == "FarRightArea")
                     {
                         plinkoMan.GetComponent<PachinkoManagerScript>().SutractSevenPoints();
                     }
-                    else if(otherParticleHull.gameObject == plinkoMan.GetComponent<PachinkoManagerScript>().LeftArea ||
-                       otherParticleHull.gameObject == plinkoMan.GetComponent<PachinkoManagerScript>().rightArea)
+                    else if(otherParticleHull.name == "LeftArea" || otherParticleHull.name == "RightArea")
                     {
                         plinkoMan.GetComponent<PachinkoManagerScript>().AddTwoPoints();
 
                     }
-                    else if(otherParticleHull.gameObject == plinkoMan.GetComponent<PachinkoManagerScript>().MidArea)
+                    else if(otherParticleHull.name == "midArea")
                     {
                         plinkoMan.GetComponent<PachinkoManagerScript>().AddTenPoints();
                     }
