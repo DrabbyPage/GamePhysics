@@ -1118,16 +1118,19 @@ public class Particle3D : MonoBehaviour
     public void SetPositionX(float newX)
     {
         particle3DTransform.position.x = newX;
+        transform.position = new Vector3(newX, transform.position.y, transform.position.z);
     }
 
     public void SetPositionY(float newY)
     {
         particle3DTransform.position.y = newY;
+        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 
     public void SetPositionZ(float newZ)
     {
         particle3DTransform.position.z = newZ;
+        transform.position = new Vector3(transform.position.x, transform.position.y, newZ);
     }
 
     public void SetVelocityX(float newVel)

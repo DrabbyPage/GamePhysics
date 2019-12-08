@@ -23,7 +23,7 @@ public class PachinkoManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startPos = new Vector3(26.83139f, -1.423678f, 22.17824f);
+        startPos = new Vector3(0.0f, 18.7f, 19.955f);
     }
 
     // Update is called once per frame
@@ -92,10 +92,13 @@ public class PachinkoManagerScript : MonoBehaviour
 
     public void ResetBall()
     {
+
+        ball.SetVelocityX(0);
+        ball.SetVelocityY(0);
+        ball.SetVelocityZ(0);
         ball.SetPositionX(startPos.x);
         ball.SetPositionY(startPos.y);
         ball.SetPositionZ(startPos.z);
-        ball.SetVelocityX(0);
         ballDropped = false;
         ball.forces.generateGravity = false;
 
